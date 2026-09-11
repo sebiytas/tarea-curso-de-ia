@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prompt Maestro | Atelier Creativo</title>
+    <meta name="description" content="Plataforma creativa Sketchbook & Palette para artistas e ilustradores. Generador de prompts y paletas de color.">
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        /* CSS Adicional Específico para Componentes del Generador */
+        .generator-controls { margin-bottom: 2rem; text-align: center; }
+        
+        .mode-selector {
+            display: flex; gap: 1rem; justify-content: center; margin-bottom: 2rem; flex-wrap: wrap;
+        }
+        
+        /* Layout del Lienzo (Grid) */
+        .canvas-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+        @media (min-width: 900px) {
+            .canvas-grid { grid-template-columns: 1fr 2fr; align-items: start; }
+        }
+
+        /* Pinterest / Cosmos Inspiration Masonry */
+        .inspiration-section {
+            margin-top: 4rem;
+            padding-top: 3rem;
+            border-top: 2px dashed rgba(68, 54, 42, 0.2);
+            text-align: center;
+        }
+        .inspiration-masonry {
+            column-count: 1;
+            column-gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        @media (min-width: 600px) { .inspiration-masonry { column-count: 2; } }
+        @media (min-width: 900px) { .inspiration-masonry { column-count: 3; } }
+        
+        .polaroid-img {
+            background: #fff;
+            padding: 10px 10px 30px 10px;
+            box-shadow: var(--shadow-paper);
+            display: inline-block;
+            width: 100%;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(0,0,0,0.05);
+            transition: var(--transition-bounce);
+        }
+        .polaroid-img:hover {
+            transform: scale(1.05) rotate(2deg);
+            box-shadow: var(--shadow-hover);
+            z-index: 5;
+        }
+        .polaroid-img img {
+            width: 100%;
+            height: auto;
+            border-radius: 2px;
+            display: block;
+        }
+        
+        /* Post-it Tema */
+        .theme-post-it { max-width: 400px; margin: 0 auto; width: 100%; }
+        .theme-section { margin-bottom: 1.5rem; }
+        .theme-label { font-family: var(--font-mono); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; color: var(--color-pencil); display: block; margin-bottom: 0.2rem; }
+        .theme-text { font-family: var(--font-art-primary); font-size: 1.8rem; line-height: 1.1; color: var(--color-ink); }
+
+        /* Expositor Paleta */
+        .palette-display {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .color-swatch-container {
+            background: var(--bg-paper);
+            border: var(--border-sketch);
+            border-radius: 8px;
+            padding: 1rem;
+            box-shadow: var(--shadow-paper);
+            width: 150px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            transition: var(--transition-bounce);
+        }
+        
+        .color-swatch-container:hover { transform: translateY(-5px); }
+
+        .color-swatch {
+            width: 80px; height: 80px;
+            border-radius: 50%;
+            border: 2px solid rgba(43, 36, 33, 0.2);
+            margin-bottom: 1rem;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
+            position: relative;
+        }
+        
+        .color-name { font-family: var(--font-art-secondary); font-size: 1.2rem; text-align: center; margin-bottom: 0.5rem; line-height: 1.1; height: 2.4em;}
+        .color-hex { font-family: var(--font-mono); font-size: 0.9rem; background: rgba(99, 87, 80, 0.05); padding: 0.2rem 0.5rem; border-radius: 4px; cursor: pointer; border: 1px dashed transparent; transition: all 0.2s; }
+        .color-hex:hover { border-color: var(--color-pencil); background: #fff; }
+        .color-hsl { font-family: var(--font-ui-alt); font-size: 0.75rem; color: var(--color-pencil); margin-top: 0.2rem; }
+
+        .pin-btn {
+            position: absolute;
+            top: 5px; right: 5px;
+            background: none; border: none; cursor: pointer;
+            font-size: 1.2rem;
+            opacity: 0.3;
+            transition: var(--transition-smooth);
+        }
+        .pin-btn:hover { opacity: 0.8; transform: scale(1.1); }
+        .pin-btn.is-pinned { opacity: 1; transform: scale(1.1) rotate(15deg); color: #c94f4f; }
+
+        /* Notificación de Copia */
+        .toast-copy {
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--color-ink);
+            color: #fff;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-family: var(--font-mono);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s;
+        }
+        .toast-copy.show { opacity: 1; animation: stamp 0.3s; }
+
+        /* Panel de Controles Inferior */
+        .action-panel {
+            display: flex; flex-direction: column; align-items: center; gap: 1.5rem;
+            border-top: 1px dashed var(--color-pencil);
+            padding-top: 2rem;
+        }
+        
+        .action-buttons { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+        
+        .harmony-selector {
+            display: flex; align-items: center; gap: 1rem;
+            font-family: var(--font-ui-alt);
+        }
+        .harmony-select {
+            padding: 0.5rem; border: var(--border-sketch); border-radius: 4px;
+            background: var(--bg-paper); font-family: var(--font-ui-alt); outline: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+        <!-- CABECERA COMPARTIDA -->
+        <header class="site-header">
+            <a href="index.html" class="site-logo" aria-label="Volver al inicio">
+                <h1>Prompt Maestro</h1>
+                <span>Atelier Creativo & Color Studio</span>
+            </a>
+        </header>
+
+        <!-- NAVEGACIÓN COMPARTIDA -->
+        <nav class="main-nav" aria-label="Navegación principal del cuaderno">
+            <a href="index.html" class="nav-tab active" aria-current="page">Mesa de Dibujo</a>
+            <a href="galeria-desafios.html" class="nav-tab">Retos & Cuaderno</a>
+            <a href="teoria-color.html" class="nav-tab">Guía de Color</a>
+        </nav>
+
+        <!-- CONTENIDO PRINCIPAL -->
+        <main class="paper-sheet">
+            <div class="washi-tape"></div>
+            
+            <!-- Selector de Modos -->
+            <div class="generator-controls" aria-label="Controles del generador">
+                <p class="subtitle" style="margin-bottom: 1rem;">¿Qué deseas crear hoy?</p>
+                <div class="mode-selector">
+                    <button class="segmented-btn" data-mode="palette">Solo Paleta de Color</button>
+                    <button class="segmented-btn" data-mode="prompt">Solo Idea / Tema</button>
+                    <button class="segmented-btn active" data-mode="combo">Combo Creativo Completo</button>
+                </div>
+            </div>
+
+            <!-- El Lienzo en Blanco -->
+            <div class="canvas-grid">
+                
+                <!-- Tarjeta de Tema (Post-it) -->
+                <article class="post-it theme-post-it" id="prompt-container" aria-live="polite">
+                    <div class="washi-tape terracotta" style="top: -10px; width: 80px;"></div>
+                    
+                    <div class="theme-section">
+                        <span class="theme-label">Sujeto</span>
+                        <h3 class="theme-text" id="prompt-subject">...</h3>
+                    </div>
+                    
+                    <div class="theme-section">
+                        <span class="theme-label">Entorno</span>
+                        <h3 class="theme-text" id="prompt-environment">...</h3>
+                    </div>
+                    
+                    <div class="theme-section">
+                        <span class="theme-label">Desafío Creativo</span>
+                        <h3 class="theme-text" id="prompt-constraint">...</h3>
+                    </div>
+                </article>
+
+                <!-- Expositor de Paleta -->
+                <article class="palette-display" id="palette-container" aria-live="polite">
+                    <!-- Las muestras se inyectarán mediante JS -->
+                    <!-- Placeholder de carga -->
+                    <p class="subtitle">Preparando acuarelas...</p>
+                </article>
+
+            </div>
+            
+            <!-- Panel de Acción -->
+            <section class="action-panel">
+                <div class="harmony-selector" id="harmony-control-group">
+                    <label for="harmony-select">Regla de Armonía:</label>
+                    <select id="harmony-select" class="harmony-select">
+                        <option value="random">Aleatorio (Caos Creativo)</option>
+                        <option value="analogous">Análoga</option>
+                        <option value="complementary">Complementaria</option>
+                        <option value="triadic">Tríada</option>
+                        <option value="monochromatic">Monocromática</option>
+                    </select>
+                </div>
+
+                <div class="action-buttons">
+                    <button id="btn-generate" class="btn-sketch btn-primary" aria-label="Generar nueva inspiración">
+                        ✨ Generar Inspiración
+                    </button>
+                    <button id="btn-save" class="btn-sketch" aria-label="Guardar en el cuaderno">
+                        🔖 Guardar en mi Cuaderno
+                    </button>
+                </div>
+            </section>
+            
+            <!-- SECCIÓN DE INSPIRACIÓN VISUAL (PINTEREST / COSMOS VIBE) -->
+            <section class="inspiration-section">
+                <h3 class="art-title">Tablero de Inspiración</h3>
+                <p class="subtitle">Atmósferas y texturas visuales para calentar motores.</p>
+                
+                <div class="inspiration-masonry">
+                    <div class="polaroid-img" style="transform: rotate(-2deg);">
+                        <div class="washi-tape" style="top: -15px; left: 50%; transform: translateX(-50%) rotate(-4deg); width: 60px;"></div>
+                        <img src="img/inspiration1.jpg" alt="Acuarelas e inspiración artística">
+                    </div>
+                    <div class="polaroid-img" style="transform: rotate(3deg);">
+                        <img src="img/inspiration2.jpg" alt="Sketchbook con bocetos botánicos">
+                    </div>
+                    <div class="polaroid-img" style="transform: rotate(-1deg);">
+                        <div class="washi-tape sage" style="top: -10px; left: 60%; transform: rotate(5deg); width: 50px;"></div>
+                        <img src="img/inspiration3.jpg" alt="Estudio de arte y pintura">
+                    </div>
+                </div>
+            </section>
+        </main>
+        
+        <!-- PIE DE PÁGINA -->
+        <footer style="text-align: center; margin-top: 3rem; padding-bottom: 2rem;">
+            <p class="mono-text" style="color: var(--color-pencil);">&copy; 2026 Prompt Maestro. Hecho a mano.</p>
+        </footer>
+    </div>
+
+    <!-- Módulos de Javascript -->
+    <!-- En Fase 2 crearemos palette-engine.js. Se enlazará main.js en la Fase 3 -->
+    <script type="module" src="js/palette-engine.js"></script>
+    <script type="module" src="js/main.js"></script> <!-- Archivo principal que conectará todo en la fase 3, pero ya lo dejamos referenciado -->
+</body>
+</html>

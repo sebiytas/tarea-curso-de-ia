@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía de Color | Prompt Maestro</title>
+    <meta name="description" content="Aprende teoría del color aplicada a ilustración tradicional y digital.">
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        /* Estilos Didácticos */
+        .didactic-section {
+            margin-bottom: 4rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px dashed var(--color-pencil);
+        }
+        .didactic-section:last-child { border-bottom: none; }
+
+        .concept-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        @media (min-width: 800px) {
+            .concept-grid { grid-template-columns: 1fr 1fr; align-items: center; }
+        }
+
+        /* Bloques de Color Ejemplos */
+        .color-block-demo {
+            display: flex;
+            height: 150px;
+            border-radius: var(--radius-organic);
+            overflow: hidden;
+            border: var(--border-sketch);
+            box-shadow: var(--shadow-paper);
+        }
+        .demo-segment { flex: 1; display: flex; align-items: center; justify-content: center; font-family: var(--font-mono); font-size: 0.8rem; color: rgba(255,255,255,0.8); text-shadow: 1px 1px 2px rgba(0,0,0,0.5); }
+        
+        .tip-box {
+            background: #FFF9D2;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 5px solid var(--tape-yellow);
+            font-family: var(--font-ui-alt);
+            font-size: 0.95rem;
+            margin-top: 1rem;
+        }
+
+        /* Laboratorio Interactivo */
+        .interactive-lab {
+            background: var(--color-ink);
+            color: var(--bg-paper);
+            padding: 2rem;
+            border-radius: var(--radius-organic);
+            margin-top: 2rem;
+            position: relative;
+        }
+        
+        .interactive-lab h3 { color: var(--bg-paper); }
+        .interactive-lab .subtitle { color: #A0968F; }
+        
+        .scene-container {
+            width: 100%;
+            height: 250px;
+            background-color: var(--sky-color, #87CEEB);
+            border-radius: 8px;
+            border: 2px solid var(--bg-paper);
+            position: relative;
+            overflow: hidden;
+            margin: 2rem 0;
+            transition: background-color 0.3s;
+        }
+
+        /* Dibujo CSS Simple para la escena */
+        .scene-sun {
+            position: absolute; top: 30px; left: 70%;
+            width: 60px; height: 60px; border-radius: 50%;
+            background-color: var(--sun-color, #FFD700);
+            transition: background-color 0.3s;
+        }
+        .scene-mountain {
+            position: absolute; bottom: 0; left: 10%;
+            width: 0; height: 0;
+            border-left: 100px solid transparent;
+            border-right: 100px solid transparent;
+            border-bottom: 150px solid var(--mountain-color, #4A563D);
+            transition: border-bottom-color 0.3s;
+        }
+        .scene-mountain.back {
+            left: 40%;
+            border-bottom: 120px solid var(--mountain-back-color, #687959);
+            z-index: 0;
+        }
+        .scene-ground {
+            position: absolute; bottom: 0; left: 0; width: 100%; height: 30px;
+            background-color: var(--ground-color, #2D3625);
+            transition: background-color 0.3s;
+        }
+
+        /* Slider */
+        .slider-control {
+            width: 100%;
+            -webkit-appearance: none;
+            background: transparent;
+            height: 10px;
+            border-radius: 5px;
+            background-image: linear-gradient(90deg, #1E90FF, #FFD700, #FF4500, #4B0082);
+            outline: none;
+        }
+        .slider-control::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 25px; height: 25px;
+            border-radius: 50%;
+            background: #FFF;
+            cursor: pointer;
+            border: 2px solid var(--color-ink);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+        <!-- CABECERA -->
+        <header class="site-header">
+            <a href="index.html" class="site-logo">
+                <h1>Prompt Maestro</h1>
+                <span>Atelier Creativo & Color Studio</span>
+            </a>
+        </header>
+
+        <!-- NAVEGACIÓN -->
+        <nav class="main-nav">
+            <a href="index.html" class="nav-tab">Mesa de Dibujo</a>
+            <a href="galeria-desafios.html" class="nav-tab">Retos & Cuaderno</a>
+            <a href="teoria-color.html" class="nav-tab active" aria-current="page">Guía de Color</a>
+        </nav>
+
+        <main class="paper-sheet">
+            <div class="washi-tape sage"></div>
+            <h2 class="art-title" style="text-align: center;">El Atelier del Color</h2>
+            <p class="subtitle" style="text-align: center; margin-bottom: 3rem;">Fundamentos para ilustradores y dibujantes.</p>
+
+            <!-- SECCIÓN 1: Evitar el Negro Puro -->
+            <section class="didactic-section">
+                <div class="concept-grid">
+                    <div>
+                        <h3 class="art-title">1. Sombras sin Negro Puro</h3>
+                        <p>En la naturaleza, las sombras rara vez son grises o negras. Utilizar el negro puro para sombrear (añadir negro al color base) tiende a "ensuciar" el dibujo y robarle vida.</p>
+                        <p style="margin-top: 1rem;"><strong>El secreto:</strong> Enfría el color base. Si tu luz es cálida (ej. luz del sol), las sombras serán frías (azules, púrpuras). En lugar de usar verde + negro, usa verde + azul marino.</p>
+                    </div>
+                    <div>
+                        <div class="color-block-demo">
+                            <div class="demo-segment" style="background: #E53935;" title="Color Base (Rojo)">Base</div>
+                            <div class="demo-segment" style="background: #B71C1C;" title="Rojo + Negro (Sucio)">+ Negro (Malo)</div>
+                            <div class="demo-segment" style="background: #4A148C;" title="Rojo + Azul (Armónico)">+ Azul/Púrpura (Bien)</div>
+                        </div>
+                        <div class="tip-box">
+                            💡 <em>Prueba esto:</em> Si pintas piel clara, no uses marrón oscuro para las sombras, usa un púrpura desaturado o un tono lavanda.
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECCIÓN 2: Contraste de Temperatura -->
+            <section class="didactic-section">
+                <div class="concept-grid">
+                    <div style="order: 2;">
+                        <h3 class="art-title">2. Contraste de Temperatura</h3>
+                        <p>Nuestro ojo percibe que los <strong>colores cálidos</strong> (rojos, naranjas, amarillos) avanzan hacia nosotros, mientras que los <strong>colores fríos</strong> (azules, cianes, verdes azulados) retroceden en la distancia.</p>
+                        <p style="margin-top: 1rem;">Usa esto para crear profundidad de campo (perspectiva atmosférica) sin necesidad de trazar líneas de fuga.</p>
+                    </div>
+                    <div style="order: 1;">
+                        <div class="color-block-demo">
+                            <div class="demo-segment" style="background: #FF7043;">Cálido (Avanza)</div>
+                            <div class="demo-segment" style="background: #78909C;">Neutro</div>
+                            <div class="demo-segment" style="background: #29B6F6;">Frío (Retrocede)</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECCIÓN 3: Laboratorio Interactivo -->
+            <section class="didactic-section interactive-lab">
+                <h3 class="art-title">Laboratorio: Atmósfera y Luz</h3>
+                <p class="subtitle">Mueve el deslizador para ver cómo la temperatura de la luz altera todos los colores de la escena.</p>
+                
+                <div class="scene-container" id="demo-scene">
+                    <div class="scene-sun"></div>
+                    <div class="scene-mountain back"></div>
+                    <div class="scene-mountain"></div>
+                    <div class="scene-ground"></div>
+                </div>
+
+                <div style="margin-top: 2rem;">
+                    <label for="temp-slider" style="display: flex; justify-content: space-between; font-family: var(--font-mono); font-size: 0.9rem;">
+                        <span>Día Frío (Mañana)</span>
+                        <span>Día Cálido (Atardecer)</span>
+                        <span>Noche Oscura</span>
+                    </label>
+                    <input type="range" id="temp-slider" class="slider-control" min="0" max="100" value="50">
+                </div>
+            </section>
+        </main>
+        
+        <footer style="text-align: center; margin-top: 3rem; padding-bottom: 2rem;">
+            <p class="mono-text" style="color: var(--color-pencil);">&copy; 2026 Prompt Maestro.</p>
+        </footer>
+    </div>
+
+    <!-- Script del Laboratorio Interactivo -->
+    <script>
+        const slider = document.getElementById('temp-slider');
+        const scene = document.getElementById('demo-scene');
+
+        // Función de interpolación simple
+        function interpolateColor(color1, color2, factor) {
+            const result = color1.slice();
+            for (let i = 0; i < 3; i++) {
+                result[i] = Math.round(result[i] + factor * (color2[i] - color1[i]));
+            }
+            return result;
+        }
+
+        // RGB Colors para 3 estados: 0 (Mañana fría), 50 (Mediodía/Atardecer cálido), 100 (Noche)
+        const states = {
+            sky: [
+                [176, 224, 230], // Mañana (PowderBlue)
+                [255, 160, 122], // Atardecer (LightSalmon)
+                [25, 25, 112]    // Noche (MidnightBlue)
+            ],
+            sun: [
+                [255, 255, 224], // Sol pálido
+                [255, 69, 0],    // Sol rojo
+                [240, 248, 255]  // Luna (AliceBlue)
+            ],
+            mountain: [
+                [85, 107, 47],   // Verde olivo frío
+                [139, 69, 19],   // Marrón cálido
+                [47, 79, 79]     // Gris azulado
+            ]
+        };
+
+        function updateScene() {
+            const val = parseInt(slider.value);
+            let factor = 0;
+            let idx1 = 0, idx2 = 1;
+
+            if (val <= 50) {
+                factor = val / 50;
+            } else {
+                idx1 = 1;
+                idx2 = 2;
+                factor = (val - 50) / 50;
+            }
+
+            const skyColor = interpolateColor(states.sky[idx1], states.sky[idx2], factor);
+            const sunColor = interpolateColor(states.sun[idx1], states.sun[idx2], factor);
+            const mColor = interpolateColor(states.mountain[idx1], states.mountain[idx2], factor);
+            
+            // Montaña de fondo más clara (perspectiva atmosférica)
+            const mBackColor = mColor.map(c => Math.min(255, c + 30));
+            const groundColor = mColor.map(c => Math.max(0, c - 40));
+
+            scene.style.setProperty('--sky-color', `rgb(${skyColor.join(',')})`);
+            scene.style.setProperty('--sun-color', `rgb(${sunColor.join(',')})`);
+            scene.style.setProperty('--mountain-color', `rgb(${mColor.join(',')})`);
+            scene.style.setProperty('--mountain-back-color', `rgb(${mBackColor.join(',')})`);
+            scene.style.setProperty('--ground-color', `rgb(${groundColor.join(',')})`);
+        }
+
+        slider.addEventListener('input', updateScene);
+        updateScene(); // init
+    </script>
+</body>
+</html>

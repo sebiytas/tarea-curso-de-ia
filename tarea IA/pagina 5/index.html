@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SYLVA // Portal de Estudio Visual Botánico</title>
+    <meta name="description" content="Plataforma de estudio visual y referencias de dibujo orgánico. Aprende a descifrar la complejidad visual de la naturaleza mediante el análisis de valores tonales, ritmos y estructuras vegetales.">
+    
+    <!-- Hojas de Estilo -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+    <!-- Navegación Lateral: El Tronco de Árbol -->
+    <aside id="forest-sidebar" aria-label="Menú de Navegación Principal">
+        <div class="sidebar-brand" tabindex="0" aria-label="Expandir menú">
+            <div class="totem-icon" aria-hidden="true">𖥸</div>
+            <span class="brand-text">SYLVA</span>
+        </div>
+        
+        <nav class="sidebar-nav" aria-label="Secciones del Bosque">
+            <a href="index.html" class="nav-item active" aria-current="page">
+                <span class="nav-icon" aria-hidden="true">🌱</span>
+                <span class="nav-text">[ 01 // CLARO DEL BOSQUE ]</span>
+            </a>
+            <a href="visor-aleatorio.html" class="nav-item">
+                <span class="nav-icon" aria-hidden="true">🌀</span>
+                <span class="nav-text">[ 02 // GENERADOR DE REFERENCIAS ]</span>
+            </a>
+            <a href="galeria-mosaico.html" class="nav-item">
+                <span class="nav-icon" aria-hidden="true">🌿</span>
+                <span class="nav-text">[ 03 // HERBARIO COMPLETO ]</span>
+            </a>
+        </nav>
+    </aside>
+
+    <!-- Contenido Principal -->
+    <main id="main-content">
+        
+        <!-- Sección Hero: Manifiesto -->
+        <header class="hero-section">
+            <div class="leaf-container hero-leaf">
+                <h1>El Lenguaje Oculto del Bosque</h1>
+                <p class="manifesto-text">
+                    La naturaleza rara vez dibuja en líneas rectas. Este santuario ha sido diseñado para entrenar el ojo artístico en la tarea fundamental de descifrar la complejidad caótica del sotobosque. Aquí no aprenderás a copiar, sino a <strong>ver</strong>: a simplificar la abrumadora cantidad de información visual en volúmenes básicos, a entender la dirección implacable de la luz natural que se filtra entre el dosel, y a construir relaciones armónicas entre masas orgánicas de luz y sombra.
+                </p>
+            </div>
+        </header>
+
+        <!-- Cascada de Cápsulas de Estudio Botánico -->
+        <section class="capsules-cascade" aria-labelledby="capsules-title">
+            <h2 id="capsules-title" class="sr-only">Cápsulas de Estudio Botánico</h2>
+
+            <!-- Cápsula I -->
+            <article class="leaf-container study-capsule offset-left">
+                <div class="capsule-content">
+                    <h3>I. El Ritmo de las Ramas</h3>
+                    <p>
+                        Antes de perderte en el detalle del follaje, debes comprender el "hueso" del árbol. Al dibujar un espécimen maduro, busca siempre las <strong>líneas de acción continuas</strong> que viajan desde la raíz principal hasta la punta de la rama más alta. Estas curvas rítmicas distribuyen el peso visual y dan vida al gesto. Las hojas son solo la vestimenta temporal de una estructura arquitectónica profunda.
+                    </p>
+                </div>
+            </article>
+
+            <!-- Cápsula II -->
+            <article class="leaf-container study-capsule offset-right">
+                <div class="capsule-content">
+                    <h3>II. Percepción del Espacio y Profundidad</h3>
+                    <p>
+                        En la espesura, la perspectiva lineal clásica a menudo fracasa. Dependemos de la <strong>perspectiva atmosférica</strong>. Los árboles lejanos, envueltos en la bruma de la humedad del bosque, pierden contraste tonal, saturación y nitidez en sus bordes, volviéndose planos y fríos. Por el contrario, los elementos de primer plano reclaman nuestra atención mediante texturas crujientes, cortezas detalladas y un contraste de valores dramático.
+                    </p>
+                </div>
+            </article>
+
+            <!-- Cápsula III -->
+            <article class="leaf-container study-capsule offset-center">
+                <div class="capsule-content">
+                    <h3>III. El Poder de los Claroscuros</h3>
+                    <p>
+                        El color puede ser un impostor en las etapas iniciales del estudio. Omitir el color te obliga a enfrentarte a los verdaderos constructores del volumen: los valores tonales. Agrupar la maraña visual en dos familias exclusivas —la <strong>masa total de luz</strong> y la <strong>masa total de sombra</strong>— evita que el artista sea seducido por los detalles intrascendentes. Establece este mapa binario primero, y la ilusión tridimensional nacerá casi por sí sola.
+                    </p>
+                </div>
+            </article>
+
+        </section>
+
+        <!-- Llamado a la Acción (CTA) -->
+        <section class="cta-section">
+            <a href="visor-aleatorio.html" class="btn-organic cta-button">
+                Iniciar Sesión de Práctica
+            </a>
+        </section>
+
+    </main>
+
+    <!-- Estilos Específicos para el Layout Zigzagueante de index.html -->
+    <style>
+        .hero-section {
+            margin-bottom: 5rem;
+            display: flex;
+            justify-content: flex-start;
+        }
+
+        .hero-leaf {
+            max-width: 800px;
+            /* Modificando la forma de la hoja principal para que sea más dramática */
+            border-radius: 40% 60% 70% 30% / 40% 50% 50% 60%;
+            padding: 4rem;
+        }
+
+        .hero-leaf h1 {
+            font-size: 3.5rem;
+            line-height: 1.1;
+            margin-bottom: 2rem;
+            color: var(--accent-spore);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .manifesto-text {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: var(--text-light);
+        }
+
+        .manifesto-text strong {
+            color: var(--accent-sprout);
+            font-weight: 600;
+        }
+
+        /* Cascada Zigzagueante */
+        .capsules-cascade {
+            display: flex;
+            flex-direction: column;
+            gap: 3rem;
+            margin-bottom: 6rem;
+            position: relative;
+        }
+        
+        /* Línea guía simulando un tallo en el fondo (opcional) */
+        .capsules-cascade::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            width: 2px;
+            background: linear-gradient(to bottom, transparent, var(--border-leaf), transparent);
+            z-index: -1;
+            opacity: 0.3;
+        }
+
+        .study-capsule {
+            max-width: 600px;
+            width: 90%;
+            padding: 3rem;
+        }
+
+        .study-capsule h3 {
+            font-size: 1.8rem;
+            color: var(--accent-sprout);
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border-leaf);
+            padding-bottom: 0.5rem;
+            display: inline-block;
+        }
+
+        .study-capsule p {
+            font-size: 1.05rem;
+            color: var(--text-muted);
+        }
+
+        .study-capsule strong {
+            color: var(--text-light);
+            font-weight: 600;
+        }
+
+        /* Desplazamientos asimétricos */
+        .offset-left {
+            align-self: flex-start;
+            margin-left: 5%;
+            border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+        }
+
+        .offset-right {
+            align-self: flex-end;
+            margin-right: 5%;
+            border-radius: 40% 60% 70% 30% / 40% 70% 30% 60%;
+            background: linear-gradient(135deg, var(--bg-moss), var(--bg-leaf-surface));
+        }
+
+        .offset-center {
+            align-self: center;
+            border-radius: 50% 50% 20% 80% / 25% 80% 20% 75%;
+            text-align: center;
+        }
+
+        .offset-center h3 {
+            border-bottom: none;
+            position: relative;
+        }
+
+        .offset-center h3::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 2px;
+            background: var(--accent-sprout);
+        }
+
+        .cta-section {
+            text-align: center;
+            padding: 4rem 0;
+        }
+
+        .cta-button {
+            font-size: 1.5rem;
+            padding: 1.5rem 3.5rem;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero-leaf h1 {
+                font-size: 2.5rem;
+            }
+            .offset-left, .offset-right, .offset-center {
+                align-self: center;
+                margin-left: 0;
+                margin-right: 0;
+            }
+            .capsules-cascade::before {
+                display: none;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero-leaf {
+                padding: 2rem;
+                border-radius: 20px; /* Simplificación en móvil */
+            }
+            .study-capsule {
+                padding: 2rem;
+                border-radius: 20px;
+            }
+        }
+    </style>
+
+    <!-- Scripts -->
+    <script src="js/navigation.js"></script>
+</body>
+</html>

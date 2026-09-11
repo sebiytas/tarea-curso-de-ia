@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Catálogo de Consolas - Nintendo Accessory Archive</title>
+  <meta name="description" content="Catálogo sistemático interactivo de consolas de Nintendo y sus accesorios oficiales.">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <!-- Header Inyectado Dinámicamente -->
+  <div id="global-header-container"></div>
+
+  <main>
+    <h2 class="page-title" style="margin-bottom: 4rem;">CATÁLOGO DE CONSOLAS Y ACCESORIOS</h2>
+    
+    <!-- Selector Táctico de Consolas -->
+    <nav aria-label="Selector de plataformas Nintendo" style="margin-bottom: 2rem;">
+      <ul class="console-grid" id="console-grid-container" style="list-style: none;">
+        <!-- Botones inyectados dinámicamente vía console-browser.js -->
+      </ul>
+    </nav>
+
+    <!-- Panel Dinámico de Resultados -->
+    <section id="results-display" class="results-container hidden" aria-live="polite" aria-atomic="true">
+       <!-- Contenido dinámico (Listado esquemático) -->
+    </section>
+  </main>
+
+  <footer style="background-color: var(--nav-black); padding: 2rem; text-align: center; color: var(--text-on-nav); border-top: 2px solid var(--nav-border); font-family: var(--font-body); margin-top: auto;">
+    <p><strong>NINTENDO PERIPHERAL VAULT</strong> // Hardware & Accessories Archive &copy; 2026</p>
+    <p style="font-size: 0.85rem; margin-top: 0.5rem; color: #A0A0A0;">Construido con HTML5 Semántico, CSS3 Vanilla y JS ES6. Cumplimiento WCAG AA.</p>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script type="module" src="js/console-browser.js"></script>
+</body>
+</html>

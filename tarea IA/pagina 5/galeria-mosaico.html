@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Herbario Completo // Galería Mosaico</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        /* Estilos específicos del Herbario Asimétrico */
+        
+        .gallery-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .filter-tags {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .tag-btn {
+            background: transparent;
+            color: var(--text-muted);
+            border: 1px solid var(--border-leaf);
+            padding: 0.5rem 1.2rem;
+            border-radius: 20px;
+            cursor: pointer;
+            font-family: var(--font-body);
+            transition: all 0.3s ease;
+        }
+
+        .tag-btn:hover, .tag-btn.active {
+            background: var(--bg-moss);
+            color: var(--accent-sprout);
+            border-color: var(--accent-sprout);
+        }
+
+        /* Muro Orgánico (Masonry Irregular CSS) */
+        .masonry-wall {
+            column-count: 3;
+            column-gap: 2rem;
+            width: 100%;
+        }
+
+        @media (max-width: 1024px) {
+            .masonry-wall {
+                column-count: 2;
+            }
+        }
+        @media (max-width: 600px) {
+            .masonry-wall {
+                column-count: 1;
+            }
+        }
+
+        .masonry-item {
+            break-inside: avoid;
+            margin-bottom: 2rem;
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.4s ease, filter 0.3s ease;
+            filter: drop-shadow(0 10px 15px rgba(0,0,0,0.5));
+        }
+
+        .masonry-item:hover {
+            transform: translateY(-10px) rotate(1deg);
+            z-index: 2;
+        }
+
+        .masonry-img {
+            width: 100%;
+            height: auto;
+            display: block;
+            /* Aplicar un recorte asimétrico base que varía ligeramente por hijo usando CSS */
+            clip-path: var(--card-clip);
+            transition: clip-path 0.4s ease;
+        }
+
+        .masonry-item:nth-child(even) .masonry-img {
+            clip-path: polygon(1% 2%, 99% 0%, 98% 98%, 0% 100%);
+        }
+        .masonry-item:nth-child(3n) .masonry-img {
+            clip-path: polygon(3% 1%, 97% 2%, 99% 99%, 1% 97%);
+        }
+
+        .masonry-item:hover .masonry-img {
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); /* Expansión suave */
+        }
+
+        .item-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(13, 27, 18, 0.8);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            clip-path: inherit; /* Hereda el recorte de la imagen */
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .masonry-item:hover .item-overlay {
+            opacity: 1;
+        }
+
+        .overlay-title {
+            color: var(--accent-spore);
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .overlay-action {
+            color: var(--accent-sprout);
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            margin-top: 1rem;
+            border: 1px solid var(--accent-sprout);
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+        }
+
+        /* Modal de Inspección */
+        .modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 2000;
+            display: none; /* Oculto por defecto */
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .modal.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-content {
+            background: var(--bg-forest-deep);
+            border-radius: 10px;
+            padding: 2rem;
+            max-width: 1000px;
+            width: 100%;
+            display: flex;
+            gap: 2rem;
+            border: 1px solid var(--border-leaf);
+            box-shadow: 0 0 50px rgba(0,0,0,0.8);
+            position: relative;
+        }
+
+        .modal-img-container {
+            flex: 2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: var(--bg-leaf-surface);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .modal-img {
+            max-width: 100%;
+            max-height: 70vh;
+            object-fit: contain;
+            transition: filter 0.3s ease;
+        }
+
+        .modal-info {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-size: 2rem;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .modal-close:hover {
+            color: var(--accent-spore);
+        }
+
+        .modal-controls {
+            margin-top: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .modal-content {
+                flex-direction: column;
+                max-height: 90vh;
+                overflow-y: auto;
+            }
+            .modal-img {
+                max-height: 40vh;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Menú Lateral -->
+    <aside id="forest-sidebar" aria-label="Menú de Navegación Principal">
+        <div class="sidebar-brand" tabindex="0" aria-label="Expandir menú">
+            <div class="totem-icon" aria-hidden="true">𖥸</div>
+            <span class="brand-text">SYLVA</span>
+        </div>
+        <nav class="sidebar-nav" aria-label="Secciones del Bosque">
+            <a href="index.html" class="nav-item">
+                <span class="nav-icon" aria-hidden="true">🌱</span>
+                <span class="nav-text">[ 01 // CLARO DEL BOSQUE ]</span>
+            </a>
+            <a href="visor-aleatorio.html" class="nav-item">
+                <span class="nav-icon" aria-hidden="true">🌀</span>
+                <span class="nav-text">[ 02 // GENERADOR DE REFERENCIAS ]</span>
+            </a>
+            <a href="galeria-mosaico.html" class="nav-item active" aria-current="page">
+                <span class="nav-icon" aria-hidden="true">🌿</span>
+                <span class="nav-text">[ 03 // HERBARIO COMPLETO ]</span>
+            </a>
+        </nav>
+    </aside>
+
+    <main id="main-content">
+        
+        <header class="gallery-header">
+            <div>
+                <h1>El Herbario</h1>
+                <p style="color: var(--text-muted);">Colección completa de referencias visuales orgánicas.</p>
+            </div>
+            
+            <div class="filter-tags" id="tag-filters">
+                <button class="tag-btn active" data-filter="all">Todo</button>
+                <button class="tag-btn" data-filter="paisaje">Paisajes</button>
+                <button class="tag-btn" data-filter="macro">Macro/Flora</button>
+                <button class="tag-btn" data-filter="fauna">Fauna</button>
+                <button class="tag-btn" data-filter="corteza">Cortezas</button>
+            </div>
+        </header>
+
+        <section class="masonry-wall" id="masonry-wall">
+            <!-- Los elementos se inyectarán vía JavaScript -->
+        </section>
+
+    </main>
+
+    <!-- Modal de Inspección -->
+    <div class="modal" id="inspection-modal" aria-hidden="true" role="dialog" aria-labelledby="modal-title">
+        <div class="modal-content">
+            <button class="modal-close" id="modal-close" aria-label="Cerrar modal">&times;</button>
+            
+            <div class="modal-img-container">
+                <img id="modal-img" class="modal-img" src="" alt="">
+            </div>
+            
+            <div class="modal-info">
+                <h2 id="modal-title" style="color: var(--accent-spore); margin-bottom: 0.5rem;">Título</h2>
+                <div style="font-family: var(--font-mono); font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.5rem;">
+                    Foco: <span id="modal-focus"></span>
+                </div>
+                
+                <p id="modal-advice" style="color: var(--text-light); line-height: 1.6;">Consejo...</p>
+                
+                <div class="modal-controls">
+                    <button id="modal-bw-toggle" class="btn-organic" style="font-size: 1rem; padding: 0.8rem;">
+                        Activar Claroscuro (B/N)
+                    </button>
+                    <!-- Al hacer clic aquí, se redirigirá al visor-aleatorio.html pero en una app real pasaría el ID por URL -->
+                    <a href="visor-aleatorio.html" class="btn-organic" style="font-size: 1rem; padding: 0.8rem; background: transparent; color: var(--accent-sprout); border-color: var(--accent-sprout); text-align: center;">
+                        Practicar en Mesa de Dibujo
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/navigation.js"></script>
+    <script src="js/forest-data.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const wall = document.getElementById('masonry-wall');
+            const filterBtns = document.querySelectorAll('.tag-btn');
+            
+            // Modal Elements
+            const modal = document.getElementById('inspection-modal');
+            const modalImg = document.getElementById('modal-img');
+            const modalTitle = document.getElementById('modal-title');
+            const modalFocus = document.getElementById('modal-focus');
+            const modalAdvice = document.getElementById('modal-advice');
+            const modalClose = document.getElementById('modal-close');
+            const bwToggle = document.getElementById('modal-bw-toggle');
+            
+            let currentFilter = 'all';
+            let isModalBW = false;
+
+            // Renderizar Galería
+            function renderGallery() {
+                wall.innerHTML = '';
+                const itemsToRender = currentFilter === 'all' 
+                    ? forestReferences 
+                    : forestReferences.filter(ref => ref.category === currentFilter);
+                
+                itemsToRender.forEach(ref => {
+                    const article = document.createElement('article');
+                    article.className = 'masonry-item';
+                    article.dataset.id = ref.id;
+                    
+                    article.innerHTML = `
+                        <img src="${ref.url}" alt="${ref.title}" class="masonry-img" loading="lazy">
+                        <div class="item-overlay">
+                            <span class="overlay-title">${ref.title}</span>
+                            <span class="overlay-action">Inspeccionar 👁</span>
+                        </div>
+                    `;
+                    
+                    article.addEventListener('click', () => openModal(ref));
+                    wall.appendChild(article);
+                });
+            }
+
+            // Manejo de Filtros
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    e.target.classList.add('active');
+                    currentFilter = e.target.dataset.filter;
+                    renderGallery();
+                });
+            });
+
+            // Lógica del Modal
+            function openModal(ref) {
+                modalImg.src = ref.url;
+                modalImg.alt = ref.title;
+                modalTitle.textContent = ref.title;
+                modalFocus.textContent = ref.focus;
+                modalAdvice.textContent = ref.advice;
+                
+                // Reset B/W filter
+                isModalBW = false;
+                modalImg.style.filter = 'none';
+                bwToggle.textContent = 'Activar Claroscuro (B/N)';
+                
+                modal.classList.add('active');
+                modal.setAttribute('aria-hidden', 'false');
+            }
+
+            function closeModal() {
+                modal.classList.remove('active');
+                modal.setAttribute('aria-hidden', 'true');
+            }
+
+            modalClose.addEventListener('click', closeModal);
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) closeModal(); // Clic fuera del contenido
+            });
+
+            // Toggle B/N en Modal
+            bwToggle.addEventListener('click', () => {
+                isModalBW = !isModalBW;
+                modalImg.style.filter = isModalBW ? 'grayscale(100%) contrast(150%)' : 'none';
+                bwToggle.textContent = isModalBW ? 'Desactivar Claroscuro' : 'Activar Claroscuro (B/N)';
+            });
+
+            // Inicializar
+            renderGallery();
+        });
+    </script>
+</body>
+</html>

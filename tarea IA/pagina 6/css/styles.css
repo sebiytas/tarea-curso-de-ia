@@ -1,0 +1,331 @@
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;700&family=Courier+Prime&family=Nunito:wght@400;600;700&display=swap');
+
+:root {
+    /* Paleta Cromática Base (Textil) */
+    --bg-canvas: #F5EFEB;       /* Fondo Principal (Lino Crudo / Algodón Natural) */
+    --bg-card: #FAF6F0;         /* Superficie de Tarjetas (Tejido Crema Tostado) */
+    --denim-blue: #2E4B75;      /* Azul Denim / Blue Jean Base */
+    --denim-dark: #1E3352;      /* Azul Denim Oscuro (Costuras / Sombra Vaquera) */
+    --denim-light: #5B7FA8;     /* Azul Denim Lavado / Claro */
+    --stitch-gold: #DDA838;     /* Hilo de Costura / Pespunte Amarillo Ocre */
+    --stitch-white: #FAF9F6;    /* Hilo Blanco Pespunte Secundario */
+    --leather-patch: #8A4F2A;   /* Cuero Tostado / Parche Trasero de Marca */
+    --text-ink: #2C2623;        /* Texto Principal (Tinta Carbón Textil) */
+    --text-muted: #6B615B;      /* Texto Secundario (Gris Lino Pardo) */
+    --shadow-cozy: 0 8px 24px rgba(60, 48, 38, 0.08), 0 2px 6px rgba(60, 48, 38, 0.04);
+
+    /* Tipografía */
+    --font-heading: 'Comfortaa', cursive;
+    --font-body: 'Nunito', sans-serif;
+    --font-mono: 'Courier Prime', monospace;
+}
+
+/* ----------------------------- */
+/* RESET Y ESTILOS GLOBALES      */
+/* ----------------------------- */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-canvas);
+    color: var(--text-ink);
+    font-family: var(--font-body);
+    display: flex;
+    min-height: 100vh;
+    overflow-x: hidden;
+    line-height: 1.6;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    color: var(--text-ink);
+    margin-bottom: 1rem;
+}
+
+p {
+    margin-bottom: 1rem;
+}
+
+/* Accesibilidad y Foco */
+:focus-visible {
+    outline: 2px dashed var(--stitch-gold);
+    outline-offset: 4px;
+}
+
+/* ----------------------------- */
+/* SISTEMA DE DISEÑO TEXTIL      */
+/* ----------------------------- */
+
+/* Simulación de costura vaquera (Pespunte) */
+.stitch-border {
+    border: 2px dashed var(--stitch-gold);
+    outline: 1px solid var(--denim-dark);
+    outline-offset: 4px;
+    border-radius: 8px;
+    background-color: var(--bg-card);
+    box-shadow: var(--shadow-cozy);
+    padding: 20px;
+}
+
+/* Etiqueta de cuero tostado */
+.leather-label {
+    background-color: var(--leather-patch);
+    color: var(--bg-canvas);
+    font-family: var(--font-mono);
+    padding: 0.5rem 1rem;
+    border: 1px dashed var(--stitch-gold);
+    border-radius: 4px;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+    text-transform: uppercase;
+    display: inline-block;
+}
+
+/* Contenedores de tarjetas de contenido */
+.cozy-card {
+    background-color: var(--bg-card);
+    border-radius: 12px;
+    box-shadow: var(--shadow-cozy);
+    padding: 2rem;
+    position: relative;
+    /* Textura sutil de lino */
+    background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><filter id="noiseFilter"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23noiseFilter)" opacity="0.03"/></svg>');
+}
+
+/* ----------------------------- */
+/* SILUETAS DE PRENDAS           */
+/* ----------------------------- */
+
+.silueta-wrapper {
+    position: relative;
+    background-color: var(--bg-card);
+    display: inline-block;
+    box-shadow: var(--shadow-cozy);
+    overflow: hidden;
+}
+
+/* Textura de tela base para las siluetas */
+.silueta-wrapper::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.6" numOctaves="3" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23noise)" opacity="0.08"/></svg>');
+    pointer-events: none;
+    z-index: 1;
+}
+
+.silueta-camiseta {
+    width: 120px;
+    height: 150px;
+    /* Corte en hombros, cuello en U y dobladillo */
+    clip-path: polygon(15% 0%, 35% 0%, 50% 15%, 65% 0%, 85% 0%, 100% 20%, 90% 35%, 80% 30%, 80% 100%, 20% 100%, 20% 30%, 10% 35%, 0% 20%);
+}
+
+.silueta-pantalon {
+    width: 120px;
+    height: 180px;
+    /* Dos perneras y tiro central */
+    clip-path: polygon(10% 0%, 90% 0%, 100% 100%, 60% 100%, 50% 30%, 40% 100%, 0% 100%);
+}
+
+.silueta-gorra {
+    width: 100px;
+    height: 70px;
+    /* Copa semiesférica y visera */
+    clip-path: polygon(20% 0%, 80% 0%, 100% 50%, 100% 100%, 0% 100%, 0% 50%);
+    border-radius: 50% 50% 10px 10px;
+    position: relative;
+}
+
+/* ----------------------------- */
+/* NAVEGACIÓN LATERAL (JEAN)     */
+/* ----------------------------- */
+
+#denim-sidebar {
+    width: 80px;
+    height: 100vh;
+    background-color: var(--denim-blue);
+    position: fixed;
+    left: 0;
+    top: 0;
+    transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1000;
+    box-shadow: 4px 0 15px rgba(0,0,0,0.3);
+    /* Borde costura reforzada */
+    border-right: 3px dashed var(--stitch-gold);
+    display: flex;
+    flex-direction: column;
+    /* Textura Denim Twill */
+    background-image: repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(255,255,255,0.04) 2px, rgba(255,255,255,0.04) 4px);
+}
+
+#denim-sidebar.expanded {
+    width: 300px;
+}
+
+/* Bolsillo de Monedas (Toggle Button) */
+.coin-pocket-toggle {
+    width: 60px;
+    height: 60px;
+    margin: 20px auto;
+    background-color: var(--denim-blue);
+    border: 2px dashed var(--stitch-gold);
+    /* Forma de bolsillo */
+    border-radius: 0 0 20px 20px;
+    position: relative;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+}
+
+#denim-sidebar.expanded .coin-pocket-toggle {
+    width: 260px;
+    border-radius: 10px;
+}
+
+/* Remaches de cobre */
+.coin-pocket-toggle::before,
+.coin-pocket-toggle::after {
+    content: '';
+    position: absolute;
+    top: 5px;
+    width: 12px;
+    height: 12px;
+    background: radial-gradient(circle, #E39B77, #9B4F27);
+    border-radius: 50%;
+    box-shadow: 1px 1px 3px rgba(0,0,0,0.6), inset -1px -1px 3px rgba(0,0,0,0.5);
+}
+
+.coin-pocket-toggle::before { left: 5px; }
+.coin-pocket-toggle::after { right: 5px; }
+
+/* Icono Hamburger Hilo */
+.hamburger-lines {
+    width: 30px;
+    height: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.hamburger-lines span {
+    display: block;
+    height: 3px;
+    width: 100%;
+    background: var(--stitch-gold);
+    border-radius: 3px;
+    transition: all 0.3s ease;
+}
+
+/* Estado activo Hamburger */
+#denim-sidebar.expanded .hamburger-lines span:nth-child(1) {
+    transform: translateY(8.5px) rotate(45deg);
+}
+#denim-sidebar.expanded .hamburger-lines span:nth-child(2) {
+    opacity: 0;
+}
+#denim-sidebar.expanded .hamburger-lines span:nth-child(3) {
+    transform: translateY(-8.5px) rotate(-45deg);
+}
+
+/* Enlaces del Menú (Parches Denim) */
+.denim-nav-list {
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 0 15px;
+    list-style: none;
+    overflow: hidden;
+}
+
+.denim-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: var(--stitch-white);
+    font-family: var(--font-mono);
+    font-size: 0.95rem;
+    padding: 12px 20px;
+    background-color: var(--denim-dark);
+    border: 1px dashed var(--denim-light);
+    border-radius: 6px;
+    white-space: nowrap;
+    opacity: 0;
+    transform: translateX(-20px);
+    transition: all 0.3s ease;
+    box-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+}
+
+.denim-link:hover, .denim-link.active {
+    background-color: var(--denim-light);
+    border-color: var(--stitch-gold);
+    color: var(--bg-canvas);
+}
+
+/* Animación de entrada en cascada */
+#denim-sidebar.expanded .denim-link {
+    opacity: 1;
+    transform: translateX(0);
+}
+#denim-sidebar.expanded .denim-nav-list li:nth-child(1) .denim-link { transition-delay: 0.1s; }
+#denim-sidebar.expanded .denim-nav-list li:nth-child(2) .denim-link { transition-delay: 0.2s; }
+#denim-sidebar.expanded .denim-nav-list li:nth-child(3) .denim-link { transition-delay: 0.3s; }
+
+/* Contenido Principal */
+#main-content {
+    flex: 1;
+    margin-left: 80px;
+    padding: 40px;
+    transition: margin-left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#denim-sidebar.expanded ~ #main-content {
+    margin-left: 300px;
+}
+
+/* ----------------------------- */
+/* RESPONSIVE (MOBILE-FIRST)     */
+/* ----------------------------- */
+
+@media (max-width: 768px) {
+    #denim-sidebar {
+        width: 60px;
+    }
+    #main-content {
+        margin-left: 60px;
+        padding: 20px;
+    }
+    #denim-sidebar.expanded {
+        width: 100%;
+        border-right: none;
+    }
+    #denim-sidebar.expanded ~ #main-content {
+        /* En móvil, el menú se superpone, no empuja el contenido */
+        margin-left: 60px;
+    }
+    .coin-pocket-toggle {
+        width: 40px;
+        height: 40px;
+    }
+    #denim-sidebar.expanded .coin-pocket-toggle {
+        width: 90%;
+    }
+    .hamburger-lines {
+        width: 20px;
+        height: 14px;
+    }
+    .hamburger-lines span {
+        height: 2px;
+    }
+    .denim-link {
+        font-size: 0.85rem;
+        padding: 10px 15px;
+    }
+}

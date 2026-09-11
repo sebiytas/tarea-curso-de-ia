@@ -1,0 +1,365 @@
+/* DESIGN SYSTEM: "ANCIENT GOLD & SHEIKAH GLOW" */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400&family=Inter:wght@400;600;700&display=swap');
+
+:root {
+    /* Color Palette */
+    --bg-abyss: #070D18;
+    --bg-card: #0E1A2E;
+    --bg-earth: #1C1712;
+    --border-bronze: #4A3B2C;
+    --gold-primary: #D4AF37;
+    --gold-glow: #F3E5AB;
+    --blue-sheikah: #00D2FF;
+    --blue-ether: #0088CC;
+    --green-accent: #2E5A44;
+    
+    /* Text Colors */
+    --text-bright: #F7F9FC;
+    --text-parchment: #D9CBB6;
+    
+    /* Shadows */
+    --shadow-sheikah: 0 0 20px rgba(0, 210, 255, 0.25);
+    --shadow-gold: 0 4px 20px rgba(212, 175, 55, 0.2);
+    --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.5);
+
+    /* Typography */
+    --font-heading: 'Cinzel', serif;
+    --font-body: 'Merriweather', serif;
+    --font-ui: 'Inter', sans-serif;
+
+    /* Transitions */
+    --transition-smooth: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--bg-abyss);
+    color: var(--text-parchment);
+    font-family: var(--font-body);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+/* ==========================================================================
+   TYPOGRAPHY
+   ========================================================================== */
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    color: var(--gold-primary);
+    font-weight: 700;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+}
+
+p {
+    margin-bottom: 1.5rem;
+}
+
+a {
+    color: var(--gold-primary);
+    text-decoration: none;
+    transition: var(--transition-smooth);
+}
+
+a:hover, a:focus {
+    color: var(--blue-sheikah);
+    text-shadow: 0 0 8px var(--blue-sheikah);
+    outline: none;
+}
+
+/* ==========================================================================
+   GLOBAL LAYOUT & HEADER
+   ========================================================================== */
+.site-header {
+    background-color: var(--bg-earth);
+    border-bottom: 2px solid var(--border-bronze);
+    padding: 1.5rem 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.6);
+}
+
+.header-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.brand {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.brand-emblem {
+    width: 60px;
+    height: 60px;
+    margin-bottom: 0.5rem;
+    fill: var(--gold-primary);
+    filter: drop-shadow(0 0 5px rgba(212, 175, 55, 0.5));
+}
+
+.brand-title {
+    font-size: 2rem;
+    letter-spacing: 2px;
+    margin-bottom: 0;
+    text-transform: uppercase;
+    color: var(--gold-glow);
+    text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+}
+
+.brand-subtitle {
+    font-family: var(--font-ui);
+    font-size: 0.85rem;
+    color: var(--blue-ether);
+    letter-spacing: 4px;
+    text-transform: uppercase;
+}
+
+.main-nav ul {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.main-nav a {
+    font-family: var(--font-ui);
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    padding: 0.5rem 1rem;
+    position: relative;
+    color: var(--text-bright);
+}
+
+.main-nav a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 2px;
+    background-color: var(--blue-sheikah);
+    transition: var(--transition-smooth);
+    box-shadow: var(--shadow-sheikah);
+}
+
+.main-nav a:hover::after,
+.main-nav a.active::after {
+    width: 100%;
+}
+
+.main-nav a.active {
+    color: var(--gold-glow);
+}
+
+main.container {
+    max-width: 1200px;
+    margin: 3rem auto;
+    padding: 0 2rem;
+}
+
+/* ==========================================================================
+   COMPONENTS
+   ========================================================================== */
+
+/* Buttons */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-ui);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 0.8rem 2rem;
+    background: linear-gradient(135deg, var(--gold-primary) 0%, var(--border-bronze) 100%);
+    color: var(--bg-abyss);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+    position: relative;
+    overflow: hidden;
+    clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+}
+
+.btn:hover, .btn:focus {
+    color: var(--bg-abyss);
+    background: linear-gradient(135deg, var(--gold-glow) 0%, var(--gold-primary) 100%);
+    box-shadow: 0 0 15px var(--blue-sheikah);
+    transform: translateY(-2px);
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 2px; right: 2px; bottom: 2px; left: 2px;
+    border: 1px solid rgba(255,255,255,0.3);
+    clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+    pointer-events: none;
+}
+
+/* Runes/Ornaments */
+.ornament-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 3rem 0;
+    gap: 1rem;
+}
+
+.ornament-divider::before,
+.ornament-divider::after {
+    content: '';
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold-primary), transparent);
+    flex-grow: 1;
+    max-width: 300px;
+}
+
+.ornament-icon {
+    width: 24px;
+    height: 24px;
+    fill: var(--blue-sheikah);
+    filter: drop-shadow(0 0 5px var(--blue-sheikah));
+}
+
+/* Cards */
+.card {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-bronze);
+    border-radius: 8px;
+    padding: 2rem;
+    box-shadow: var(--shadow-card);
+    position: relative;
+    transition: var(--transition-smooth);
+    overflow: hidden;
+}
+
+.card:hover {
+    border-color: var(--gold-primary);
+    box-shadow: var(--shadow-gold);
+    transform: translateY(-5px);
+}
+
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--blue-sheikah), transparent);
+    opacity: 0;
+    transition: var(--transition-smooth);
+}
+
+.card:hover::before {
+    opacity: 1;
+}
+
+/* Images & Fallbacks */
+.img-container {
+    background-color: var(--bg-earth);
+    border: 2px solid var(--border-bronze);
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.img-container::after {
+    /* Fallback stylized Triforce if image fails */
+    content: '▲\A▲ ▲';
+    white-space: pre-wrap;
+    text-align: center;
+    position: absolute;
+    font-size: 2rem;
+    color: var(--border-bronze);
+    z-index: 0;
+    line-height: 1;
+}
+
+.img-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+    position: relative;
+    transition: transform 0.5s ease;
+}
+
+.img-container:hover img {
+    transform: scale(1.05);
+}
+
+/* Footer */
+.site-footer {
+    background-color: var(--bg-earth);
+    border-top: 2px solid var(--border-bronze);
+    padding: 3rem 2rem;
+    text-align: center;
+    margin-top: 4rem;
+}
+
+.site-footer p {
+    font-family: var(--font-ui);
+    font-size: 0.9rem;
+    color: var(--text-parchment);
+    opacity: 0.8;
+}
+
+/* ==========================================================================
+   ACCESSIBILITY & UTILITIES
+   ========================================================================== */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+:focus-visible {
+    outline: 3px solid var(--blue-sheikah);
+    outline-offset: 3px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .header-container {
+        flex-direction: column;
+    }
+    
+    .brand-title {
+        font-size: 1.5rem;
+    }
+    
+    .main-nav ul {
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+    }
+    
+    main.container {
+        padding: 0 1.5rem;
+    }
+}

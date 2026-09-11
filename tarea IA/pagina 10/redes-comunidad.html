@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Digital Vault // Redes & Comunidad</title>
+  <meta name="description" content="Conéctate con la red global de archivistas digitales y creadores de la Bóveda.">
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    /* Editorial Header */
+    .community-header {
+      text-align: center;
+      padding: 3rem 1rem;
+      background: radial-gradient(circle at center, var(--bg-vault-panel) 0%, transparent 70%);
+      border-bottom: 1px solid var(--border-warehouse);
+      margin-bottom: 3rem;
+    }
+
+    .community-subtitle {
+      color: var(--aqua-primary);
+      font-family: var(--font-mono);
+      font-size: 1rem;
+    }
+
+    /* Redes Oficiales */
+    .social-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      margin-bottom: 4rem;
+    }
+
+    .social-card {
+      background-color: var(--bg-vault-card);
+      border: 1px solid var(--border-warehouse);
+      border-radius: 8px;
+      padding: 2rem;
+      text-align: center;
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .social-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--aqua-primary);
+      box-shadow: var(--shadow-shelf);
+    }
+
+    .social-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      color: var(--blue-terminal);
+    }
+
+    .social-title {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      color: var(--text-light);
+      margin-bottom: 0.5rem;
+    }
+
+    .social-desc {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      margin-bottom: 1.5rem;
+      flex: 1;
+    }
+
+    /* Directorio de Autores */
+    .directory-section {
+      background-color: var(--bg-vault-panel);
+      border: 1px solid var(--border-warehouse);
+      border-radius: 8px;
+      padding: 2.5rem;
+      margin-bottom: 4rem;
+    }
+
+    .directory-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .author-card {
+      background-color: var(--bg-vault-dark);
+      border-left: 4px solid var(--aqua-primary);
+      padding: 1.5rem;
+      border-radius: 0 8px 8px 0;
+    }
+
+    .author-name {
+      font-family: var(--font-display);
+      color: var(--text-light);
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .author-links {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--blue-terminal);
+    }
+
+    .author-links a {
+      color: var(--aqua-light);
+    }
+
+    /* FAQ */
+    .faq-section {
+      margin-bottom: 4rem;
+    }
+
+    .faq-item {
+      margin-bottom: 1.5rem;
+      background-color: var(--bg-vault-card);
+      border: 1px solid var(--border-warehouse);
+      border-radius: 6px;
+      padding: 1.5rem;
+    }
+
+    .faq-question {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      color: var(--aqua-primary);
+      margin-bottom: 1rem;
+      display: flex;
+      gap: 0.75rem;
+      align-items: flex-start;
+    }
+
+    .faq-question::before {
+      content: 'Q.';
+      color: var(--border-warehouse);
+    }
+
+    .faq-answer {
+      color: var(--text-light);
+      line-height: 1.6;
+      padding-left: 2rem;
+    }
+  </style>
+</head>
+<body>
+
+  <main class="container">
+    
+    <div class="community-header">
+      <h2 class="vault-title">RED DE PRESERVADORES & COMUNIDAD</h2>
+      <p class="community-subtitle">>> Conéctate con la red global de archivistas digitales y autores.</p>
+    </div>
+
+    <!-- Redes Oficiales -->
+    <section aria-labelledby="title-socials">
+      <h3 id="title-socials" class="visually-hidden" style="display:none;">Redes Sociales Oficiales</h3>
+      <div class="social-grid">
+        
+        <article class="social-card">
+          <div class="social-icon">👾</div>
+          <h4 class="social-title">Discord Comunitario</h4>
+          <p class="social-desc">Coordina proyectos de rescate, volcado de datos (dumping) y traducción de manuales en nuestros canales seguros.</p>
+          <a href="#" class="vault-btn vault-btn--secondary">UNIRSE AL SERVIDOR</a>
+        </article>
+
+        <article class="social-card">
+          <div class="social-icon">📦</div>
+          <h4 class="social-title">GitHub Repository</h4>
+          <p class="social-desc">Accede al código abierto de la plataforma, herramientas de emulación web y scripts de automatización de preservación.</p>
+          <a href="#" class="vault-btn vault-btn--secondary">VER REPOSITORIO</a>
+        </article>
+
+        <article class="social-card">
+          <div class="social-icon">📺</div>
+          <h4 class="social-title">YouTube / Streaming</h4>
+          <p class="social-desc">Documentales sobre preservación de hardware, partidas de juegos rescatados y tutoriales técnicos.</p>
+          <a href="#" class="vault-btn vault-btn--secondary">VER CANAL</a>
+        </article>
+
+        <article class="social-card">
+          <div class="social-icon">📡</div>
+          <h4 class="social-title">X / Bluesky</h4>
+          <p class="social-desc">Sigue las alertas automatizadas de nuevos títulos ingresados en el almacén y debates de historia tecnológica.</p>
+          <a href="#" class="vault-btn vault-btn--secondary">SEGUIR CUENTA</a>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- Directorio Dinámico de Creadores -->
+    <section class="directory-section">
+      <h3 style="font-family: var(--font-display); color: var(--aqua-light); font-size: 1.5rem; margin-bottom: 0.5rem;">DIRECTORIO DE CREADORES COLABORADORES</h3>
+      <p style="color: var(--text-muted); font-size: 0.9rem;">Los autores y estudios detrás de los títulos alojados en nuestra bóveda. ¡Apóyalos!</p>
+      
+      <div class="directory-list" id="creators-directory">
+        <!-- Renderizado vía JS basado en vaultStorage -->
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq-section">
+      <h3 style="font-family: var(--font-display); color: var(--text-light); font-size: 2rem; margin-bottom: 2rem; border-bottom: 1px solid var(--border-warehouse); padding-bottom: 1rem;">PREGUNTAS FRECUENTES (FAQ)</h3>
+      
+      <div class="faq-item">
+        <h4 class="faq-question">¿Qué es exactamente la preservación digital de videojuegos?</h4>
+        <div class="faq-answer">
+          <p>Es el proceso de archivar, catalogar y proteger tanto el código (software) como los medios físicos (cajas, manuales) de videojuegos que corren el riesgo de perderse debido a la degradación de los materiales, el cierre de servidores o la falta de hardware compatible para ejecutarlos hoy en día.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <h4 class="faq-question">¿Es legal preservar estos juegos abandonados (Abandonware)?</h4>
+        <div class="faq-answer">
+          <p>El término "abandonware" no tiene un peso legal oficial, pero existe un consenso académico y ético. Operamos bajo el principio de "preservación histórica" con acceso restringido/educativo y priorizando títulos de creadores independientes o estudios ya extintos. Siempre respetamos los derechos y retiramos obras si sus creadores legales lo solicitan expresamente.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <h4 class="faq-question">No soy programador, ¿puedo contribuir a la Bóveda?</h4>
+        <div class="faq-answer">
+          <p>¡Por supuesto! La preservación requiere muchas manos. Puedes ayudar subiendo manuales escaneados, traduciendo fichas técnicas, identificando y documentando videojuegos locales de tu región o simplemente compartiendo nuestra misión en redes sociales.</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer y Navegación inyectados por js -->
+  <script src="js/vault-storage.js"></script>
+  <script src="js/navigation.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Poblar el directorio dinámico de creadores
+      const games = window.vaultStorage.getGames();
+      const creatorsDir = document.getElementById('creators-directory');
+      
+      // Extraer autores únicos y sus enlaces (usando Map para evitar duplicados por nombre)
+      const authorsMap = new Map();
+      games.forEach(g => {
+        if (!authorsMap.has(g.author)) {
+          authorsMap.set(g.author, g.links || 'Contacto no documentado');
+        }
+      });
+
+      if (authorsMap.size === 0) {
+        creatorsDir.innerHTML = '<p style="color: var(--text-muted);">Aún no hay creadores registrados en la base de datos.</p>';
+        return;
+      }
+
+      let htmlContent = '';
+      authorsMap.forEach((links, author) => {
+        // Simple regex to parse raw urls to clickable links if present, else plain text
+        let linkedText = links;
+        const urlRegex = /(https?:\/\/[^\s]+)/g;
+        if(urlRegex.test(links)) {
+          linkedText = links.replace(urlRegex, '<a href="$1" target="_blank">$1</a>');
+        }
+
+        htmlContent += `
+          <div class="author-card">
+            <h4 class="author-name">${author}</h4>
+            <div class="author-links">${linkedText}</div>
+          </div>
+        `;
+      });
+
+      creatorsDir.innerHTML = htmlContent;
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo de Agendas | Ciara Creativa</title>
+    <meta name="description" content="Explora nuestro catálogo completo de agendas artesanales, telefónicas, perpetuas y personalizadas hechas a mano.">
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        /* Estilos específicos para catálogo (Filtros y Modal) */
+        .filters-panel {
+            background: var(--paper-rose);
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 3rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            border: 1px dashed var(--rose-dust);
+            box-shadow: inset 0 2px 10px rgba(140, 91, 62, 0.05);
+        }
+        .search-bar {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .search-input {
+            width: 100%;
+            padding: 1rem 1.5rem 1rem 3.5rem;
+            border-radius: 30px;
+            border: 2px solid var(--paper-ivory);
+            background: var(--paper-ivory);
+            font-family: var(--font-text);
+            font-size: 1.05rem;
+            color: var(--text-charcoal);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+            transition: all 0.3s;
+        }
+        .search-input:focus {
+            outline: none;
+            border-color: var(--rose-dust);
+            box-shadow: 0 4px 15px rgba(222, 143, 143, 0.2);
+        }
+        .search-icon {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 22px;
+            height: 22px;
+            border: 2.5px solid var(--rose-dust);
+            border-radius: 12px 12px 0 12px; /* Lupa estilizada como clip de papel */
+            opacity: 0.8;
+        }
+        .search-icon::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            right: -6px;
+            width: 8px;
+            height: 2.5px;
+            background: var(--rose-dust);
+            transform: rotate(45deg);
+        }
+        .filter-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        .btn-filter {
+            background: var(--paper-ivory);
+            color: var(--text-pencil);
+            border: 1px solid transparent;
+            padding: 0.6rem 1.4rem;
+            border-radius: 4px; /* Estilo etiqueta colgante */
+            font-family: var(--font-title);
+            font-weight: 700;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+        }
+        .btn-filter::before {
+            content: '';
+            position: absolute;
+            top: -6px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 5px;
+            height: 5px;
+            background: var(--bg-desk);
+            border-radius: 50%;
+            border: 1px solid var(--rose-dust);
+        }
+        .btn-filter.active, .btn-filter:hover, .btn-filter:focus {
+            background: var(--rose-dust);
+            color: var(--paper-ivory);
+            outline: none;
+        }
+        
+        /* Modal Estilo Hoja Suelta */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(54, 46, 43, 0.6);
+            backdrop-filter: blur(3px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .modal-overlay.open {
+            display: flex;
+            opacity: 1;
+        }
+        .modal-content {
+            background: var(--paper-ivory);
+            border-radius: 8px;
+            width: 100%;
+            max-width: 900px;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            padding: 3rem;
+            box-shadow: var(--shadow-hover);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            /* Textura libreta */
+            background-image: radial-gradient(var(--line-grid) 1px, transparent 1px);
+            background-size: 24px 24px;
+            background-position: 0 0;
+            transform: translateY(20px);
+            transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        .modal-overlay.open .modal-content {
+            transform: translateY(0);
+        }
+        .btn-close {
+            position: absolute;
+            top: 20px; right: 20px;
+            background: var(--paper-rose);
+            border: none;
+            width: 40px; height: 40px;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            color: var(--rose-deep);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+        .btn-close:hover { 
+            background: var(--rose-dust); 
+            color: white;
+            transform: rotate(90deg);
+        }
+        .modal-specs {
+            margin-bottom: 2.5rem;
+        }
+        .modal-specs li {
+            margin-bottom: 0.8rem;
+            border-bottom: 1px dashed var(--line-grid);
+            padding-bottom: 0.5rem;
+            list-style: none;
+            color: var(--text-pencil);
+            font-size: 1.05rem;
+        }
+        .modal-specs strong { color: var(--text-charcoal); font-family: var(--font-title); }
+        
+        @media(max-width: 768px) {
+            .modal-content { grid-template-columns: 1fr; padding: 2rem 1.5rem; gap: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="desk-container">
+        
+        <!-- HEADER -->
+        <header class="site-header">
+            <h1 class="site-logo">Ciara Creativa</h1>
+            <p class="site-tagline">Taller de Encuadernación & Diseño</p>
+        </header>
+
+        <!-- NAVEGACIÓN WIRE-O -->
+        <nav class="wire-o-nav" aria-label="Navegación principal del taller">
+            <div class="wire-o-binding" aria-hidden="true"></div>
+            <ul class="nav-tabs">
+                <li><a href="index.html" tabindex="0">[ BIENVENIDA & TALLER ]</a></li>
+                <li><a href="catalogo.html" tabindex="0" aria-current="page" class="active">[ CATÁLOGO DE AGENDAS ]</a></li>
+                <li><a href="sobre-ciara.html" tabindex="0">[ CONOCE A CIARA ]</a></li>
+                <li><a href="redes-contacto.html" tabindex="0">[ REDES & PEDIDOS ]</a></li>
+            </ul>
+        </nav>
+
+        <!-- MAIN (PAPER PAGE) -->
+        <main class="paper-page">
+            
+            <h2 style="text-align: center; color: var(--rose-deep); font-size: 2.6rem; margin-bottom: 1rem;">Colección Exclusiva</h2>
+            <p style="text-align: center; color: var(--text-pencil); font-style: italic; margin-bottom: 3rem; font-family: var(--font-serif); font-size: 1.2rem;">Encuentra el lienzo perfecto para tu rutina diaria.</p>
+            
+            <!-- PANEL DE FILTROS Y BÚSQUEDA -->
+            <section class="filters-panel" aria-label="Filtros del catálogo">
+                <div class="search-bar">
+                    <div class="search-icon" aria-hidden="true"></div>
+                    <input type="text" id="searchInput" class="search-input" placeholder="Buscar por nombre o palabra (ej. floral, bolsillo)..." aria-label="Campo de búsqueda de agendas">
+                </div>
+                
+                <div class="filter-buttons" id="filterButtons" aria-label="Filtrar por categoría de agenda">
+                    <button class="btn-filter active" data-filter="all">Ver Todas las Agendas</button>
+                    <button class="btn-filter" data-filter="Personalizadas">Agendas 100% Personalizadas</button>
+                    <button class="btn-filter" data-filter="Sencillas">Agendas Sencillas / Diarias</button>
+                    <button class="btn-filter" data-filter="Telefonicas">Agendas Telefónicas / Directorios</button>
+                </div>
+            </section>
+
+            <!-- REGIÓN DE ANUNCIO PARA ACCESIBILIDAD -->
+            <div aria-live="polite" class="visually-hidden" id="aria-announcer" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0);">Catálogo cargado.</div>
+
+            <!-- THE STATIONERY GRID -->
+            <div id="catalog-grid" class="card-grid" aria-label="Lista de agendas disponibles">
+                <!-- Se inyectan las tarjetas dinámicamente mediante JS -->
+            </div>
+
+        </main>
+        
+        <!-- FOOTER -->
+        <footer class="site-footer">
+            <p>&copy; 2026 Ciara Creativa. Taller Artesanal.</p>
+        </footer>
+
+    </div>
+
+    <!-- MODAL DE DETALLES DEL PRODUCTO -->
+    <div id="product-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+        <div class="modal-content">
+            <button id="close-modal" class="btn-close" aria-label="Cerrar detalles de la agenda">✕</button>
+            
+            <div class="modal-image-col">
+                <div id="modal-image-container" style="width: 100%; border-radius: 8px; overflow: hidden; background: white; box-shadow: var(--shadow-paper); border: 1px solid rgba(222, 143, 143, 0.2);">
+                    <!-- La imagen SVG se carga aquí -->
+                </div>
+            </div>
+            
+            <div class="modal-info-col">
+                <span id="modal-category" class="card-tag"></span>
+                <h3 id="modal-title" style="font-size: 2rem; color: var(--text-charcoal); line-height: 1.2;"></h3>
+                <p id="modal-price" class="card-price" style="font-size: 1.8rem; margin-top: 0; color: var(--rose-deep);"></p>
+                <p id="modal-desc" style="font-size: 1.1rem; line-height: 1.6; color: var(--text-pencil); margin-bottom: 2rem;"></p>
+                
+                <ul class="modal-specs">
+                    <li><strong>Tamaño:</strong> <span id="modal-size"></span></li>
+                    <li><strong>Gramaje y Papel:</strong> <span id="modal-paper"></span></li>
+                    <li><strong>Tipo de Anillado:</strong> <span id="modal-binding"></span></li>
+                    <li><strong>Cierre:</strong> <span id="modal-closure"></span></li>
+                    <li><strong>Extras Exclusivos:</strong> <span id="modal-extras"></span></li>
+                </ul>
+                
+                <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                    <a href="redes-contacto.html" class="btn-primary" id="btn-quote" style="flex: 1; text-align: center;">Consulta Express WhatsApp</a>
+                    <button class="btn-secondary" id="btn-wishlist" style="flex: 1;">♡ Añadir a Mi Lista</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script src="js/navigation.js"></script>
+    <script src="js/catalog-data.js"></script>
+    <script src="js/catalog-engine.js"></script>
+</body>
+</html>

@@ -1,0 +1,351 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Nunito:wght@300;400;600&family=Fira+Code:wght@400;500&display=swap');
+
+:root {
+    /* Paleta Cromática Base (Deep Forest & Botanical Silhouette) */
+    --bg-forest-deep: #0D1B12;
+    --bg-leaf-surface: #1B2F23;
+    --bg-moss: #2A4734;
+    --accent-sprout: #88C442;
+    --accent-spore: #D4A359;
+    --wood-bark: #2A1D15;
+    --wood-grain: #3D2B1F;
+    --border-leaf: #3D6A4E;
+    --text-light: #F0F4EC;
+    --text-muted: #A3BFA8;
+    --shadow-forest: 0 10px 30px rgba(5, 12, 8, 0.6);
+    --shadow-glow: 0 0 20px rgba(136, 196, 66, 0.3);
+
+    /* Tipografía */
+    --font-heading: 'Cormorant Garamond', serif;
+    --font-body: 'Nunito', sans-serif;
+    --font-mono: 'Fira Code', monospace;
+
+    /* Formas Orgánicas */
+    --leaf-radius: 60% 40% 70% 30% / 40% 70% 30% 60%;
+    --leaf-radius-alt: 40% 60% 30% 70% / 60% 30% 70% 40%;
+    --card-clip: polygon(2% 0%, 98% 3%, 100% 97%, 1% 99%);
+    --card-clip-alt: polygon(1% 2%, 99% 0%, 98% 98%, 0% 100%);
+    
+    /* Layout */
+    --sidebar-collapsed: 90px;
+    --sidebar-expanded: 280px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-forest-deep);
+    color: var(--text-light);
+    font-family: var(--font-body);
+    line-height: 1.6;
+    overflow-x: hidden;
+    display: flex;
+    min-height: 100vh;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    color: var(--accent-sprout);
+    margin-bottom: 1rem;
+}
+
+a {
+    color: var(--accent-sprout);
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+/* ==========================================================================
+   NAVEGACIÓN LATERAL (TRONCO)
+   ========================================================================== */
+
+#forest-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: var(--sidebar-collapsed);
+    height: 100vh;
+    background: linear-gradient(90deg, var(--wood-bark) 0%, var(--wood-grain) 50%, var(--wood-bark) 100%);
+    border-radius: 0 45% 35% 0 / 0 30% 70% 0;
+    box-shadow: var(--shadow-forest), 5px 0 15px rgba(0,0,0,0.8);
+    transition: width 0.6s cubic-bezier(0.25, 1, 0.5, 1), border-radius 0.6s ease;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    padding: 2rem 0;
+    overflow: hidden;
+    /* Textura de vetas simulada */
+    background-image: 
+        repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 10px,
+            rgba(0,0,0,0.1) 10px,
+            rgba(0,0,0,0.1) 20px
+        ),
+        linear-gradient(90deg, var(--wood-bark), var(--wood-grain), var(--wood-bark));
+}
+
+#forest-sidebar:hover, #forest-sidebar.expanded {
+    width: var(--sidebar-expanded);
+    border-radius: 0 15% 5% 0 / 0 10% 20% 0;
+}
+
+.sidebar-brand {
+    display: flex;
+    align-items: center;
+    padding: 0 1.5rem;
+    margin-bottom: 3rem;
+    cursor: pointer;
+}
+
+.totem-icon {
+    min-width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: var(--leaf-radius);
+    background: var(--bg-leaf-surface);
+    border: 2px solid var(--border-leaf);
+    color: var(--accent-sprout);
+    font-size: 1.5rem;
+    transition: transform 0.4s ease;
+}
+
+#forest-sidebar:hover .totem-icon {
+    transform: rotate(45deg);
+}
+
+.brand-text {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    color: var(--accent-spore);
+    white-space: nowrap;
+    opacity: 0;
+    transform: translateX(-20px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+    margin-left: 1rem;
+}
+
+#forest-sidebar:hover .brand-text, #forest-sidebar.expanded .brand-text {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 0 1.5rem;
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 0;
+    position: relative;
+    outline: none;
+}
+
+.nav-icon {
+    min-width: 40px;
+    display: flex;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: var(--text-muted);
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.nav-text {
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    white-space: nowrap;
+    opacity: 0;
+    transform: translateX(-20px);
+    transition: opacity 0.4s ease, transform 0.4s ease, color 0.3s ease;
+    margin-left: 1rem;
+    letter-spacing: 1px;
+    /* Estilo de grabado rústico */
+    text-shadow: -1px -1px 0 rgba(0,0,0,0.8), 1px 1px 0 rgba(255,255,255,0.1);
+}
+
+#forest-sidebar:hover .nav-text, #forest-sidebar.expanded .nav-text {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.nav-item:hover .nav-icon, .nav-item:focus .nav-icon {
+    color: var(--accent-sprout);
+    transform: scale(1.1);
+}
+
+.nav-item:hover .nav-text, .nav-item:focus .nav-text {
+    color: var(--accent-sprout);
+}
+
+.nav-item.active .nav-icon, .nav-item.active .nav-text {
+    color: var(--accent-spore);
+}
+
+/* ==========================================================================
+   ÁREA DE CONTENIDO PRINCIPAL
+   ========================================================================== */
+
+main {
+    flex: 1;
+    margin-left: var(--sidebar-collapsed);
+    padding: 4rem 2rem;
+    transition: margin-left 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+    width: calc(100% - var(--sidebar-collapsed));
+}
+
+@media (min-width: 1024px) {
+    main {
+        padding: 6rem 8rem;
+    }
+}
+
+/* ==========================================================================
+   ELEMENTOS ORGÁNICOS Y COMPONENTES
+   ========================================================================== */
+
+.leaf-container {
+    background: var(--bg-leaf-surface);
+    border-radius: var(--leaf-radius);
+    padding: 3rem;
+    border: 1px solid var(--border-leaf);
+    box-shadow: var(--shadow-forest);
+    transition: transform 0.5s ease, border-radius 0.5s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.leaf-container:hover {
+    transform: rotate(0.5deg) scale(1.01);
+    border-radius: var(--leaf-radius-alt);
+}
+
+.leaf-container::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: radial-gradient(circle at top right, rgba(136, 196, 66, 0.05), transparent 60%);
+    pointer-events: none;
+}
+
+.btn-organic {
+    display: inline-block;
+    background: var(--bg-moss);
+    color: var(--text-light);
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 1.2rem;
+    padding: 1rem 2.5rem;
+    border-radius: var(--leaf-radius);
+    border: 2px solid var(--border-leaf);
+    cursor: pointer;
+    transition: all 0.4s ease;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    outline: none;
+}
+
+.btn-organic:hover, .btn-organic:focus {
+    background: var(--bg-leaf-surface);
+    border-color: var(--accent-sprout);
+    color: var(--accent-sprout);
+    box-shadow: var(--shadow-glow);
+    transform: translateY(-3px) rotate(-1deg);
+}
+
+.card-polygon {
+    clip-path: var(--card-clip);
+    background: var(--bg-leaf-surface);
+    transition: clip-path 0.4s ease, transform 0.4s ease;
+}
+
+.card-polygon:hover {
+    clip-path: var(--card-clip-alt);
+    transform: translateY(-5px);
+}
+
+/* ==========================================================================
+   UTILIDADES
+   ========================================================================== */
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+/* Scrollbar Orgánico */
+::-webkit-scrollbar {
+    width: 10px;
+}
+::-webkit-scrollbar-track {
+    background: var(--bg-forest-deep);
+}
+::-webkit-scrollbar-thumb {
+    background: var(--bg-moss);
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--border-leaf);
+}
+
+/* ==========================================================================
+   RESPONSIVO
+   ========================================================================== */
+@media (max-width: 768px) {
+    #forest-sidebar {
+        width: 100%;
+        height: 60px;
+        flex-direction: row;
+        border-radius: 0 0 20px 20px;
+        padding: 0 1rem;
+        align-items: center;
+        justify-content: space-between;
+        background: linear-gradient(180deg, var(--wood-bark) 0%, var(--wood-grain) 50%, var(--wood-bark) 100%);
+    }
+
+    #forest-sidebar:hover, #forest-sidebar.expanded {
+        width: 100%;
+        height: auto;
+        border-radius: 0 0 20px 20px;
+    }
+    
+    .sidebar-brand {
+        margin-bottom: 0;
+        padding: 0;
+    }
+    
+    .sidebar-nav {
+        flex-direction: row;
+        padding: 0;
+        gap: 1rem;
+    }
+    
+    .nav-text {
+        display: none;
+    }
+    
+    main {
+        margin-left: 0;
+        width: 100%;
+        padding: 6rem 1.5rem 2rem 1.5rem;
+    }
+}

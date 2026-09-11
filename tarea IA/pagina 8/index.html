@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nintendo Accessory Archive - Evolución del Hardware</title>
+  <meta name="description" content="Informe enciclopédico sobre la evolución histórica y el ecosistema completo de periféricos y accesorios oficiales de Nintendo (1983 - Presente).">
+  
+  <!-- SEO & OpenGraph Meta Tags -->
+  <meta property="og:title" content="Nintendo Accessory Archive - Evolución del Hardware">
+  <meta property="og:description" content="Explora el archivo histórico de accesorios y periféricos oficiales de Nintendo, desde la NES hasta Nintendo Switch. Datos técnicos, juegos compatibles y análisis profundo.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Nintendo Peripheral Vault">
+  
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <!-- Global Header Container -->
+  <div id="global-header-container"></div>
+
+  <main>
+    <section class="hero-section">
+      <h2 class="hero-title">EVOLUCIÓN DEL HARDWARE: ACCESORIOS DE NINTENDO (1983 - PRESENTE)</h2>
+      <article class="manifesto-box nintendo-box">
+        <p>Análisis sobre cómo Nintendo utilizó los periféricos no como meros añadidos cosméticos, sino como extensiones tecnológicas vitales para la interacción humana. Desde superar las severas limitaciones de memoria de sus consolas tempranas (Expansion Pak), transformar el paradigma de las interfaces (sensores de movimiento 1:1, captura visual portátil), hasta estandarizar el control competitivo que rige el medio en la actualidad.</p>
+        <p>Cada accesorio documentado aquí alteró el curso de sus plataformas y redefinió mecánicas en franquicias legendarias como <em>The Legend of Zelda</em>, <em>Super Mario</em> o <em>Pokémon</em>.</p>
+      </article>
+    </section>
+
+    <!-- Interactive Search -->
+    <div class="search-container">
+      <input type="text" id="timeline-search" class="search-input" placeholder="Buscar por accesorio, consola, o año..." aria-label="Buscador en línea de tiempo evolutiva" aria-controls="timeline-container">
+    </div>
+
+    <!-- Timeline Data Render -->
+    <section class="timeline-section" id="timeline-container" aria-live="polite">
+      <!-- El motor timeline-engine.js inyectará dinámicamente las fichas enciclopédicas aquí -->
+      <noscript>
+        <div class="nintendo-box">
+          <p style="color: var(--text-accent-yellow);">El informe enciclopédico requiere JavaScript para su renderizado y filtrado dinámico. Por favor actívalo en tu navegador.</p>
+        </div>
+      </noscript>
+    </section>
+  </main>
+
+  <!-- Global Footer -->
+  <footer style="background-color: var(--nav-black); padding: 2rem; text-align: center; color: var(--text-on-nav); border-top: 2px solid var(--nav-border); font-family: var(--font-body); margin-top: auto;">
+    <p><strong>NINTENDO PERIPHERAL VAULT</strong> // Hardware & Accessories Archive &copy; 2026</p>
+    <p style="font-size: 0.85rem; margin-top: 0.5rem; color: #A0A0A0;">Construido con HTML5 Semántico, CSS3 Vanilla y JS ES6. Cero dependencias externas. Optimizado para accesibilidad WCAG AA.</p>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script type="module" src="js/timeline-engine.js"></script>
+</body>
+</html>

@@ -1,0 +1,526 @@
+/* css/styles.css - Design System "ROYAL TROPHY ROOM & OBSIDIAN MARBLE" */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;800;900&family=Outfit:wght@300;400;500;600;700&family=Fira+Code:wght@400;600&display=swap');
+
+:root {
+    /* Paleta Cromática Base */
+    --bg-vault: #0B0D11;
+    --bg-pedestal: #161922;
+    --bg-glass: #1E2330;
+    --border-metal: #2F364A;
+    
+    --gold-trophy: #FFD034;
+    --gold-sheen: #FFF1A8;
+    --gold-shadow: #B8860B;
+    
+    --metal-silver: #E2E8F0;
+    --metal-bronze: #CD7F32;
+    --metal-platinum: #E5E4E2;
+    
+    --text-pure: #F8FAFC;
+    --text-muted: #CBD5E1;
+    
+    --glow-victory: 0 0 25px rgba(255, 208, 52, 0.35);
+    --shadow-pedestal: 0 12px 32px rgba(0, 0, 0, 0.7);
+    
+    /* Tipografía */
+    --font-heading: 'Cinzel', serif;
+    --font-body: 'Outfit', sans-serif;
+    --font-mono: 'Fira Code', monospace;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-vault);
+    color: var(--text-pure);
+    font-family: var(--font-body);
+    /* Textura sutil y fondo radial */
+    background-image: 
+        radial-gradient(circle at 50% 0%, rgba(255, 208, 52, 0.08) 0%, transparent 60%),
+        url('data:image/svg+xml;utf8,<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23noise)" opacity="0.04"/></svg>');
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+h1, h2, h3, h4, h5, h6, .cinzel {
+    font-family: var(--font-heading);
+}
+
+/* ==========================================================================
+   HEADER & NAVIGATION
+   ========================================================================== */
+.vault-header {
+    text-align: center;
+    padding: 2.5rem 1rem 0;
+    border-bottom: 2px solid var(--border-metal);
+    background: linear-gradient(180deg, rgba(22, 25, 34, 0.95) 0%, rgba(11, 13, 17, 0.95) 100%);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.8);
+    position: relative;
+    z-index: 100;
+}
+
+.laurel-wreath {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto 1.5rem;
+    background: linear-gradient(135deg, var(--gold-sheen), var(--gold-trophy));
+    /* Forma abstracta de laurel/gema */
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    box-shadow: var(--glow-victory);
+}
+
+.laurel-wreath::after {
+    content: '';
+    position: absolute;
+    inset: 3px;
+    background: var(--bg-vault);
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+}
+
+.laurel-wreath::before {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: var(--gold-trophy);
+    clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+    z-index: 2;
+}
+
+.heraldic-title {
+    font-size: 2.2rem;
+    color: var(--gold-trophy);
+    text-shadow: 0 0 15px rgba(255, 208, 52, 0.4);
+    letter-spacing: 3px;
+    margin-bottom: 2rem;
+    text-transform: uppercase;
+    font-weight: 800;
+}
+
+.vault-nav {
+    display: flex;
+    justify-content: center;
+    padding-bottom: 0;
+}
+
+.vault-nav ul {
+    list-style: none;
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.nav-tab {
+    display: inline-block;
+    padding: 1rem 2rem;
+    text-decoration: none;
+    color: var(--text-muted);
+    font-family: var(--font-heading);
+    font-weight: 600;
+    border: 1px solid transparent;
+    border-bottom: 3px solid transparent;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    text-transform: uppercase;
+    font-size: 0.95rem;
+    letter-spacing: 1.5px;
+    position: relative;
+    overflow: hidden;
+}
+
+.nav-tab:hover, .nav-tab:focus {
+    color: var(--gold-sheen);
+    background: rgba(255, 208, 52, 0.05);
+}
+
+.nav-tab.active {
+    color: var(--gold-trophy);
+    border-bottom: 3px solid var(--gold-trophy);
+    background: linear-gradient(0deg, rgba(255,208,52,0.15) 0%, transparent 100%);
+    text-shadow: 0 0 8px rgba(255, 208, 52, 0.5);
+}
+
+/* ==========================================================================
+   MAIN CONTENT AREA
+   ========================================================================== */
+main {
+    flex: 1;
+    padding: 4rem 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+/* ==========================================================================
+   THE CHALICE FORM (TROPHY SHAPED CONTAINER)
+   ========================================================================== */
+.chalice-container {
+    width: 100%;
+    max-width: 650px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    filter: drop-shadow(0 20px 40px rgba(0,0,0,0.9));
+}
+
+/* Parte Superior (Copa / Cáliz) */
+.cup-top {
+    width: 100%;
+    background: linear-gradient(135deg, var(--gold-sheen) 0%, var(--gold-trophy) 50%, var(--gold-shadow) 100%);
+    padding: 4px;
+    clip-path: polygon(0 0, 100% 0, 85% 100%, 15% 100%);
+    margin-bottom: -2px;
+}
+
+.cup-top-inner {
+    background: var(--bg-pedestal);
+    background-image: linear-gradient(180deg, rgba(255,255,255,0.03) 0%, transparent 100%);
+    padding: 3.5rem 3rem 2rem;
+    clip-path: polygon(0 0, 100% 0, 85% 100%, 15% 100%);
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    align-items: center;
+}
+
+/* Parte Media (Fuste / Nudo) */
+.cup-stem {
+    width: 50%;
+    background: linear-gradient(90deg, var(--gold-shadow) 0%, var(--gold-trophy) 50%, var(--gold-shadow) 100%);
+    padding: 0 4px;
+    clip-path: polygon(10% 0, 90% 0, 100% 50%, 90% 100%, 10% 100%, 0 50%);
+    margin-bottom: -5px;
+    z-index: 1;
+}
+
+.cup-stem-inner {
+    background: var(--bg-glass);
+    padding: 2.5rem 1.5rem;
+    clip-path: polygon(10% 0, 90% 0, 100% 50%, 90% 100%, 10% 100%, 0 50%);
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    align-items: center;
+}
+
+/* Parte Inferior (Pedestal de Mármol) */
+.pedestal-base {
+    width: 95%;
+    background: linear-gradient(to bottom, #2a2d36, var(--bg-pedestal));
+    padding: 2.5rem 2.5rem 3.5rem;
+    border-top: 6px solid var(--gold-trophy);
+    border-radius: 4px 4px 16px 16px;
+    box-shadow: inset 0 8px 20px rgba(0,0,0,0.9), var(--shadow-pedestal);
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    position: relative;
+    border-left: 2px solid rgba(255,255,255,0.05);
+    border-right: 2px solid rgba(0,0,0,0.5);
+}
+
+.pedestal-base::after {
+    content: '';
+    position: absolute;
+    bottom: -20px;
+    left: 5%;
+    width: 90%;
+    height: 40px;
+    background: rgba(0,0,0,0.8);
+    filter: blur(15px);
+    z-index: -1;
+}
+
+/* ==========================================================================
+   FORM CONTROLS & ENGRAVED PLATES
+   ========================================================================== */
+.form-group {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+label {
+    font-family: var(--font-heading);
+    font-size: 0.9rem;
+    color: var(--gold-sheen);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    text-align: center;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+}
+
+.engraved-input, .engraved-textarea, .engraved-select {
+    width: 100%;
+    background: linear-gradient(145deg, #0e1015, #161921);
+    border: 1px solid var(--border-metal);
+    color: var(--gold-sheen);
+    font-family: var(--font-body);
+    font-size: 1.1rem;
+    padding: 1rem 1.25rem;
+    border-radius: 4px;
+    box-shadow: inset 3px 3px 8px rgba(0,0,0,0.8), inset -1px -1px 4px rgba(255,255,255,0.05);
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.engraved-input::placeholder, .engraved-textarea::placeholder {
+    color: rgba(203, 213, 225, 0.3);
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+}
+
+.engraved-input:focus, .engraved-textarea:focus, .engraved-select:focus {
+    outline: none;
+    border-color: var(--gold-trophy);
+    box-shadow: inset 3px 3px 8px rgba(0,0,0,0.8), 0 0 15px rgba(255, 208, 52, 0.25);
+    background: linear-gradient(145deg, #101218, #1a1e28);
+}
+
+.engraved-textarea {
+    min-height: 120px;
+    resize: vertical;
+    text-align: left;
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+/* ==========================================================================
+   BUTTONS & MEDALLIONS
+   ========================================================================== */
+.medallion-group {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 0.5rem;
+}
+
+.btn-medallion {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 3px solid rgba(0,0,0,0.5);
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.6);
+}
+
+.btn-medallion[data-level="platinum"] { background: radial-gradient(circle at 30% 30%, #ffffff, var(--metal-platinum), #a9a9a9); color: #1e2330; }
+.btn-medallion[data-level="gold"] { background: radial-gradient(circle at 30% 30%, var(--gold-sheen), var(--gold-trophy), var(--gold-shadow)); color: #1e2330; }
+.btn-medallion[data-level="silver"] { background: radial-gradient(circle at 30% 30%, #ffffff, var(--metal-silver), #808080); color: #1e2330; }
+.btn-medallion[data-level="bronze"] { background: radial-gradient(circle at 30% 30%, #ffcda5, var(--metal-bronze), #8b4513); color: #1e2330; }
+
+.btn-medallion::after {
+    content: '';
+    position: absolute;
+    inset: 2px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.4);
+}
+
+.btn-medallion.selected, .btn-medallion:hover {
+    transform: scale(1.15) translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.7), 0 0 15px currentColor;
+    border-color: #fff;
+}
+
+.btn-gold {
+    background: linear-gradient(135deg, var(--gold-sheen) 0%, var(--gold-trophy) 50%, var(--gold-shadow) 100%);
+    color: var(--bg-vault);
+    font-family: var(--font-heading);
+    font-weight: 900;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    padding: 1.25rem 2rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    box-shadow: 0 6px 20px rgba(255, 208, 52, 0.3), inset 0 2px 0 rgba(255,255,255,0.5);
+    transition: all 0.3s ease;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    margin-top: 1rem;
+}
+
+.btn-gold::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(rgba(255,255,255,0.2) 0%, transparent 50%, rgba(0,0,0,0.2) 100%);
+}
+
+.btn-gold::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(to right, transparent, rgba(255,255,255,0.6), transparent);
+    transform: rotate(45deg);
+    animation: goldShine 4s infinite;
+}
+
+@keyframes goldShine {
+    0% { left: -100%; }
+    20% { left: 100%; }
+    100% { left: 100%; }
+}
+
+.btn-gold:hover, .btn-gold:focus {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(255, 208, 52, 0.4), var(--glow-victory);
+    outline: none;
+}
+
+.btn-gold:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 10px rgba(255, 208, 52, 0.3);
+}
+
+.btn-action {
+    background: transparent;
+    color: var(--gold-sheen);
+    border: 1px solid var(--gold-trophy);
+    padding: 0.75rem 1.5rem;
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    justify-content: center;
+    width: 100%;
+}
+
+.btn-action:hover, .btn-action:focus {
+    background: rgba(255, 208, 52, 0.1);
+    box-shadow: 0 0 15px rgba(255, 208, 52, 0.2);
+    outline: none;
+}
+
+.btn-action svg {
+    fill: currentColor;
+    width: 18px;
+    height: 18px;
+}
+
+/* ==========================================================================
+   FOOTER
+   ========================================================================== */
+.vault-footer {
+    text-align: center;
+    padding: 3rem 1rem;
+    border-top: 1px solid var(--border-metal);
+    margin-top: auto;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    background: rgba(11, 13, 17, 0.8);
+    position: relative;
+    z-index: 10;
+}
+
+/* ==========================================================================
+   UTILITY CLASSES & HELPERS
+   ========================================================================== */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+.hero-section {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.hero-title {
+    font-size: 2.5rem;
+    color: var(--text-pure);
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.hero-subtitle {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN
+   ========================================================================== */
+@media (max-width: 768px) {
+    .heraldic-title {
+        font-size: 1.5rem;
+    }
+    
+    .nav-tab {
+        padding: 0.75rem 1rem;
+        font-size: 0.85rem;
+    }
+    
+    .hero-title {
+        font-size: 1.8rem;
+    }
+    
+    .cup-top {
+        clip-path: polygon(0 0, 100% 0, 95% 100%, 5% 100%);
+    }
+    
+    .cup-top-inner {
+        clip-path: polygon(0 0, 100% 0, 95% 100%, 5% 100%);
+        padding: 2.5rem 1.5rem 1.5rem;
+    }
+    
+    .cup-stem {
+        width: 70%;
+    }
+    
+    .pedestal-base {
+        width: 100%;
+        padding: 2rem 1.5rem;
+    }
+    
+    .btn-medallion {
+        width: 50px;
+        height: 50px;
+        font-size: 0.7rem;
+    }
+}

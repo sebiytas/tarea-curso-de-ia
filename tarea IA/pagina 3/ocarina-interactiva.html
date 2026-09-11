@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cámara de la Ocarina | Ocarina of Time Archive</title>
+    <meta name="description" content="Toca la Ocarina del Tiempo en tu navegador web. Resuelve melodías clásicas para revelar el gran secreto.">
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .ocarina-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+            margin: 3rem 0;
+            position: relative;
+        }
+
+        .controls-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 1.5rem;
+            max-width: 700px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .pentagram-container {
+            width: 100%;
+            height: 120px;
+            background-color: var(--bg-temple);
+            border: 1px solid var(--gold-dark);
+            border-radius: 8px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.8);
+            margin-bottom: 2rem;
+        }
+
+        .pentagram-lines {
+            position: absolute;
+            width: 100%;
+            height: 60%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            z-index: 1;
+            opacity: 0.2;
+        }
+
+        .pentagram-lines div {
+            height: 2px;
+            background-color: var(--gold-primary);
+            width: 100%;
+        }
+
+        #note-display {
+            z-index: 2;
+            font-size: 3.5rem;
+            color: var(--gold-bright);
+            font-family: var(--font-heading);
+            text-shadow: var(--glow-gold);
+            letter-spacing: 15px;
+            margin-left: 15px; /* Compensa la letra espaciada */
+        }
+
+        .song-list {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .song-item {
+            padding: 1.2rem;
+            border: 1px solid var(--gold-dark);
+            border-radius: 6px;
+            background-color: rgba(20, 20, 24, 0.8);
+            transition: var(--transition-smooth);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .song-item.unlocked {
+            border-color: var(--gold-bright);
+            background-color: rgba(230, 184, 0, 0.15);
+            box-shadow: 0 0 15px rgba(230, 184, 0, 0.3);
+        }
+
+        .song-item.unlocked::after {
+            content: '⭐';
+            font-size: 1.8rem;
+            filter: drop-shadow(0 0 5px var(--gold-bright));
+        }
+
+        .song-notes {
+            font-family: var(--font-mono);
+            font-size: 1rem;
+            color: var(--text-muted);
+            margin-top: 5px;
+            letter-spacing: 2px;
+        }
+
+        /* Modal Regalito */
+        #secret-modal {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(10, 10, 11, 0.98); /* Obsidiana con transparencia muy leve */
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 1s ease;
+        }
+
+        #secret-modal.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .chest {
+            font-size: 10rem;
+            cursor: pointer;
+            transition: transform 0.3s;
+            animation: float 3s ease-in-out infinite;
+            user-select: none;
+        }
+
+        .chest:hover {
+            transform: scale(1.1);
+            filter: drop-shadow(0 0 40px var(--gold-bright));
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-25px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .reward-content {
+            display: none;
+            text-align: center;
+            max-width: 600px;
+            padding: 2rem;
+        }
+
+        .reward-content.visible {
+            display: block;
+            animation: fadeIn 2s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .triforce-badge {
+            width: 180px;
+            height: 180px;
+            margin: 2rem auto;
+            fill: var(--gold-bright);
+            filter: drop-shadow(0 0 30px var(--gold-primary));
+        }
+
+        /* Particulas */
+        .particle {
+            position: absolute;
+            background-color: var(--gold-bright);
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            pointer-events: none;
+            opacity: 0;
+            box-shadow: 0 0 10px var(--gold-bright);
+        }
+
+        @keyframes explode {
+            0% { transform: scale(1) translate(0, 0); opacity: 1; }
+            100% { transform: scale(0) translate(var(--tx), var(--ty)); opacity: 0; }
+        }
+        
+        @media (max-width: 768px) {
+            .controls-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            .controls-grid button:nth-child(4) { grid-column: span 1; }
+            .controls-grid button:nth-child(5) { grid-column: span 2; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header injected dynamically via js/main.js -->
+
+    <main>
+        <section style="text-align: center; margin-bottom: 2rem;">
+            <h1 style="font-size: 2.8rem; margin-bottom: 1rem;">Cámara de la <span class="text-gold">Ocarina</span></h1>
+            <p class="text-muted" style="max-width: 800px; margin: 0 auto; font-size: 1.1rem;">Interpreta las melodías legendarias utilizando tu teclado físico o los botones de interfaz. Sintoniza las notas correctas en la Web Audio API para desbloquear el sello y reclamar el tesoro custodiado por las Diosas.</p>
+        </section>
+
+        <section class="ocarina-container">
+            <div class="pentagram-container">
+                <div class="pentagram-lines" aria-hidden="true">
+                    <div></div><div></div><div></div><div></div><div></div>
+                </div>
+                <div id="note-display" aria-live="polite"></div>
+            </div>
+
+            <!-- Botones representativos -->
+            <div class="controls-grid">
+                <button class="ocarina-btn" id="btn-up" data-note="up" aria-keyshortcuts="ArrowUp D" title="Nota Fa Agudo">
+                    <span>▲</span>
+                    <span class="key-label">[ D / ↑ ]</span>
+                </button>
+                <button class="ocarina-btn" id="btn-left" data-note="left" aria-keyshortcuts="ArrowLeft S" title="Nota Si">
+                    <span>◀</span>
+                    <span class="key-label">[ S / ← ]</span>
+                </button>
+                <button class="ocarina-btn" id="btn-right" data-note="right" aria-keyshortcuts="ArrowRight F" title="Nota La">
+                    <span>▶</span>
+                    <span class="key-label">[ F / → ]</span>
+                </button>
+                <button class="ocarina-btn" id="btn-down" data-note="down" aria-keyshortcuts="ArrowDown C" title="Nota Fa Grave">
+                    <span>▼</span>
+                    <span class="key-label">[ C / ↓ ]</span>
+                </button>
+                <button class="ocarina-btn" id="btn-a" data-note="a" aria-keyshortcuts="A Space" title="Nota Re">
+                    <span>A</span>
+                    <span class="key-label">[ A / Espacio ]</span>
+                </button>
+            </div>
+            
+            <div style="margin-top: 2rem; margin-bottom: 2rem;">
+                <button id="btn-secret" class="ocarina-btn" style="font-size: 0.9rem; border-color: rgba(230,184,0,0.3); color: var(--text-muted); background: transparent; padding: 5px 15px; border-radius: 4px;">[ INVOCAR EL PODER DE LAS DIOSAS (Bypass) ]</button>
+            </div>
+        </section>
+
+        <section class="cancionero-section">
+            <h2 style="font-size: 2rem; margin-bottom: 2rem; color: var(--gold-bright); text-align: center; border-bottom: 1px solid var(--gold-dark); padding-bottom: 1rem;">Cancionero de Hyrule</h2>
+            <ul class="song-list" id="song-list" aria-live="polite">
+                <!-- Inyectado dinámicamente por js/ocarina-engine.js -->
+            </ul>
+        </section>
+    </main>
+
+    <!-- Modal Regalito -->
+    <div id="secret-modal" aria-hidden="true" role="dialog" aria-modal="true">
+        <div id="chest-container" class="chest" title="Haz clic para abrir">🧰</div>
+        
+        <div id="reward-content" class="reward-content">
+            <h2 style="font-size: 3rem; color: var(--gold-bright); margin-bottom: 1rem; font-family: var(--font-heading);">¡El Sello se ha roto!</h2>
+            <p style="font-size: 1.2rem; color: var(--text-bright); margin-bottom: 2rem;">Has superado la prueba de las Diosas de Oro, valiente Héroe del Tiempo.</p>
+            
+            <svg class="triforce-badge" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-label="Insignia de la Trifuerza">
+                <polygon points="50,10 72.5,45 27.5,45" />
+                <polygon points="27.5,45 50,85 5,85" />
+                <polygon points="72.5,45 95,85 50,85" />
+            </svg>
+            
+            <div style="background-color: var(--bg-surface); padding: 2rem; border: 1px solid var(--gold-primary); border-radius: 8px; text-align: left; margin-top: 2rem;">
+                <h3 style="color: var(--gold-bright); margin-bottom: 1rem; font-family: var(--font-heading);">Archivos Secretos (Beta de 1997)</h3>
+                <ul style="color: var(--text-muted); line-height: 1.8; list-style-position: inside;">
+                    <li>Originalmente, Ocarina of Time estaba diseñado para transcurrir íntegramente dentro del Castillo de Ganon, adoptando una estructura de portales pictóricos (similar a <em>Super Mario 64</em>).</li>
+                    <li>Shigeru Miyamoto propuso que el juego fuese en Primera Persona (FPS), pero la idea fue desechada por Koizumi, argumentando que el jugador necesitaba ver a Link para notar los cambios físicos al viajar en el tiempo.</li>
+                    <li>El Medallón de Luz originalmente no era solo un ítem pasivo, sino un hechizo mágico activo que permitía a Link transformarse en una esfera de luz (similar a Navi) para volar.</li>
+                </ul>
+                <div style="margin-top: 2.5rem; text-align: center;">
+                    <button class="ocarina-btn" onclick="document.getElementById('secret-modal').classList.remove('active'); return false;" style="display: inline-block; margin: 0 auto;">CERRAR Y VOLVER AL ARCHIVO</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/main.js"></script>
+    <script src="js/audio-synth.js"></script>
+    <script src="js/ocarina-engine.js"></script>
+</body>
+</html>

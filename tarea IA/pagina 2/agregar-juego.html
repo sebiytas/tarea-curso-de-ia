@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>REGISTRO DE TÍTULO // VAULT2000</title>
+  
+  <link rel="stylesheet" href="css/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=VT323&family=Trebuchet+MS:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- ================= ENCABEZADO Y NAVEGACIÓN ================= -->
+  <header class="global-header">
+    <div class="banner-bios">
+      <div>
+        <span>VAULT2000</span>
+        <br>
+        <span style="font-size: 1rem; color: var(--text-main);">// INPUT_INTERFACE V1.0</span>
+      </div>
+      <div class="sys-info">
+        SYS_MEM: OK | LOCAL_DB: ACTIVE
+      </div>
+    </div>
+  </header>
+
+  <nav class="global-nav" aria-label="Menú principal">
+    <ul class="nav-menu">
+      <li class="nav-item">
+        <a href="index.html" class="nav-link">[ ARCHIVO / DASHBOARD ]</a>
+      </li>
+      <li class="nav-item is-active">
+        <a href="#" class="nav-link" aria-haspopup="true" aria-expanded="false" aria-controls="menu-gestion">[ GESTIÓN DE JUEGOS ] ▼</a>
+        <ul id="menu-gestion" class="submenu" aria-label="Submenú Gestión de Juegos">
+          <li class="submenu-item"><a href="agregar-juego.html" class="submenu-link">Registrar Nuevo Título</a></li>
+        </ul>
+      </li>
+      <li class="nav-item">
+        <a href="decision-matrix.html" class="nav-link">[ ORÁCULO DE DECISIÓN ]</a>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- ================= CONTENIDO PRINCIPAL ================= -->
+  <main style="padding: var(--spacing-md); max-width: 800px; margin: 0 auto; width: 100%;">
+    
+    <section class="y2k-window">
+      <div class="y2k-window-header">
+        <h2>PANEL DE INSERCIÓN MANUAL</h2>
+        <span>[NEW_ENTRY]</span>
+      </div>
+      <div class="y2k-window-content">
+        
+        <!-- Mensaje de Confirmación -->
+        <div id="sys-message" style="display: none; background: var(--status-cleared); color: var(--bg-main); padding: var(--spacing-sm); margin-bottom: var(--spacing-md); font-family: var(--font-display); font-size: 1.2rem; text-align: center; border: 2px solid #FFF;">
+          DATA_SAVED_SUCCESSFULLY
+        </div>
+
+        <form id="form-add-game" style="display: flex; flex-direction: column; gap: var(--spacing-md);">
+          
+          <!-- Nombre del Juego -->
+          <div style="display: flex; flex-direction: column; gap: var(--spacing-xs);">
+            <label for="title" style="font-family: var(--font-display); color: var(--accent-cyan); font-size: 1.2rem;">&gt; DESIGNACIÓN DEL SOFTWARE (TÍTULO):</label>
+            <input type="text" id="title" name="title" required autocomplete="off" style="padding: var(--spacing-sm); background: var(--bg-main); border: 2px inset var(--border-shadow); color: var(--text-main); font-family: var(--font-ui); font-size: 1.1rem;">
+          </div>
+
+          <!-- Plataforma -->
+          <div style="display: flex; flex-direction: column; gap: var(--spacing-xs);">
+            <label for="platform" style="font-family: var(--font-display); color: var(--accent-cyan); font-size: 1.2rem;">&gt; ARQUITECTURA DE HARDWARE (PLATAFORMA):</label>
+            <select id="platform" name="platform" required style="padding: var(--spacing-sm); background: var(--bg-main); border: 2px inset var(--border-shadow); color: var(--text-main); font-family: var(--font-ui); font-size: 1.1rem; appearance: none;">
+              <option value="" disabled selected>[ SELECCIONE UNA PLATAFORMA ]</option>
+              <optgroup label="Mobile Core">
+                <option value="Android">Android</option>
+                <option value="iOS">iOS</option>
+              </optgroup>
+              <optgroup label="PC Station">
+                <option value="PC">PC (Windows/Linux/Mac)</option>
+              </optgroup>
+              <optgroup label="PlayStation Vault">
+                <option value="PS1">PlayStation 1</option>
+                <option value="PS2">PlayStation 2</option>
+                <option value="PS3">PlayStation 3</option>
+                <option value="PS4">PlayStation 4</option>
+                <option value="PS5">PlayStation 5</option>
+                <option value="PSP">PSP</option>
+                <option value="PS Vita">PS Vita</option>
+              </optgroup>
+              <optgroup label="Dual Screen Archive">
+                <option value="Nintendo DS">Nintendo DS</option>
+                <option value="3DS">Nintendo 3DS</option>
+              </optgroup>
+            </select>
+          </div>
+
+          <!-- Estado Inicial -->
+          <div style="display: flex; flex-direction: column; gap: var(--spacing-xs);">
+            <label style="font-family: var(--font-display); color: var(--accent-cyan); font-size: 1.2rem;">&gt; ESTADO OPERATIVO INICIAL:</label>
+            <div style="display: flex; gap: var(--spacing-md); flex-wrap: wrap; background: var(--bg-main); padding: var(--spacing-sm); border: 2px inset var(--border-shadow);">
+              <label style="cursor: pointer; display: flex; align-items: center; gap: 8px;">
+                <input type="radio" name="status" value="backlog" required>
+                <span style="color: var(--status-backlog);">[ NO EMPEZADO ]</span>
+              </label>
+              <label style="cursor: pointer; display: flex; align-items: center; gap: 8px;">
+                <input type="radio" name="status" value="playing" required>
+                <span style="color: var(--status-playing);">[ EN PROGRESO ]</span>
+              </label>
+              <label style="cursor: pointer; display: flex; align-items: center; gap: 8px;">
+                <input type="radio" name="status" value="cleared" required>
+                <span style="color: var(--status-cleared);">[ TERMINADO ]</span>
+              </label>
+            </div>
+          </div>
+
+          <hr style="border-color: var(--border-shadow); margin: var(--spacing-sm) 0;">
+
+          <!-- ATRIBUTOS PARA EL ORÁCULO -->
+          <div style="font-family: var(--font-display); color: var(--text-muted); font-size: 1rem; margin-bottom: -10px;">--- PARÁMETROS DEL ORÁCULO DE DECISIÓN ---</div>
+
+          <!-- Género -->
+          <div style="display: flex; flex-direction: column; gap: var(--spacing-xs);">
+            <label for="genre" style="font-family: var(--font-display); color: var(--accent-cyan); font-size: 1.2rem;">&gt; GÉNERO ESTRUCTURAL:</label>
+            <select id="genre" name="genre" required style="padding: var(--spacing-sm); background: var(--bg-main); border: 2px inset var(--border-shadow); color: var(--text-main); font-family: var(--font-ui); font-size: 1.1rem; appearance: none;">
+              <option value="" disabled selected>[ SELECCIONE UN GÉNERO ]</option>
+              <option value="Acción">Acción</option>
+              <option value="RPG">RPG</option>
+              <option value="Estrategia">Estrategia</option>
+              <option value="Aventura">Aventura</option>
+              <option value="Puzzle">Puzzle</option>
+              <option value="Carreras">Carreras</option>
+              <option value="Lucha">Lucha</option>
+            </select>
+          </div>
+
+          <!-- Ritmo -->
+          <div style="display: flex; flex-direction: column; gap: var(--spacing-xs);">
+            <label for="pace" style="font-family: var(--font-display); color: var(--accent-cyan); font-size: 1.2rem;">&gt; FRECUENCIA DE RITMO:</label>
+            <select id="pace" name="pace" required style="padding: var(--spacing-sm); background: var(--bg-main); border: 2px inset var(--border-shadow); color: var(--text-main); font-family: var(--font-ui); font-size: 1.1rem; appearance: none;">
+              <option value="" disabled selected>[ SELECCIONE EL RITMO ]</option>
+              <option value="Frenético">Frenético (Alta intensidad)</option>
+              <option value="Estratégico">Estratégico (Requiere análisis)</option>
+              <option value="Relajado">Relajado / Cozy (Baja presión)</option>
+              <option value="Narrativo">Narrativo (Enfoque en historia)</option>
+            </select>
+          </div>
+
+          <!-- Duración -->
+          <div style="display: flex; flex-direction: column; gap: var(--spacing-xs);">
+            <label for="duration" style="font-family: var(--font-display); color: var(--accent-cyan); font-size: 1.2rem;">&gt; ESTIMACIÓN DE TIEMPO (DURACIÓN):</label>
+            <select id="duration" name="duration" required style="padding: var(--spacing-sm); background: var(--bg-main); border: 2px inset var(--border-shadow); color: var(--text-main); font-family: var(--font-ui); font-size: 1.1rem; appearance: none;">
+              <option value="" disabled selected>[ SELECCIONE UNA DURACIÓN ]</option>
+              <option value="Corto">Corto (< 5 horas)</option>
+              <option value="Medio">Medio (5 - 20 horas)</option>
+              <option value="Largo">Largo (> 20 horas)</option>
+            </select>
+          </div>
+
+          <div style="margin-top: var(--spacing-md); text-align: right;">
+            <button type="submit" class="y2k-button primary" style="font-size: 1.5rem; padding: var(--spacing-md) var(--spacing-xl); width: 100%;">
+              GRABAR EN MEMORIA LOCAL
+            </button>
+          </div>
+
+        </form>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="js/navigation.js"></script>
+  <script src="js/storage-engine.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const form = document.getElementById('form-add-game');
+      const sysMessage = document.getElementById('sys-message');
+
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        
+        // Obtener datos del formulario
+        const formData = new FormData(form);
+        const gameData = {
+          title: formData.get('title').trim(),
+          platform: formData.get('platform'),
+          status: formData.get('status'),
+          genre: formData.get('genre'),
+          pace: formData.get('pace'),
+          duration: formData.get('duration')
+        };
+
+        // Guardar usando el StorageEngine
+        StorageEngine.saveGame(gameData);
+
+        // Mostrar confirmación visual estilo terminal
+        sysMessage.style.display = 'block';
+        form.reset();
+
+        // Ocultar mensaje después de unos segundos
+        setTimeout(() => {
+          sysMessage.style.display = 'none';
+        }, 3000);
+      });
+    });
+  </script>
+</body>
+</html>

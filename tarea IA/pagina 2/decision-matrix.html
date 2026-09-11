@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ORÁCULO DE DECISIÓN // VAULT2000</title>
+  
+  <link rel="stylesheet" href="css/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=VT323&family=Trebuchet+MS:wght@400;700&display=swap" rel="stylesheet">
+  
+  <style>
+    /* Estilos específicos del Oráculo */
+    .wizard-step {
+      display: none;
+    }
+    .wizard-step.active {
+      display: block;
+    }
+    .wizard-option {
+      display: block;
+      padding: var(--spacing-md);
+      margin-bottom: var(--spacing-sm);
+      background: var(--bg-main);
+      border: 2px inset var(--border-shadow);
+      cursor: pointer;
+      color: var(--text-main);
+      font-family: var(--font-ui);
+      font-size: 1.1rem;
+    }
+    .wizard-option:hover {
+      background: var(--bg-panel);
+      border-color: var(--border-highlight);
+    }
+    .wizard-option input[type="radio"] {
+      display: none;
+    }
+    .wizard-option.selected {
+      background: var(--accent-blue);
+      color: var(--text-main);
+      border-color: var(--accent-cyan);
+      font-weight: bold;
+    }
+    .progress-segments {
+      display: flex;
+      gap: 5px;
+      margin-bottom: var(--spacing-lg);
+    }
+    .progress-segment {
+      flex: 1;
+      height: 10px;
+      background: var(--bg-main);
+      border: 1px solid var(--border-shadow);
+    }
+    .progress-segment.filled {
+      background: var(--accent-cyan);
+      border-color: var(--text-main);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ================= ENCABEZADO Y NAVEGACIÓN ================= -->
+  <header class="global-header">
+    <div class="banner-bios">
+      <div>
+        <span>VAULT2000</span>
+        <br>
+        <span style="font-size: 1rem; color: var(--text-main);">// DECISION MATRIX V1.0</span>
+      </div>
+      <div class="sys-info">
+        SYS_MEM: OK | LOCAL_DB: ACTIVE
+      </div>
+    </div>
+  </header>
+
+  <nav class="global-nav" aria-label="Menú principal">
+    <ul class="nav-menu">
+      <li class="nav-item">
+        <a href="index.html" class="nav-link">[ ARCHIVO / DASHBOARD ]</a>
+      </li>
+      <li class="nav-item">
+        <a href="#" class="nav-link" aria-haspopup="true" aria-expanded="false" aria-controls="menu-gestion">[ GESTIÓN DE JUEGOS ] ▼</a>
+        <ul id="menu-gestion" class="submenu" aria-label="Submenú Gestión de Juegos">
+          <li class="submenu-item"><a href="agregar-juego.html" class="submenu-link">Registrar Nuevo Título</a></li>
+        </ul>
+      </li>
+      <li class="nav-item is-active">
+        <a href="decision-matrix.html" class="nav-link">[ ORÁCULO DE DECISIÓN ]</a>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- ================= CONTENIDO PRINCIPAL ================= -->
+  <main style="padding: var(--spacing-md); max-width: 800px; margin: 0 auto; width: 100%;">
+    
+    <!-- ERROR MEMORIA INSUFICIENTE -->
+    <section id="error-memory" class="y2k-window" style="display: none; border-color: var(--status-backlog);">
+      <div class="y2k-window-header" style="background: var(--status-backlog); color: var(--bg-main);">
+        <h2>FALLO DEL SISTEMA</h2>
+        <span>[ERROR_0x01]</span>
+      </div>
+      <div class="y2k-window-content" style="text-align: center; padding: var(--spacing-xl);">
+        <h3 style="color: var(--status-backlog); font-size: 1.5rem;">
+          MEMORIA INSUFICIENTE. INGRESA AL MENOS 2 JUEGOS EN TU BIBLIOTECA PARA ACTIVAR EL MÓDULO.
+        </h3>
+        <a href="agregar-juego.html" class="y2k-button primary" style="margin-top: var(--spacing-lg);">INICIAR INSERCIÓN MANUAL</a>
+      </div>
+    </section>
+
+    <!-- WIZARD ORÁCULO -->
+    <section id="oracle-module" class="y2k-window" style="display: none;">
+      <div class="y2k-window-header" style="background: var(--accent-cyan); color: var(--bg-main);">
+        <h2>ORÁCULO NEURONAL DE DECISIÓN</h2>
+        <span>[WIZARD_ACTIVE]</span>
+      </div>
+      <div class="y2k-window-content">
+        
+        <div class="progress-segments" id="wizard-progress">
+          <div class="progress-segment filled" id="seg-1"></div>
+          <div class="progress-segment" id="seg-2"></div>
+          <div class="progress-segment" id="seg-3"></div>
+          <div class="progress-segment" id="seg-4"></div>
+        </div>
+
+        <form id="decision-form">
+          
+          <!-- FASE 1: Plataforma -->
+          <div class="wizard-step active" id="step-1">
+            <h3 style="font-family: var(--font-display); color: var(--accent-cyan); font-size: 1.5rem; margin-bottom: var(--spacing-md);">FASE 1: DISPONIBILIDAD DE HARDWARE</h3>
+            <p style="margin-bottom: var(--spacing-md);">¿En qué dispositivo puedes o quieres jugar ahora mismo?</p>
+            
+            <label class="wizard-option">
+              <input type="radio" name="q_platform" value="any" required> [ CUALQUIER PLATAFORMA ] (Indiferente)
+            </label>
+            <label class="wizard-option">
+              <input type="radio" name="q_platform" value="pc"> [ SOLO PC STATION ] (Windows / Linux)
+            </label>
+            <label class="wizard-option">
+              <input type="radio" name="q_platform" value="portable"> [ SOLO CONSOLA PORTÁTIL ] (Mobile / Nintendo DS)
+            </label>
+            <label class="wizard-option">
+              <input type="radio" name="q_platform" value="ps"> [ SOLO PLAYSTATION VAULT ] (Cualquier PS)
+            </label>
+            
+            <div style="text-align: right; margin-top: var(--spacing-md);">
+              <button type="button" class="y2k-button btn-next" data-next="2">SIGUIENTE FASE &gt;</button>
+            </div>
+          </div>
+
+          <!-- FASE 2: Tiempo -->
+          <div class="wizard-step" id="step-2">
+            <h3 style="font-family: var(--font-display); color: var(--accent-cyan); font-size: 1.5rem; margin-bottom: var(--spacing-md);">FASE 2: RECURSOS TEMPORALES</h3>
+            <p style="margin-bottom: var(--spacing-md);">¿De cuánto tiempo dispones para esta sesión?</p>
+            
+            <label class="wizard-option">
+              <input type="radio" name="q_time" value="short" required> [ SESIÓN RÁPIDA ] (< 30 min / Casual)
+            </label>
+            <label class="wizard-option">
+              <input type="radio" name="q_time" value="medium"> [ SESIÓN MEDIA ] (1 - 2 horas)
+            </label>
+            <label class="wizard-option">
+              <input type="radio" name="q_time" value="long"> [ MARATÓN PROFUNDO ] (Sin límite de tiempo)
+            </label>
+            
+            <div style="display: flex; justify-content: space-between; margin-top: var(--spacing-md);">
+              <button type="button" class="y2k-button btn-prev" data-prev="1">&lt; RETROCEDER</button>
+              <button type="button" class="y2k-button btn-next" data-next="3">SIGUIENTE FASE &gt;</button>
+            </div>
+          </div>
+
+          <!-- FASE 3: Estado Mental -->
+          <div class="wizard-step" id="step-3">
+            <h3 style="font-family: var(--font-display); color: var(--accent-cyan); font-size: 1.5rem; margin-bottom: var(--spacing-md);">FASE 3: FRECUENCIA COGNITIVA</h3>
+            <p style="margin-bottom: var(--spacing-md);">¿Qué tipo de energía buscas experimentar?</p>
+            
+            <label class="wizard-option">
+              <input type="radio" name="q_mood" value="frenetic" required> [ COMPETITIVA / FRENÉTICA ] (Adrenalina alta)
+            </label>
+            <label class="wizard-option">
+              <input type="radio" name="q_mood" value="narrative"> [ NARRATIVA INMERSIVA ] (Buena historia)
+            </label>
+            <label class="wizard-option">
+              <input type="radio" name="q_mood" value="cozy"> [ DESCANSO CEREBRAL ] (Relajada / Cozy)
+            </label>
+            <label class="wizard-option">
+              <input type="radio" name="q_mood" value="hard"> [ SUPERVIVENCIA / RETO ] (Difícil / Estratégico)
+            </label>
+            
+            <div style="display: flex; justify-content: space-between; margin-top: var(--spacing-md);">
+              <button type="button" class="y2k-button btn-prev" data-prev="2">&lt; RETROCEDER</button>
+              <button type="button" class="y2k-button btn-next" data-next="4">SIGUIENTE FASE &gt;</button>
+            </div>
+          </div>
+
+          <!-- FASE 4: Prioridad -->
+          <div class="wizard-step" id="step-4">
+            <h3 style="font-family: var(--font-display); color: var(--accent-cyan); font-size: 1.5rem; margin-bottom: var(--spacing-md);">FASE 4: PRIORIDAD DE ESTADO</h3>
+            <p style="margin-bottom: var(--spacing-md);">¿Prefieres continuar algo o empezar de cero?</p>
+            
+            <label class="wizard-option">
+              <input type="radio" name="q_priority" value="playing" required> [ SOLO EN PROGRESO ] (Continuar partida)
+            </label>
+            <label class="wizard-option">
+              <input type="radio" name="q_priority" value="backlog"> [ SOLO NO EMPEZADOS ] (Empezar aventura)
+            </label>
+            <label class="wizard-option">
+              <input type="radio" name="q_priority" value="any"> [ INDIFERENTE ] (El algoritmo decide)
+            </label>
+            
+            <div style="display: flex; justify-content: space-between; margin-top: var(--spacing-md);">
+              <button type="button" class="y2k-button btn-prev" data-prev="3">&lt; RETROCEDER</button>
+              <button type="submit" class="y2k-button primary">EJECUTAR ANÁLISIS</button>
+            </div>
+          </div>
+
+        </form>
+      </div>
+    </section>
+
+    <!-- RESULTADO DEL ANÁLISIS -->
+    <section id="analysis-result" class="y2k-window" style="display: none; box-shadow: 0 0 30px rgba(0, 240, 255, 0.4);">
+      <div class="y2k-window-header" style="background: var(--status-playing); color: var(--bg-main);">
+        <h2>PANTALLA DE ANÁLISIS CIBERNÉTICA</h2>
+        <span>[MATCH_FOUND]</span>
+      </div>
+      <div class="y2k-window-content" style="text-align: center;">
+        
+        <div style="font-family: var(--font-display); font-size: 1.5rem; color: var(--text-main); margin-bottom: var(--spacing-md);">
+          AFINIDAD CALCULADA: <span id="match-score" style="color: var(--accent-cyan); font-size: 2.5rem; display: block;">0%</span>
+        </div>
+        
+        <div style="background: var(--bg-main); padding: var(--spacing-md); border: 1px dashed var(--border-highlight); margin-bottom: var(--spacing-lg);">
+          <h3 style="color: var(--status-playing); font-size: 2rem; margin-bottom: var(--spacing-xs);" id="match-title">[TITULO]</h3>
+          <p id="match-reason" style="font-family: var(--font-display); color: var(--text-muted); font-size: 1.1rem; line-height: 1.5;">
+            <!-- Razón del match inyectada aquí -->
+          </p>
+        </div>
+        
+        <div style="display: flex; gap: var(--spacing-md); flex-direction: column;">
+          <button id="btn-play-now" class="y2k-button primary" style="font-size: 1.2rem; padding: var(--spacing-md);">
+            INICIAR ESTE JUEGO (ESTADO: EN PROGRESO)
+          </button>
+          <button id="btn-recalculate" class="y2k-button" style="font-size: 1.2rem;">
+            RECALCULAR ANÁLISIS
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <script src="js/navigation.js"></script>
+  <script src="js/storage-engine.js"></script>
+  <script src="js/decision-engine.js"></script>
+</body>
+</html>

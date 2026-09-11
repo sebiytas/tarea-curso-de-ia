@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inspiración y Paletas | Atelier Cozy</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <meta name="description" content="Catálogo de combinaciones y paletas cromáticas textiles. Encuentra inspiración para tu próximo outfit.">
+</head>
+<body>
+
+    <!-- Navegación Lateral -->
+    <aside id="denim-sidebar" aria-label="Navegación principal">
+        <button id="sidebar-toggle" class="coin-pocket-toggle" aria-expanded="false" aria-label="Expandir menú de navegación">
+            <div class="hamburger-lines">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </button>
+        <nav>
+            <ul class="denim-nav-list">
+                <li><a href="index.html" class="denim-link"><span class="icon">01</span> // EL ATELIER: INTRO</a></li>
+                <li><a href="inspiracion-paletas.html" class="denim-link active" aria-current="page"><span class="icon">02</span> // CATÁLOGO PALETAS</a></li>
+                <li><a href="mi-armario-generador.html" class="denim-link"><span class="icon">03</span> // MI ARMARIO & MATCH</a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <!-- Contenido Principal -->
+    <main id="main-content">
+        <header style="margin-bottom: 2rem; border-bottom: 2px dashed var(--stitch-gold); padding-bottom: 1rem;">
+            <h1 style="color: var(--denim-dark);"><span class="leather-label">02</span> Catálogo de Inspiración</h1>
+            <p style="color: var(--text-muted); font-size: 1.1rem;">Explora combinaciones preestablecidas estructuradas según las reglas de la rueda cromática.</p>
+        </header>
+
+        <!-- Filtros (Etiquetas de Tienda) -->
+        <section aria-label="Filtros de Estilo" style="margin-bottom: 3rem; display: flex; gap: 1rem; flex-wrap: wrap;">
+            <button class="leather-label" style="cursor: pointer; border-color: var(--stitch-white);">Todos los Estilos</button>
+            <button class="leather-label" style="cursor: pointer; background-color: var(--bg-card); color: var(--text-muted);">Otoño Cálido</button>
+            <button class="leather-label" style="cursor: pointer; background-color: var(--bg-card); color: var(--text-muted);">Minimalista</button>
+            <button class="leather-label" style="cursor: pointer; background-color: var(--bg-card); color: var(--text-muted);">Streetwear</button>
+            <button class="leather-label" style="cursor: pointer; background-color: var(--bg-card); color: var(--text-muted);">Monocromático</button>
+        </section>
+
+        <!-- Grid de Outfits -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 3rem;">
+            
+            <!-- Outfit 1: Complementario Dividido -->
+            <article class="cozy-card stitch-border">
+                <h2 style="font-size: 1.2rem; color: var(--denim-dark); margin-bottom: 0.5rem;">Cálido Otoñal</h2>
+                <p style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.5rem;">Armonía Complementaria Dividida</p>
+                
+                <!-- Maniquí Visual -->
+                <div style="display: flex; flex-direction: column; align-items: center; gap: 10px; margin-bottom: 2rem;">
+                    <!-- Gorra -->
+                    <div class="silueta-wrapper silueta-gorra" style="background-color: #4B5320; transform: scale(0.6); margin-bottom: -40px;"></div>
+                    <!-- Camiseta -->
+                    <div class="silueta-wrapper silueta-camiseta" style="background-color: #FFDB58; transform: scale(0.8); z-index: 2;"></div>
+                    <!-- Pantalon -->
+                    <div class="silueta-wrapper silueta-pantalon" style="background-color: #2E4B75; transform: scale(0.8); margin-top: -30px; z-index: 1;"></div>
+                </div>
+
+                <div style="border-top: 1px solid var(--stitch-gold); paddingTop: 1rem;">
+                    <p style="font-size: 0.9rem; margin-bottom: 0.5rem;"><strong>Gorra:</strong> Verde Militar (<span style="font-family: var(--font-mono);">#4B5320</span>)</p>
+                    <p style="font-size: 0.9rem; margin-bottom: 0.5rem;"><strong>Top:</strong> Mostaza (<span style="font-family: var(--font-mono);">#FFDB58</span>)</p>
+                    <p style="font-size: 0.9rem; margin-bottom: 1.5rem;"><strong>Base:</strong> Blue Jean (<span style="font-family: var(--font-mono);">#2E4B75</span>)</p>
+                    
+                    <button class="leather-label" style="width: 100%; text-align: center; cursor: pointer; transition: background 0.3s;" onmouseover="this.style.backgroundColor='var(--denim-dark)'" onmouseout="this.style.backgroundColor='var(--leather-patch)'">Cargar a mi probador</button>
+                </div>
+            </article>
+
+            <!-- Outfit 2: Análogo Frío -->
+            <article class="cozy-card stitch-border">
+                <h2 style="font-size: 1.2rem; color: var(--denim-dark); margin-bottom: 0.5rem;">Serenidad Escandinava</h2>
+                <p style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.5rem;">Armonía Análoga Fría</p>
+                
+                <!-- Maniquí Visual -->
+                <div style="display: flex; flex-direction: column; align-items: center; gap: 10px; margin-bottom: 2rem;">
+                    <!-- Gorra -->
+                    <div class="silueta-wrapper silueta-gorra" style="background-color: #87CEEB; transform: scale(0.6); margin-bottom: -40px;"></div>
+                    <!-- Camiseta -->
+                    <div class="silueta-wrapper silueta-camiseta" style="background-color: #FAF0E6; transform: scale(0.8); z-index: 2;"></div>
+                    <!-- Pantalon -->
+                    <div class="silueta-wrapper silueta-pantalon" style="background-color: #5B7FA8; transform: scale(0.8); margin-top: -30px; z-index: 1;"></div>
+                </div>
+
+                <div style="border-top: 1px solid var(--stitch-gold); paddingTop: 1rem;">
+                    <p style="font-size: 0.9rem; margin-bottom: 0.5rem;"><strong>Gorra:</strong> Celeste (<span style="font-family: var(--font-mono);">#87CEEB</span>)</p>
+                    <p style="font-size: 0.9rem; margin-bottom: 0.5rem;"><strong>Top:</strong> Lino Base (<span style="font-family: var(--font-mono);">#FAF0E6</span>)</p>
+                    <p style="font-size: 0.9rem; margin-bottom: 1.5rem;"><strong>Base:</strong> Denim Claro (<span style="font-family: var(--font-mono);">#5B7FA8</span>)</p>
+                    
+                    <button class="leather-label" style="width: 100%; text-align: center; cursor: pointer; transition: background 0.3s;" onmouseover="this.style.backgroundColor='var(--denim-dark)'" onmouseout="this.style.backgroundColor='var(--leather-patch)'">Cargar a mi probador</button>
+                </div>
+            </article>
+
+            <!-- Outfit 3: Contraste Puro -->
+            <article class="cozy-card stitch-border">
+                <h2 style="font-size: 1.2rem; color: var(--denim-dark); margin-bottom: 0.5rem;">Urbano Impacto</h2>
+                <p style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.5rem;">Contraste Complementario</p>
+                
+                <!-- Maniquí Visual -->
+                <div style="display: flex; flex-direction: column; align-items: center; gap: 10px; margin-bottom: 2rem;">
+                    <!-- Gorra -->
+                    <div class="silueta-wrapper silueta-gorra" style="background-color: #000000; transform: scale(0.6); margin-bottom: -40px;"></div>
+                    <!-- Camiseta -->
+                    <div class="silueta-wrapper silueta-camiseta" style="background-color: #DC143C; transform: scale(0.8); z-index: 2;"></div>
+                    <!-- Pantalon -->
+                    <div class="silueta-wrapper silueta-pantalon" style="background-color: #1E3352; transform: scale(0.8); margin-top: -30px; z-index: 1;"></div>
+                </div>
+
+                <div style="border-top: 1px solid var(--stitch-gold); padding-top: 1rem;">
+                    <p style="font-size: 0.9rem; margin-bottom: 0.5rem;"><strong>Gorra:</strong> Negro (<span style="font-family: var(--font-mono);">#000000</span>)</p>
+                    <p style="font-size: 0.9rem; margin-bottom: 0.5rem;"><strong>Top:</strong> Carmesí (<span style="font-family: var(--font-mono);">#DC143C</span>)</p>
+                    <p style="font-size: 0.9rem; margin-bottom: 1.5rem;"><strong>Base:</strong> Denim Oscuro (<span style="font-family: var(--font-mono);">#1E3352</span>)</p>
+                    
+                    <button class="leather-label" style="width: 100%; text-align: center; cursor: pointer; transition: background 0.3s;" onmouseover="this.style.backgroundColor='var(--denim-dark)'" onmouseout="this.style.backgroundColor='var(--leather-patch)'">Cargar a mi probador</button>
+                </div>
+            </article>
+        </div>
+
+    </main>
+
+    <script src="js/navigation.js"></script>
+    <script>
+        // Lógica simple de interfaz para los botones de filtro
+        document.querySelectorAll('section[aria-label="Filtros de Estilo"] button').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                document.querySelectorAll('section[aria-label="Filtros de Estilo"] button').forEach(b => {
+                    b.style.backgroundColor = 'var(--bg-card)';
+                    b.style.color = 'var(--text-muted)';
+                    b.style.borderColor = 'var(--stitch-gold)';
+                });
+                e.target.style.backgroundColor = 'var(--leather-patch)';
+                e.target.style.color = 'var(--bg-canvas)';
+                e.target.style.borderColor = 'var(--stitch-white)';
+            });
+        });
+    </script>
+</body>
+</html>

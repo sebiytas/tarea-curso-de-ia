@@ -1,0 +1,294 @@
+/* ==========================================================================
+   VAULT2000 - DESIGN SYSTEM (Y2K TECH / EARLY 2000s CYBERSPACE)
+   ========================================================================== */
+
+/* --- VARIABLES GLOBALES --- */
+:root {
+  /* Paleta Cromática Base */
+  --bg-main: #0B1021;
+  --bg-card: #151D3B;
+  --bg-panel: #1E2952;
+  
+  --border-highlight: #4A69BD;
+  --border-shadow: #070B18;
+  
+  --accent-cyan: #00F0FF;
+  --accent-blue: #2E5BFF;
+  
+  --text-main: #EAF0FF;
+  --text-muted: #8FA0C7;
+  
+  /* Estados de Juego */
+  --status-backlog: #FFB300;
+  --status-playing: #00F0FF;
+  --status-cleared: #00E676;
+
+  /* Degradados Hard-Stop */
+  --gradient-header: linear-gradient(180deg, #2E5BFF 0%, #2E5BFF 50%, #151D3B 50%, #151D3B 100%);
+  --gradient-button: linear-gradient(180deg, #4A69BD 0%, #4A69BD 48%, #1E2952 50%, #1E2952 100%);
+  --gradient-button-hover: linear-gradient(180deg, #2E5BFF 0%, #2E5BFF 48%, #151D3B 50%, #151D3B 100%);
+
+  /* Tipografías */
+  --font-display: 'VT323', 'Silkscreen', 'Courier New', 'Lucida Console', monospace;
+  --font-ui: 'Trebuchet MS', 'Tahoma', sans-serif;
+
+  /* Dimensiones y Espaciados */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+  
+  --border-width: 2px;
+}
+
+/* --- RESET Y BASE --- */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  font-family: var(--font-ui);
+  line-height: 1.4;
+  min-height: 100vh;
+  /* Scanline retro pattern */
+  background-image: 
+    linear-gradient(rgba(11, 16, 33, 0.95), rgba(11, 16, 33, 0.95)),
+    repeating-linear-gradient(0deg, transparent, transparent 1px, rgba(0, 240, 255, 0.05) 1px, rgba(0, 240, 255, 0.05) 2px);
+  background-attachment: fixed;
+  display: flex;
+  flex-direction: column;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+a {
+  color: var(--accent-cyan);
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+}
+
+/* --- ACCESIBILIDAD --- */
+:focus-visible {
+  outline: 2px dashed var(--accent-cyan);
+  outline-offset: 2px;
+}
+
+/* --- COMPONENTES UI GLOBALES --- */
+
+/* Ventanas estilo SO 2000s */
+.y2k-window {
+  background-color: var(--bg-card);
+  border-top: var(--border-width) solid var(--border-highlight);
+  border-left: var(--border-width) solid var(--border-highlight);
+  border-right: var(--border-width) solid var(--border-shadow);
+  border-bottom: var(--border-width) solid var(--border-shadow);
+  margin-bottom: var(--spacing-lg);
+  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.5);
+}
+
+.y2k-window-header {
+  background: var(--gradient-header);
+  color: var(--text-main);
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-bottom: var(--border-width) solid var(--border-shadow);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.y2k-window-content {
+  padding: var(--spacing-md);
+}
+
+/* Botones estilo retro biselado */
+.y2k-button {
+  background: var(--gradient-button);
+  color: var(--text-main);
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-top: var(--border-width) solid var(--border-highlight);
+  border-left: var(--border-width) solid var(--border-highlight);
+  border-right: var(--border-width) solid var(--border-shadow);
+  border-bottom: var(--border-width) solid var(--border-shadow);
+  cursor: pointer;
+  text-transform: uppercase;
+  display: inline-block;
+  text-align: center;
+}
+
+.y2k-button:hover {
+  background: var(--gradient-button-hover);
+}
+
+.y2k-button:active {
+  /* Inversión del bisel para hundimiento mecánico */
+  border-top: var(--border-width) solid var(--border-shadow);
+  border-left: var(--border-width) solid var(--border-shadow);
+  border-right: var(--border-width) solid var(--border-highlight);
+  border-bottom: var(--border-width) solid var(--border-highlight);
+  background: var(--bg-panel);
+}
+
+.y2k-button.primary {
+  color: var(--bg-main);
+  background: var(--accent-cyan);
+  border-top-color: #EAF0FF;
+  border-left-color: #EAF0FF;
+  border-right-color: #008B8B;
+  border-bottom-color: #008B8B;
+  font-weight: bold;
+}
+
+.y2k-button.primary:active {
+  border-top-color: #008B8B;
+  border-left-color: #008B8B;
+  border-right-color: #EAF0FF;
+  border-bottom-color: #EAF0FF;
+  background: #00B3B3;
+}
+
+/* --- ENCABEZADO Y NAVEGACIÓN GLOBAL --- */
+.global-header {
+  background-color: var(--bg-main);
+  border-bottom: var(--border-width) solid var(--accent-cyan);
+  padding: var(--spacing-md);
+}
+
+.banner-bios {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  color: var(--accent-cyan);
+  text-shadow: 0 0 5px rgba(0, 240, 255, 0.5);
+  margin-bottom: var(--spacing-sm);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.banner-bios .sys-info {
+  font-size: 1rem;
+  color: var(--text-muted);
+}
+
+/* Menú Horizontal Desplegable */
+.global-nav {
+  background-color: var(--bg-panel);
+  border-top: var(--border-width) solid var(--border-highlight);
+  border-left: var(--border-width) solid var(--border-highlight);
+  border-right: var(--border-width) solid var(--border-shadow);
+  border-bottom: var(--border-width) solid var(--border-shadow);
+}
+
+.nav-menu {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.nav-item {
+  position: relative;
+  border-right: 1px solid var(--border-shadow);
+}
+
+.nav-item:last-child {
+  border-right: none;
+}
+
+.nav-link {
+  display: block;
+  padding: var(--spacing-sm) var(--spacing-lg);
+  color: var(--text-main);
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+}
+
+.nav-link:hover, 
+.nav-link:focus {
+  background-color: var(--accent-blue);
+  color: var(--text-main);
+}
+
+/* Submenús */
+.submenu {
+  display: none; /* Controlado por JS / focus-within */
+  position: absolute;
+  top: 100%;
+  left: -2px; /* Alineación con el borde */
+  background-color: var(--bg-panel);
+  border-top: var(--border-width) solid var(--border-highlight);
+  border-left: var(--border-width) solid var(--border-highlight);
+  border-right: var(--border-width) solid var(--border-shadow);
+  border-bottom: var(--border-width) solid var(--border-shadow);
+  min-width: 250px;
+  z-index: 100;
+}
+
+.nav-item:focus-within .submenu,
+.nav-item.is-active .submenu {
+  display: block;
+}
+
+.submenu-item {
+  border-bottom: 1px solid var(--border-shadow);
+}
+
+.submenu-item:last-child {
+  border-bottom: none;
+}
+
+.submenu-link {
+  display: block;
+  padding: var(--spacing-sm) var(--spacing-md);
+  color: var(--text-main);
+  font-family: var(--font-ui);
+  text-transform: none;
+}
+
+.submenu-link:hover,
+.submenu-link:focus {
+  background-color: var(--accent-blue);
+  color: var(--text-main);
+}
+
+/* --- RESPONSIVE DESIGN --- */
+@media (max-width: 768px) {
+  .nav-menu {
+    flex-direction: column;
+  }
+  
+  .nav-item {
+    border-right: none;
+    border-bottom: 1px solid var(--border-shadow);
+  }
+  
+  .submenu {
+    position: static;
+    border: none;
+    border-top: 1px dashed var(--border-shadow);
+    background-color: var(--bg-card);
+  }
+
+  .banner-bios {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

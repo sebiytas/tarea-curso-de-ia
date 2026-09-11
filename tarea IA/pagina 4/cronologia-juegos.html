@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compendio Cronológico | Hyrule Chronicles</title>
+    <meta name="description" content="Explora el compendio completo y cronología interactiva de todos los títulos de The Legend of Zelda.">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Header is injected via main.js -->
+
+    <main class="container">
+        <header style="text-align: center; margin-bottom: 3rem;">
+            <h2 style="font-size: 2.5rem;">El Compendio de Hyrule</h2>
+            <p style="color: var(--text-parchment);">Filtra, busca y explora el legado de todos los títulos que conforman el canon de la leyenda.</p>
+        </header>
+
+        <!-- Filtros y Búsqueda -->
+        <section class="filters-section" style="background: var(--bg-card); padding: 1.5rem; border-radius: 8px; border: 1px solid var(--border-bronze); margin-bottom: 3rem; display: flex; flex-wrap: wrap; gap: 1.5rem; justify-content: center; align-items: center;">
+            
+            <div style="flex: 1; min-width: 250px;">
+                <label for="searchInput" class="sr-only">Buscar por título, plataforma o año</label>
+                <input type="text" id="searchInput" placeholder="Buscar por título, consola o año..." style="width: 100%; padding: 0.8rem; background: var(--bg-abyss); border: 1px solid var(--border-bronze); color: var(--text-bright); border-radius: 4px; font-family: var(--font-ui);">
+            </div>
+            
+            <div style="flex: 1; min-width: 250px;">
+                <label for="eraFilter" class="sr-only">Filtrar por Era</label>
+                <select id="eraFilter" style="width: 100%; padding: 0.8rem; background: var(--bg-abyss); border: 1px solid var(--border-bronze); color: var(--text-bright); border-radius: 4px; font-family: var(--font-ui);">
+                    <option value="all">Todas las Eras / Tipologías</option>
+                    <option value="Aventura 2D Clásica">Aventura 2D Clásica</option>
+                    <option value="Revolución 3D">Revolución 3D</option>
+                    <option value="Era Mundo Abierto / Sistémico">Era Mundo Abierto / Sistémico</option>
+                    <option value="Remakes & Re-imaginaciones">Remakes & Re-imaginaciones</option>
+                </select>
+            </div>
+            
+            <div aria-live="polite" id="resultsCount" style="font-family: var(--font-ui); font-size: 0.9rem; color: var(--gold-glow); white-space: nowrap;">
+                Cargando registros...
+            </div>
+        </section>
+
+        <!-- Grid de Catálogo -->
+        <section id="catalogGrid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 2rem;">
+            <!-- Renderizado dinámico vía JS -->
+        </section>
+    </main>
+
+    <script src="js/zelda-database.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const grid = document.getElementById('catalogGrid');
+            const searchInput = document.getElementById('searchInput');
+            const eraFilter = document.getElementById('eraFilter');
+            const resultsCount = document.getElementById('resultsCount');
+
+            // Renderizar una tarjeta de juego
+            const renderGameCard = (game) => {
+                return `
+                    <article class="card catalog-card" style="display: flex; flex-direction: column; height: 100%;">
+                        <div class="img-container" style="aspect-ratio: 16/9; margin-bottom: 1.5rem; border-color: var(--blue-sheikah);">
+                            <img src="${game.cover}" alt="${game.title}" onerror="this.style.display='none';">
+                        </div>
+                        <h3 style="font-size: 1.3rem; margin-bottom: 0.5rem;">${game.title}</h3>
+                        <p style="font-family: var(--font-ui); font-size: 0.85rem; color: var(--gold-primary); margin-bottom: 1rem; font-weight: bold;">
+                            ${game.platform} • ${game.year} | ${game.era}
+                        </p>
+                        <p style="font-size: 0.9rem; flex-grow: 1; margin-bottom: 1rem;">${game.synopsis}</p>
+                        
+                        <div style="background: var(--bg-abyss); padding: 1rem; border-radius: 4px; margin-bottom: 1.5rem; border-left: 3px solid var(--blue-sheikah);">
+                            <h4 style="font-size: 0.9rem; color: var(--blue-sheikah); margin-bottom: 0.5rem; font-family: var(--font-ui); text-transform: uppercase;">Innovaciones Clave:</h4>
+                            <ul style="list-style: none; padding: 0; margin: 0; font-size: 0.85rem; color: var(--text-parchment);">
+                                ${game.innovations.map(inv => `<li style="margin-bottom: 0.25rem;">• ${inv}</li>`).join('')}
+                            </ul>
+                        </div>
+                        
+                        <a href="oraculo-rutas-quiz.html" class="btn" style="width: 100%; font-size: 0.85rem;">Ver conexiones de ruta sugerida</a>
+                    </article>
+                `;
+            };
+
+            // Lógica de filtrado
+            const filterCatalog = () => {
+                const query = searchInput.value.toLowerCase();
+                const era = eraFilter.value;
+
+                const filtered = ZeldaDatabase.filter(game => {
+                    const matchText = game.title.toLowerCase().includes(query) || 
+                                      game.platform.toLowerCase().includes(query) || 
+                                      game.year.toString().includes(query);
+                    const matchEra = era === 'all' || game.era === era;
+                    return matchText && matchEra;
+                });
+
+                grid.innerHTML = filtered.map(game => renderGameCard(game)).join('');
+                resultsCount.textContent = `${filtered.length} registro(s) encontrado(s)`;
+            };
+
+            // Event Listeners
+            searchInput.addEventListener('input', filterCatalog);
+            eraFilter.addEventListener('change', filterCatalog);
+
+            // Carga inicial
+            filterCatalog();
+        });
+    </script>
+</body>
+</html>

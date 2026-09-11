@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trophy Vault | Forja tu Victoria</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <main>
+        <section class="hero-section">
+            <h2 class="hero-title">Consigna tu nombre en la historia</h2>
+            <p class="hero-subtitle">Inmortaliza tus victorias competitivas, hitos laborales y hazañas personales en la bóveda sagrada.</p>
+        </section>
+
+        <!-- Formulario Esculpido en Forma de Trofeo ("The Chalice Form") -->
+        <form id="trophy-form" class="chalice-container" aria-label="Formulario para Forjar Trofeo">
+            
+            <!-- Parte Superior: Copa / Cáliz -->
+            <div class="cup-top">
+                <div class="cup-top-inner">
+                    <div class="form-group">
+                        <label for="champion-name">Nombre del Campeón / Titular</label>
+                        <input type="text" id="champion-name" class="engraved-input" placeholder="E.g. Arthur Pendragon" required aria-required="true">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Nivel de Presea</label>
+                        <div class="medallion-group" role="radiogroup" aria-labelledby="Nivel de Presea">
+                            <button type="button" class="btn-medallion selected" data-level="platinum" aria-checked="true" role="radio" aria-label="Platino">Plat</button>
+                            <button type="button" class="btn-medallion" data-level="gold" aria-checked="false" role="radio" aria-label="Oro">Oro</button>
+                            <button type="button" class="btn-medallion" data-level="silver" aria-checked="false" role="radio" aria-label="Plata">Plata</button>
+                            <button type="button" class="btn-medallion" data-level="bronze" aria-checked="false" role="radio" aria-label="Bronce">Bronce</button>
+                        </div>
+                        <input type="hidden" id="trophy-level" value="platinum">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Parte Media: Fuste del Trofeo -->
+            <div class="cup-stem">
+                <div class="cup-stem-inner">
+                    <div class="form-group">
+                        <label for="achievement-title">Título del Logro Conseguido</label>
+                        <input type="text" id="achievement-title" class="engraved-input" placeholder="E.g. Campeón Copa Champiñón 150cc" required aria-required="true">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="achievement-category">Categoría</label>
+                        <select id="achievement-category" class="engraved-select" required aria-required="true">
+                            <option value="" disabled selected>-- Seleccionar Campo --</option>
+                            <option value="esports">Videojuegos / eSports</option>
+                            <option value="sports">Deporte Físico / Atletismo</option>
+                            <option value="career">Laboral / Profesional</option>
+                            <option value="academic">Académico</option>
+                            <option value="personal">Reto Personal</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Parte Inferior: Pedestal y Placa -->
+            <div class="pedestal-base">
+                <div class="form-group">
+                    <button type="button" id="btn-investigate" class="btn-action" aria-label="Investigar Disciplina Automáticamente">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+                        Investigar Disciplina Automáticamente
+                    </button>
+                </div>
+                
+                <div class="form-group">
+                    <label for="achievement-description">Descripción y Mérito de la Hazaña (Placa)</label>
+                    <textarea id="achievement-description" class="engraved-textarea" placeholder="Historia de la hazaña o resultados de la investigación enciclopédica..." required aria-required="true"></textarea>
+                </div>
+
+                <button type="submit" class="btn-gold">Fundir Trofeo en el Salón de la Fama</button>
+            </div>
+        </form>
+    </main>
+
+    <!-- Scripts -->
+    <script src="js/main.js"></script>
+    <script src="js/trophy-storage.js"></script>
+    <script src="js/wiki-lookup.js"></script>
+    <script>
+        // Lógica de interfaz específica para la página index.html
+        document.addEventListener('DOMContentLoaded', () => {
+            // Manejador del Selector de Preseas
+            const medallions = document.querySelectorAll('.btn-medallion');
+            const levelInput = document.getElementById('trophy-level');
+            
+            medallions.forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    // Deseleccionar todos
+                    medallions.forEach(m => {
+                        m.classList.remove('selected');
+                        m.setAttribute('aria-checked', 'false');
+                    });
+                    // Seleccionar actual
+                    const target = e.currentTarget;
+                    target.classList.add('selected');
+                    target.setAttribute('aria-checked', 'true');
+                    levelInput.value = target.getAttribute('data-level');
+                });
+            });
+
+            // Manejador de Registro de Trofeo
+            const form = document.getElementById('trophy-form');
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                // Extraer datos
+                const newTrophy = {
+                    id: 'vault-' + Date.now(),
+                    champion: document.getElementById('champion-name').value.trim(),
+                    level: levelInput.value,
+                    title: document.getElementById('achievement-title').value.trim(),
+                    category: document.getElementById('achievement-category').value,
+                    description: document.getElementById('achievement-description').value.trim(),
+                    date: new Date().toISOString()
+                };
+
+                // Persistir
+                TrophyStorage.saveTrophy(newTrophy);
+                
+                // Feedback Háptico/Sonoro
+                if(window.playVictorySound) window.playVictorySound();
+                window.announceToScreenReader('Trofeo de ' + newTrophy.champion + ' forjado exitosamente.');
+                
+                // Reiniciar estado
+                form.reset();
+                medallions[0].click(); // Regresar a Platino por defecto
+                
+                alert('¡Victoria Consagrada! El trofeo ha sido añadido al Salón de la Fama.');
+            });
+        });
+    </script>
+</body>
+</html>

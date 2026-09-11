@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conoce a Ciara | Taller Artesanal</title>
+    <meta name="description" content="Descubre la historia detrás de Ciara Creativa, el manifiesto de nuestro taller y la pasión por el papel, la encuadernación y los detalles.">
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .editorial-content {
+            max-width: 850px;
+            margin: 0 auto;
+            background: var(--paper-ivory);
+            padding: 4rem 3rem;
+            border-radius: 6px;
+            box-shadow: var(--shadow-paper);
+            /* Patrón de líneas de cuaderno contables sutiles */
+            background-image: repeating-linear-gradient(rgba(222, 143, 143, 0.08) 0, rgba(222, 143, 143, 0.08) 1px, transparent 1px, transparent 32px);
+            background-size: 100% 32px;
+            background-position: 0 40px;
+            position: relative;
+        }
+        
+        /* Margen rojo clásico de cuadernos a la izquierda */
+        .editorial-content::after {
+            content: '';
+            position: absolute;
+            left: 50px;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: rgba(222, 143, 143, 0.4);
+            border-left: 1px dashed rgba(222, 143, 143, 0.6);
+        }
+        
+        .chapter {
+            margin-bottom: 3.5rem;
+            padding-left: 45px; /* Espacio para no pisar el margen rojo */
+            position: relative;
+            z-index: 2;
+        }
+        
+        .chapter-title {
+            color: var(--rose-deep);
+            font-size: 1.6rem;
+            margin-bottom: 1.2rem;
+            font-family: var(--font-title);
+            display: inline-block;
+            background: var(--paper-ivory); /* Para limpiar las líneas de fondo bajo el título */
+            padding-right: 15px;
+        }
+        
+        .chapter-text {
+            color: var(--text-charcoal);
+            font-size: 1.15rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            text-align: justify;
+        }
+        
+        /* Caja estilo pergamino antiguo / Manifiesto */
+        .manifesto-box {
+            background: var(--paper-rose);
+            padding: 3rem;
+            border-radius: 4px;
+            margin-top: 5rem;
+            border: 1px dashed var(--rose-dust);
+            box-shadow: inset 0 0 25px rgba(212, 163, 115, 0.15);
+            position: relative;
+            z-index: 2;
+        }
+        
+        .manifesto-title {
+            color: var(--text-charcoal);
+            font-family: var(--font-serif);
+            font-style: italic;
+            font-size: 2.2rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        
+        .manifesto-list {
+            list-style: none;
+            padding: 0;
+            font-size: 1.15rem;
+            color: var(--text-charcoal);
+            line-height: 1.7;
+        }
+        
+        .manifesto-list li {
+            margin-bottom: 1.5rem;
+            display: flex;
+            gap: 15px;
+            align-items: flex-start;
+        }
+        
+        .manifesto-icon {
+            font-size: 1.5rem;
+            line-height: 1.2;
+        }
+        
+        .signature {
+            font-family: var(--font-logo);
+            font-size: 3.5rem;
+            color: var(--rose-deep);
+            text-align: right;
+            margin-top: 2rem;
+            transform: rotate(-4deg);
+            opacity: 0.9;
+        }
+
+        @media(max-width: 768px) {
+            .editorial-content { padding: 2rem 1.5rem; }
+            .editorial-content::after { left: 20px; }
+            .chapter { padding-left: 20px; }
+            .manifesto-box { padding: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="desk-container">
+        
+        <!-- HEADER -->
+        <header class="site-header">
+            <h1 class="site-logo">Ciara Creativa</h1>
+            <p class="site-tagline">Taller de Encuadernación & Diseño</p>
+        </header>
+
+        <!-- NAVEGACIÓN WIRE-O -->
+        <nav class="wire-o-nav" aria-label="Navegación principal">
+            <div class="wire-o-binding" aria-hidden="true"></div>
+            <ul class="nav-tabs">
+                <li><a href="index.html">[ BIENVENIDA & TALLER ]</a></li>
+                <li><a href="catalogo.html">[ CATÁLOGO DE AGENDAS ]</a></li>
+                <li><a href="sobre-ciara.html" aria-current="page" class="active">[ CONOCE A CIARA ]</a></li>
+                <li><a href="redes-contacto.html">[ REDES & PEDIDOS ]</a></li>
+            </ul>
+        </nav>
+
+        <!-- ÁREA PRINCIPAL -->
+        <main class="paper-page">
+            
+            <header style="text-align: center; margin-bottom: 4rem;">
+                <h2 style="color: var(--rose-deep); font-size: 3rem; margin-bottom: 0.5rem; line-height: 1.2;">Manos Creativas,<br>Días Organizados</h2>
+                <p class="lead-text" style="font-size: 1.4rem;">La historia detrás de la artesana.</p>
+                
+                <!-- Retrato Vectorial Estilizado de Ciara -->
+                <div style="display: flex; justify-content: center; margin-top: 3rem;">
+                    <svg viewBox="0 0 250 250" width="250" height="250" style="border-radius: 50%; box-shadow: var(--shadow-paper); background: var(--bg-desk); border: 8px solid var(--paper-ivory);">
+                        <!-- Fondo taller decorativo -->
+                        <rect x="0" y="125" width="250" height="125" fill="#F7E7E5"/>
+                        <line x1="0" y1="125" x2="250" y2="125" stroke="#DE8F8F" stroke-width="2"/>
+                        <!-- Herramientas difusas de fondo -->
+                        <rect x="30" y="80" width="15" height="45" fill="#D4A373" rx="2" transform="rotate(-15 30 80)"/>
+                        <rect x="200" y="90" width="25" height="35" fill="#FFFDF9" stroke="#786C66" rx="2"/>
+                        <!-- Silueta Ciara -->
+                        <circle cx="125" cy="110" r="45" fill="#362E2B"/> <!-- Cabello recogido -->
+                        <circle cx="125" cy="120" r="30" fill="#FFFDF9"/> <!-- Rostro -->
+                        <path d="M90 180 Q125 150 160 180 L180 250 L70 250 Z" fill="#DE8F8F"/> <!-- Delantal artesanal -->
+                        <!-- Detalles rostro simple -->
+                        <path d="M115 125 Q125 135 135 125" fill="none" stroke="#C76B6B" stroke-width="2.5" stroke-linecap="round"/>
+                        <!-- Detalle bobina de hilo y aguja en mano -->
+                        <circle cx="150" cy="200" r="12" fill="#D4A373"/>
+                        <line x1="150" y1="188" x2="165" y2="175" stroke="#786C66" stroke-width="2"/>
+                    </svg>
+                </div>
+            </header>
+
+            <article class="editorial-content">
+                
+                <!-- CAPÍTULO 1 -->
+                <section class="chapter">
+                    <h3 class="chapter-title">Capítulo 1: El Despertar del Oficio</h3>
+                    <p class="chapter-text">Todo comenzó en las tardes silenciosas de mi adolescencia. Mientras el mundo aceleraba su ritmo hacia lo digital y las pantallas absorbían la atención de todos, yo encontré mi refugio particular en un elemento ancestral: el papel. Lo que inició como una sencilla afición por intervenir cuadernos genéricos del colegio con retales de tela sobrantes, cintas de mercería y mis primeros trazos de caligrafía, pronto se convirtió en un oasis de calma profunda.</p>
+                    <p class="chapter-text">Aprender a medir, cortar y pegar con precisión milimétrica me enseñó el valor de la pausa. En ese escritorio improvisado descubrí que, al darle orden físico a unas hojas en blanco, lograba darle estructura a mis propios pensamientos.</p>
+                </section>
+                
+                <!-- CAPÍTULO 2 -->
+                <section class="chapter">
+                    <h3 class="chapter-title">Capítulo 2: La Creación del Taller</h3>
+                    <p class="chapter-text">Con los años, las navidades y los cumpleaños se volvieron la excusa perfecta. Mis agendas, cosidas y anilladas a mano en madrugadas creativas, se convirtieron en el obsequio más esperado por familiares y amigos. La chispa en los ojos de quien recibía una libreta hecha exclusivamente para su ritmo de vida fue el motor definitivo.</p>
+                    <p class="chapter-text">Así decidí fundar formalmente el estudio artesanal <strong>Ciara Creativa</strong>. Sustituí la mesa del comedor por prensas de madera robustas, aprendí a dominar la perforación manual pesada de las encuadernadoras wire-o, y comencé a cazar los mejores papeles ecológicos y telas de encuadernación del mercado. Fue el salto de un pasatiempo a un oficio de vida.</p>
+                </section>
+                
+                <!-- CAPÍTULO 3 -->
+                <section class="chapter">
+                    <h3 class="chapter-title">Capítulo 3: El Valor de lo Personalizado</h3>
+                    <p class="chapter-text">Mi filosofía es irreductible: <em>"Ninguna persona vive ni se organiza igual que otra; por lo tanto, ninguna agenda debería ser una copia industrial e impersonal."</em></p>
+                    <p class="chapter-text">Por eso, en este taller no existen producciones masivas. Cada pieza que sale de mis manos es preparada individualmente. Trabajamos en equipo con el cliente: seleccionamos el diseño de las hojas, los detalles de la portada, grabamos su nombre con foil y escogemos el color exacto del alambre para que encaje con su personalidad. El resultado no es solo un cuaderno, es un compañero de ruta.</p>
+                </section>
+
+                <!-- MANIFIESTO -->
+                <section class="manifesto-box" aria-labelledby="manifesto-heading">
+                    <h3 id="manifesto-heading" class="manifesto-title">El Manifiesto del Taller</h3>
+                    
+                    <ul class="manifesto-list">
+                        <li>
+                            <span class="manifesto-icon" aria-hidden="true">✒️</span>
+                            <span><strong>Papel con Propósito:</strong> Tenemos un compromiso inquebrantable con papeles sostenibles de alto gramaje. Nuestras hojas respetan el trazo de plumas estilográficas, bolígrafos de gel y rotuladores, garantizando que tus ideas no traspasen al reverso.</span>
+                        </li>
+                        <li>
+                            <span class="manifesto-icon" aria-hidden="true">🛡️</span>
+                            <span><strong>Detallismo Minucioso y Duradero:</strong> Una agenda te acompaña los 365 días del año. Por ello, laminamos con protección mate o brillante cada portada para resistir rasguños, salpicaduras y la vorágine de estar dentro de cualquier bolso.</span>
+                        </li>
+                        <li>
+                            <span class="manifesto-icon" aria-hidden="true">☕</span>
+                            <span><strong>Calidez Humana ante todo:</strong> Rechazamos la automatización fría. Brindamos asesoramiento personalizado, como si nos tomáramos un café juntos, para ayudarte a elegir la estructura interior perfecta para tu rutina.</span>
+                        </li>
+                    </ul>
+                    
+                    <div class="signature" aria-label="Firma de Ciara">Ciara.</div>
+                </section>
+
+            </article>
+
+        </main>
+        
+        <!-- FOOTER -->
+        <footer class="site-footer">
+            <p>&copy; 2026 Ciara Creativa. Taller de Papelería de Diseño.</p>
+        </footer>
+
+    </div>
+
+    <!-- SCRIPTS -->
+    <script src="js/navigation.js"></script>
+</body>
+</html>

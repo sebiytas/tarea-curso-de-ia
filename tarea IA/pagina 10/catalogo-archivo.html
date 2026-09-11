@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Digital Vault // Catálogo de Títulos</title>
+  <meta name="description" content="Explora el repositorio general de videojuegos preservados.">
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    /* Estilos específicos del Catálogo */
+    .catalog-header {
+      margin-bottom: 2rem;
+    }
+
+    /* Barra de Operaciones */
+    .catalog-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      background-color: var(--bg-vault-panel);
+      padding: 1.5rem;
+      border: 1px solid var(--border-warehouse);
+      border-radius: 8px;
+      margin-bottom: 2rem;
+      align-items: center;
+    }
+
+    .toolbar-group {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      min-width: 250px;
+    }
+
+    .toolbar-label {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--aqua-primary);
+      margin-bottom: 0.5rem;
+      text-transform: uppercase;
+    }
+
+    .vault-input, .vault-select {
+      width: 100%;
+      background-color: var(--bg-vault-dark);
+      border: 1px solid var(--border-warehouse);
+      color: var(--text-light);
+      padding: 0.75rem 1rem;
+      font-family: var(--font-body);
+      font-size: 1rem;
+      border-radius: 4px;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .vault-input:focus, .vault-select:focus {
+      outline: none;
+      border-color: var(--aqua-light);
+      box-shadow: var(--glow-aqua);
+    }
+
+    /* Grilla de Bóveda */
+    .vault-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 2rem;
+    }
+
+    .vault-card {
+      background-color: var(--bg-vault-card);
+      border: 1px solid var(--border-warehouse);
+      border-radius: 8px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+    }
+
+    .vault-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--aqua-primary);
+      box-shadow: var(--shadow-shelf);
+    }
+
+    .vault-card__img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-bottom: 2px solid var(--aqua-primary);
+    }
+
+    .vault-card__body {
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .vault-card__serial {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: rgba(10, 17, 30, 0.85);
+      backdrop-filter: blur(4px);
+      padding: 0.25rem 0.5rem;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--aqua-light);
+      border: 1px solid var(--aqua-primary);
+      border-radius: 4px;
+      pointer-events: none;
+    }
+
+    .vault-card__platform {
+      font-family: var(--font-mono);
+      color: var(--blue-terminal);
+      font-size: 0.8rem;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .vault-card__title {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      color: var(--text-light);
+      margin-bottom: 0.5rem;
+    }
+
+    .vault-card__author, .vault-card__year {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 0.25rem;
+    }
+
+    .demo-badge {
+      display: inline-block;
+      background-color: rgba(255, 179, 0, 0.15);
+      color: var(--tag-demo);
+      border: 1px solid var(--tag-demo);
+      padding: 0.25rem 0.5rem;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      margin: 0.5rem 0 1rem;
+      border-radius: 4px;
+      font-weight: bold;
+    }
+
+    .vault-card__actions {
+      margin-top: auto;
+      padding-top: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .vault-btn--full {
+      width: 100%;
+    }
+
+    /* Modal de Detalles */
+    .vault-modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(10, 17, 30, 0.9);
+      backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .vault-modal-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .vault-modal {
+      background-color: var(--bg-vault-card);
+      border: 1px solid var(--aqua-primary);
+      border-radius: 8px;
+      width: 90%;
+      max-width: 800px;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: var(--glow-aqua);
+      transform: translateY(20px);
+      transition: transform 0.3s ease;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .vault-modal-overlay.active .vault-modal {
+      transform: translateY(0);
+    }
+
+    .vault-modal__header {
+      padding: 1.5rem;
+      border-bottom: 1px solid var(--border-warehouse);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: var(--bg-vault-panel);
+    }
+
+    .vault-modal__title {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      color: var(--aqua-light);
+      margin: 0;
+    }
+
+    .vault-modal__close {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      font-size: 2rem;
+      cursor: pointer;
+      line-height: 1;
+      transition: color 0.3s ease;
+    }
+
+    .vault-modal__close:hover {
+      color: var(--aqua-primary);
+    }
+
+    .vault-modal__body {
+      padding: 2rem;
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 2rem;
+    }
+
+    @media (max-width: 768px) {
+      .vault-modal__body {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .modal-cover {
+      width: 100%;
+      border-radius: 4px;
+      border: 2px solid var(--border-warehouse);
+    }
+
+    .modal-data h4 {
+      font-family: var(--font-mono);
+      color: var(--aqua-primary);
+      font-size: 0.9rem;
+      margin-top: 1.5rem;
+      margin-bottom: 0.5rem;
+      text-transform: uppercase;
+    }
+
+    .modal-data h4:first-child {
+      margin-top: 0;
+    }
+
+    .modal-data p {
+      color: var(--text-light);
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    .modal-data a {
+      color: var(--blue-terminal);
+      text-decoration: underline;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 4rem 1rem;
+      color: var(--text-muted);
+      grid-column: 1 / -1;
+    }
+  </style>
+</head>
+<body>
+
+  <main class="container">
+    
+    <div class="catalog-header">
+      <h2 class="vault-title">CATÁLOGO DE TÍTULOS PRESERVADOS</h2>
+      <p style="color: var(--text-muted);">Explora el repositorio completo. Filtra por plataforma o busca títulos y autores específicos.</p>
+    </div>
+
+    <!-- Barra de Búsqueda y Filtrado -->
+    <section class="catalog-toolbar" aria-label="Herramientas de filtrado">
+      <div class="toolbar-group">
+        <label for="search-input" class="toolbar-label">>> BÚSQUEDA POR NOMBRE O AUTOR</label>
+        <input type="text" id="search-input" class="vault-input" placeholder="Ej. CyberDrift, Elena Ruiz, RPG...">
+      </div>
+      <div class="toolbar-group">
+        <label for="platform-select" class="toolbar-label">>> PLATAFORMA / CONSOLA</label>
+        <select id="platform-select" class="vault-select">
+          <option value="all">[ Todas las Plataformas ]</option>
+          <option value="PC (MS-DOS / Windows 95)">[ PC / MS-DOS / Windows ]</option>
+          <option value="Nintendo">[ Nintendo (NES/SNES/N64/GB/GBA/DS) ]</option>
+          <option value="Game Boy Advance">[ Game Boy Advance ]</option>
+          <option value="PlayStation 1 (PSX)">[ PlayStation (PS1/PS2/PSP) ]</option>
+          <option value="Arcade">[ Arcade / Salones Recreativos ]</option>
+          <option value="Móviles">[ Móviles / Java / Retro Mobile ]</option>
+          <option value="other">[ Otras Plataformas ]</option>
+        </select>
+      </div>
+      <div aria-live="polite" id="filter-announcer" class="visually-hidden" style="display:none;"></div>
+    </section>
+
+    <!-- Grilla del Catálogo -->
+    <section class="vault-grid" id="catalog-grid" aria-live="polite">
+      <!-- Los items se renderizan dinámicamente aquí -->
+    </section>
+
+  </main>
+
+  <!-- Modal de Detalles del Expediente -->
+  <div class="vault-modal-overlay" id="details-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="vault-modal">
+      <div class="vault-modal__header">
+        <h3 class="vault-modal__title" id="modal-title">INSPECCIÓN DE EXPEDIENTE</h3>
+        <button class="vault-modal__close" aria-label="Cerrar modal">&times;</button>
+      </div>
+      <div class="vault-modal__body">
+        <div class="modal-gallery">
+          <img src="" alt="Carátula" id="modal-img" class="modal-cover">
+          <button id="modal-download-btn" class="vault-btn vault-btn--full" style="margin-top: 1rem;">
+            📥 DESCARGAR PAQUETE DIGITAL
+          </button>
+        </div>
+        <div class="modal-data">
+          <h4>Título</h4>
+          <p id="modal-game-title"></p>
+
+          <h4>Autor / Estudio</h4>
+          <p id="modal-game-author"></p>
+
+          <h4>Plataforma original</h4>
+          <p id="modal-game-platform"></p>
+
+          <h4>Año de lanzamiento</h4>
+          <p id="modal-game-year"></p>
+
+          <h4>Sinopsis Técnica e Histórica</h4>
+          <p id="modal-game-desc"></p>
+
+          <h4>Redes del Creador / Contacto</h4>
+          <p id="modal-game-links"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/vault-storage.js"></script>
+  <script src="js/navigation.js"></script>
+  <script src="js/catalog-engine.js"></script>
+</body>
+</html>

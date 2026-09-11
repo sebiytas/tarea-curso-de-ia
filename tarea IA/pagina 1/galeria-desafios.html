@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Retos Guardados | Prompt Maestro</title>
+    <meta name="description" content="Tus paletas y temas creativos guardados.">
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        /* Layout Galería */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .saved-card {
+            background: #fff;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: var(--shadow-paper);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            transition: var(--transition-bounce);
+        }
+        
+        .saved-card:nth-child(even) { transform: rotate(1deg); }
+        .saved-card:nth-child(odd) { transform: rotate(-1deg); }
+        .saved-card:hover { transform: scale(1.03) rotate(0); z-index: 2; box-shadow: var(--shadow-hover); }
+        
+        .saved-card.completed { opacity: 0.7; }
+        .saved-card.completed::after {
+            content: 'DIBUJADO';
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%) rotate(-15deg);
+            color: rgba(125, 143, 105, 0.4);
+            font-family: var(--font-art-primary);
+            font-size: 4rem;
+            pointer-events: none;
+            border: 4px solid rgba(125, 143, 105, 0.4);
+            padding: 0 1rem;
+            border-radius: 10px;
+        }
+
+        .card-header {
+            display: flex; justify-content: space-between; align-items: center;
+            border-bottom: 1px dashed var(--color-pencil);
+            padding-bottom: 0.5rem;
+        }
+        .card-date { font-family: var(--font-mono); font-size: 0.75rem; color: var(--color-pencil); }
+        
+        .card-actions { display: flex; gap: 0.5rem; }
+        .btn-icon { background: none; border: none; cursor: pointer; font-size: 1.2rem; transition: transform 0.2s; }
+        .btn-icon:hover { transform: scale(1.2); }
+        
+        /* Mini paleta */
+        .mini-palette { display: flex; gap: 0.2rem; height: 30px; border-radius: 4px; overflow: hidden; }
+        .mini-color { flex: 1; }
+
+        /* Timer Section */
+        .timer-section {
+            background: rgba(125, 143, 105, 0.1);
+            border: 2px dashed var(--sage-green);
+            border-radius: var(--radius-organic);
+            padding: 2rem;
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        
+        .timer-display {
+            font-family: var(--font-mono);
+            font-size: 4rem;
+            color: var(--color-ink);
+            margin: 1rem 0;
+            font-weight: bold;
+        }
+        
+        .empty-state { text-align: center; color: var(--color-pencil); margin-top: 3rem; }
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+        <!-- CABECERA -->
+        <header class="site-header">
+            <a href="index.html" class="site-logo">
+                <h1>Prompt Maestro</h1>
+                <span>Atelier Creativo & Color Studio</span>
+            </a>
+        </header>
+
+        <!-- NAVEGACIÓN -->
+        <nav class="main-nav">
+            <a href="index.html" class="nav-tab">Mesa de Dibujo</a>
+            <a href="galeria-desafios.html" class="nav-tab active" aria-current="page">Retos & Cuaderno</a>
+            <a href="teoria-color.html" class="nav-tab">Guía de Color</a>
+        </nav>
+
+        <main class="paper-sheet">
+            <!-- TIMER SECTION -->
+            <section class="timer-section">
+                <h2 class="art-title">Modo Práctica (Speed Drawing)</h2>
+                <p class="subtitle">Desafíate a completar un boceto rápido.</p>
+                
+                <div class="timer-display" id="timer-display" aria-live="polite">00:00</div>
+                
+                <div class="segmented-control" style="margin-bottom: 1rem;">
+                    <button class="segmented-btn timer-btn" data-time="15">15 min</button>
+                    <button class="segmented-btn timer-btn" data-time="30">30 min</button>
+                    <button class="segmented-btn timer-btn" data-time="45">45 min</button>
+                </div>
+                
+                <div class="action-buttons">
+                    <button id="btn-start-timer" class="btn-sketch btn-primary">▶ Iniciar</button>
+                    <button id="btn-reset-timer" class="btn-sketch">⏹ Detener</button>
+                </div>
+            </section>
+
+            <!-- GALLERY SECTION -->
+            <section>
+                <h2 class="art-title" style="text-align: center;">Mi Cuaderno de Recortes</h2>
+                <p class="subtitle" style="text-align: center;">Ideas y combinaciones guardadas.</p>
+                
+                <div id="gallery-container" class="gallery-grid">
+                    <!-- Cards will be injected here -->
+                </div>
+            </section>
+        </main>
+        
+        <footer style="text-align: center; margin-top: 3rem; padding-bottom: 2rem;">
+            <p class="mono-text" style="color: var(--color-pencil);">&copy; 2026 Prompt Maestro.</p>
+        </footer>
+    </div>
+
+    <script type="module">
+        import { getSavedChallenges, deleteChallenge, toggleChallengeCompletion } from './js/storage-manager.js';
+
+        // --- LÓGICA DE GALERÍA ---
+        const galleryContainer = document.getElementById('gallery-container');
+
+        function renderGallery() {
+            const challenges = getSavedChallenges();
+            galleryContainer.innerHTML = '';
+
+            if (challenges.length === 0) {
+                galleryContainer.innerHTML = `
+                    <div class="empty-state" style="grid-column: 1/-1;">
+                        <h3 class="art-title">Aún no hay recortes</h3>
+                        <p>Genera y guarda combinaciones desde la Mesa de Dibujo.</p>
+                    </div>`;
+                return;
+            }
+
+            challenges.forEach(c => {
+                const card = document.createElement('article');
+                card.className = `saved-card card-sketch ${c.completed ? 'completed' : ''}`;
+                
+                const dateStr = new Date(c.date).toLocaleDateString();
+                
+                let paletteHTML = '';
+                if (c.palette) {
+                    const colorsHTML = c.palette.map(color => `<div class="mini-color" style="background-color: ${color.hex};" title="${color.name}"></div>`).join('');
+                    paletteHTML = `<div class="mini-palette">${colorsHTML}</div>`;
+                }
+
+                let promptHTML = '';
+                if (c.prompt) {
+                    promptHTML = `
+                        <div>
+                            <strong>Sujeto:</strong> ${c.prompt.subject}<br>
+                            <strong>Entorno:</strong> ${c.prompt.environment}<br>
+                            <em>Restricción: ${c.prompt.constraint}</em>
+                        </div>
+                    `;
+                }
+
+                card.innerHTML = `
+                    <div class="card-header">
+                        <span class="card-date">${dateStr}</span>
+                        <div class="card-actions">
+                            <button class="btn-icon btn-toggle" title="Marcar/Desmarcar Dibujado">✔️</button>
+                            <button class="btn-icon btn-delete" title="Borrar">🗑️</button>
+                        </div>
+                    </div>
+                    ${paletteHTML}
+                    <div style="font-family: var(--font-ui); font-size: 0.9rem;">
+                        ${promptHTML}
+                    </div>
+                `;
+
+                // Eventos
+                const btnToggle = card.querySelector('.btn-toggle');
+                btnToggle.addEventListener('click', () => {
+                    toggleChallengeCompletion(c.id, !c.completed);
+                    renderGallery();
+                });
+
+                const btnDelete = card.querySelector('.btn-delete');
+                btnDelete.addEventListener('click', () => {
+                    if (confirm("¿Borrar este recorte?")) {
+                        deleteChallenge(c.id);
+                        renderGallery();
+                    }
+                });
+
+                galleryContainer.appendChild(card);
+            });
+        }
+
+        // --- LÓGICA DE TEMPORIZADOR ---
+        let timerInterval = null;
+        let timeRemaining = 0;
+        const display = document.getElementById('timer-display');
+        const timerBtns = document.querySelectorAll('.timer-btn');
+        const btnStart = document.getElementById('btn-start-timer');
+        const btnReset = document.getElementById('btn-reset-timer');
+
+        function updateDisplay() {
+            const m = Math.floor(timeRemaining / 60).toString().padStart(2, '0');
+            const s = (timeRemaining % 60).toString().padStart(2, '0');
+            display.textContent = `${m}:${s}`;
+        }
+
+        timerBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                timerBtns.forEach(b => b.classList.remove('active'));
+                e.target.classList.add('active');
+                clearInterval(timerInterval);
+                timeRemaining = parseInt(e.target.dataset.time) * 60;
+                updateDisplay();
+                btnStart.textContent = "▶ Iniciar";
+            });
+        });
+
+        btnStart.addEventListener('click', () => {
+            if (timeRemaining <= 0) return;
+            
+            if (timerInterval) {
+                // Pausar
+                clearInterval(timerInterval);
+                timerInterval = null;
+                btnStart.textContent = "▶ Continuar";
+            } else {
+                // Iniciar
+                btnStart.textContent = "⏸ Pausar";
+                timerInterval = setInterval(() => {
+                    timeRemaining--;
+                    updateDisplay();
+                    if (timeRemaining <= 0) {
+                        clearInterval(timerInterval);
+                        timerInterval = null;
+                        btnStart.textContent = "▶ Iniciar";
+                        alert("¡Tiempo fuera! Levanta el lápiz.");
+                    }
+                }, 1000);
+            }
+        });
+
+        btnReset.addEventListener('click', () => {
+            clearInterval(timerInterval);
+            timerInterval = null;
+            timeRemaining = 0;
+            timerBtns.forEach(b => b.classList.remove('active'));
+            updateDisplay();
+            btnStart.textContent = "▶ Iniciar";
+        });
+
+        // Iniciar
+        document.addEventListener('DOMContentLoaded', () => {
+            renderGallery();
+        });
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacto y Pedidos | Ciara Creativa</title>
+    <meta name="description" content="Ponte en contacto con Ciara Creativa para pedidos personalizados de encuadernación, o síguenos en Instagram, TikTok y Pinterest.">
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .contact-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+        @media(max-width: 900px) {
+            .contact-layout { grid-template-columns: 1fr; gap: 3rem; }
+        }
+        
+        /* Redes Sociales - Estilo Tarjetas de Visita Cosidas */
+        .social-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        .social-card {
+            background: var(--paper-ivory);
+            border: 2px dashed var(--rose-dust);
+            padding: 1.5rem;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            text-decoration: none;
+            color: var(--text-charcoal);
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            position: relative;
+            box-shadow: inset 0 0 0 4px var(--paper-ivory), inset 0 0 0 5px rgba(222, 143, 143, 0.1);
+        }
+        
+        .social-card:hover, .social-card:focus {
+            transform: translateX(10px) translateY(-2px);
+            background: var(--paper-rose);
+            box-shadow: var(--shadow-paper), inset 0 0 0 4px var(--paper-rose), inset 0 0 0 5px var(--rose-dust);
+            outline: none;
+        }
+        
+        .social-icon {
+            font-size: 1.8rem;
+            width: 55px; height: 55px;
+            background: var(--rose-deep);
+            color: white;
+            border-radius: 50%;
+            display: flex; justify-content: center; align-items: center;
+            flex-shrink: 0;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+        }
+
+        /* Acordeón FAQ */
+        .faq-container {
+            margin-top: 4rem;
+            background: var(--paper-ivory);
+            padding: 2.5rem;
+            border-radius: 8px;
+            box-shadow: var(--shadow-paper);
+            border-top: 5px solid var(--rose-dust);
+        }
+        
+        .faq-item {
+            margin-bottom: 1rem;
+            border-bottom: 1px solid rgba(222, 143, 143, 0.3);
+        }
+        
+        .faq-question {
+            width: 100%;
+            text-align: left;
+            background: transparent;
+            border: none;
+            padding: 1.2rem 0;
+            font-family: var(--font-title);
+            font-weight: 700;
+            color: var(--rose-deep);
+            font-size: 1.1rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: color 0.3s;
+        }
+        
+        .faq-question:hover, .faq-question:focus {
+            color: var(--text-charcoal);
+            outline: none;
+        }
+        
+        .faq-question::after {
+            content: '+';
+            font-size: 1.8rem;
+            transition: transform 0.3s;
+            font-family: monospace;
+        }
+        
+        .faq-question[aria-expanded="true"]::after {
+            transform: rotate(45deg);
+        }
+        
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out;
+            color: var(--text-pencil);
+            font-size: 1.05rem;
+        }
+        
+        .faq-answer-inner {
+            padding-bottom: 1.5rem;
+        }
+        
+        .faq-answer p { margin-bottom: 0; line-height: 1.6; }
+    </style>
+</head>
+<body>
+
+    <div class="desk-container">
+        <!-- HEADER -->
+        <header class="site-header">
+            <h1 class="site-logo">Ciara Creativa</h1>
+            <p class="site-tagline">Taller de Encuadernación & Diseño</p>
+        </header>
+
+        <!-- NAVEGACIÓN WIRE-O -->
+        <nav class="wire-o-nav" aria-label="Navegación principal">
+            <div class="wire-o-binding" aria-hidden="true"></div>
+            <ul class="nav-tabs">
+                <li><a href="index.html">[ BIENVENIDA & TALLER ]</a></li>
+                <li><a href="catalogo.html">[ CATÁLOGO DE AGENDAS ]</a></li>
+                <li><a href="sobre-ciara.html">[ CONOCE A CIARA ]</a></li>
+                <li><a href="redes-contacto.html" aria-current="page" class="active">[ REDES & PEDIDOS ]</a></li>
+            </ul>
+        </nav>
+
+        <!-- CONTENIDO PRINCIPAL -->
+        <main class="paper-page">
+            
+            <header style="text-align: center; margin-bottom: 4rem;">
+                <svg viewBox="0 0 100 60" width="100" height="60" style="margin-bottom: 1.5rem;" aria-hidden="true">
+                    <!-- Buzón / Sobre de carta nostálgico -->
+                    <rect x="5" y="5" width="90" height="50" fill="#FBF4F2" stroke="#C76B6B" stroke-width="2.5" rx="3"/>
+                    <path d="M5 5 L50 35 L95 5" fill="none" stroke="#C76B6B" stroke-width="2.5"/>
+                    <path d="M5 55 L35 35 M95 55 L65 35" fill="none" stroke="#C76B6B" stroke-width="2.5"/>
+                    <!-- Sello postal -->
+                    <circle cx="80" cy="20" r="8" fill="none" stroke="#DE8F8F" stroke-width="1.5" stroke-dasharray="2 1"/>
+                </svg>
+                <h2 style="color: var(--rose-deep); font-size: 2.8rem; margin-bottom: 0.5rem; line-height: 1.2;">Hablemos de tu Próxima Agenda</h2>
+                <p class="lead-text">Materializamos la papelería que siempre soñaste.</p>
+            </header>
+
+            <div class="contact-layout">
+                
+                <!-- COLUMNA IZQUIERDA: FORMULARIO CARTA -->
+                <section>
+                    <form id="contact-form" class="letter-form" aria-label="Formulario de contacto para pedidos">
+                        <h3 style="font-family: var(--font-logo); font-size: 3rem; color: var(--rose-deep); margin-bottom: 1rem; transform: rotate(-2deg);">Querida Ciara...</h3>
+                        
+                        <div class="form-group">
+                            <label for="name" class="visually-hidden">Tu Nombre</label>
+                            <input type="text" id="name" class="form-control" placeholder="Mi nombre completo es..." required aria-required="true">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="contact" class="visually-hidden">Tus datos de contacto</label>
+                            <input type="text" id="contact" class="form-control" placeholder="Y puedes escribirme a mi Correo o WhatsApp..." required aria-required="true">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="type" class="visually-hidden">Tipo de agenda que buscas</label>
+                            <select id="type" class="form-control" style="appearance: none; background: transparent; cursor: pointer; color: var(--text-charcoal); font-weight: 500;" required aria-required="true">
+                                <option value="" disabled selected style="color: var(--text-pencil);">Escribo porque estoy buscando una...</option>
+                                <option value="Agenda Personalizada desde cero">Agenda Personalizada desde cero</option>
+                                <option value="Agenda Sencilla del catálogo">Agenda Sencilla del catálogo</option>
+                                <option value="Libreta Telefónica clásica">Libreta Telefónica clásica (Directorio)</option>
+                                <option value="Regalo corporativo o especial">Regalo corporativo o proyecto especial</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="details" class="visually-hidden">Detalles de la libreta</label>
+                            <textarea id="details" class="form-control" placeholder="Tengo en mente que los detalles de la portada, los colores del anillado y el tipo de hoja interior sean más o menos así..." required aria-required="true"></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn-primary" style="width: 100%; margin-top: 1.5rem; justify-content: center; font-size: 1.1rem; padding: 1rem;">Enviar Carta a WhatsApp 📬</button>
+                    </form>
+                </section>
+
+                <!-- COLUMNA DERECHA: REDES & FAQ -->
+                <aside>
+                    <section aria-labelledby="social-heading">
+                        <h3 id="social-heading" style="margin-bottom: 1.5rem; color: var(--text-charcoal); font-size: 1.6rem;">Nuestra Comunidad Digital</h3>
+                        <div class="social-cards">
+                            <a href="#" class="social-card" aria-label="Visita nuestra galería en Instagram">
+                                <div class="social-icon" aria-hidden="true">📸</div>
+                                <div>
+                                    <h4 style="margin-bottom: 0.2rem; color: var(--text-charcoal);">Instagram</h4>
+                                    <p style="margin: 0; font-size: 0.95rem; color: var(--text-pencil);">@ciara.creativa_agendas<br>Fotos de procesos, telas y clientes felices.</p>
+                                </div>
+                            </a>
+                            
+                            <a href="#" class="social-card" aria-label="Escríbenos directamente por WhatsApp">
+                                <div class="social-icon" aria-hidden="true">💬</div>
+                                <div>
+                                    <h4 style="margin-bottom: 0.2rem; color: var(--text-charcoal);">WhatsApp de Pedidos</h4>
+                                    <p style="margin: 0; font-size: 0.95rem; color: var(--text-pencil);">+58 (412) 000-CIARA<br>Canal directo sin intermediarios.</p>
+                                </div>
+                            </a>
+                            
+                            <a href="#" class="social-card" aria-label="Mira nuestros videos ASMR en TikTok">
+                                <div class="social-icon" aria-hidden="true">🎬</div>
+                                <div>
+                                    <h4 style="margin-bottom: 0.2rem; color: var(--text-charcoal);">TikTok</h4>
+                                    <p style="margin: 0; font-size: 0.95rem; color: var(--text-pencil);">@ciaracreativa<br>Videos ASMR cortando papel y armando envíos.</p>
+                                </div>
+                            </a>
+                            
+                            <a href="#" class="social-card" aria-label="Inspírate con nuestros tableros en Pinterest">
+                                <div class="social-icon" aria-hidden="true">📌</div>
+                                <div>
+                                    <h4 style="margin-bottom: 0.2rem; color: var(--text-charcoal);">Pinterest</h4>
+                                    <p style="margin: 0; font-size: 0.95rem; color: var(--text-pencil);">/ciaracreativa_atelier<br>Tableros de inspiración, paletas y moodboards.</p>
+                                </div>
+                            </a>
+                        </div>
+                    </section>
+
+                    <section class="faq-container" aria-labelledby="faq-heading">
+                        <h3 id="faq-heading" style="font-size: 1.6rem; margin-bottom: 1.5rem; color: var(--text-charcoal);">Preguntas Frecuentes</h3>
+                        
+                        <!-- FAQ 1 -->
+                        <div class="faq-item">
+                            <button class="faq-question" aria-expanded="false" aria-controls="faq-ans-1">¿Cuánto tiempo tarda la manufactura?</button>
+                            <div id="faq-ans-1" class="faq-answer">
+                                <div class="faq-answer-inner">
+                                    <p>Debido al rigor de nuestro proceso artesanal, requerimos entre <strong>3 a 5 días hábiles</strong> para la elaboración de una agenda 100% personalizada, considerando los tiempos de laminado y grabado de foil.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- FAQ 2 -->
+                        <div class="faq-item">
+                            <button class="faq-question" aria-expanded="false" aria-controls="faq-ans-2">¿Puedo elegir cómo son las hojas?</button>
+                            <div id="faq-ans-2" class="faq-answer">
+                                <div class="faq-answer-inner">
+                                    <p>¡Absolutamente! Cada pedido te permite seleccionar si deseas un interior con hojas completamente <strong>lisas, cuadriculadas, de rayas clásicas</strong> o con la sutil <strong>trama de puntos</strong> ideal para el método Bullet Journal.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- FAQ 3 -->
+                        <div class="faq-item">
+                            <button class="faq-question" aria-expanded="false" aria-controls="faq-ans-3">¿Hacen envíos a todo el país?</button>
+                            <div id="faq-ans-3" class="faq-answer">
+                                <div class="faq-answer-inner">
+                                    <p>Sí. Embalamos cada agenda con sumo cuidado en cajas de cartón corrugado y papel de seda perfumado, garantizando que el paquete no solo soporte el viaje nacional o internacional de forma segura, sino que esté <strong>listo para regalar</strong> al momento de abrirlo.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </aside>
+
+            </div>
+        </main>
+        
+        <!-- FOOTER -->
+        <footer class="site-footer">
+            <p>&copy; 2026 Ciara Creativa. Taller de Encuadernación.</p>
+        </footer>
+
+    </div>
+
+    <!-- SCRIPTS -->
+    <script src="js/navigation.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // --- LÓGICA DEL ACORDEÓN FAQ ---
+            const faqQuestions = document.querySelectorAll('.faq-question');
+            faqQuestions.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const isExpanded = btn.getAttribute('aria-expanded') === 'true';
+                    
+                    // Opcional: Cerrar los demás acordeones
+                    /*
+                    faqQuestions.forEach(otherBtn => {
+                        if(otherBtn !== btn) {
+                            otherBtn.setAttribute('aria-expanded', 'false');
+                            document.getElementById(otherBtn.getAttribute('aria-controls')).style.maxHeight = '0';
+                        }
+                    });
+                    */
+                    
+                    btn.setAttribute('aria-expanded', !isExpanded);
+                    const answerId = btn.getAttribute('aria-controls');
+                    const answerNode = document.getElementById(answerId);
+                    
+                    if (!isExpanded) {
+                        answerNode.style.maxHeight = answerNode.scrollHeight + "px";
+                    } else {
+                        answerNode.style.maxHeight = "0";
+                    }
+                });
+            });
+
+            // --- LÓGICA DE PRE-LLENADO DESDE EL CATÁLOGO ---
+            // Recibe parámetros de la URL: ?modelo=NombreAgenda
+            const params = new URLSearchParams(window.location.search);
+            const modeloParams = params.get('modelo');
+            
+            if (modeloParams) {
+                const detailsInput = document.getElementById('details');
+                const typeSelect = document.getElementById('type');
+                
+                // Preseleccionar opción que mejor encaje
+                typeSelect.value = "Agenda Sencilla del catálogo"; 
+                
+                // Pre-escribir mensaje de inicio
+                detailsInput.value = `¡Hola! Me encantaría solicitar cotización para el modelo: ${modeloParams}.\n\nMe gustaría preguntar si es posible añadir...`;
+                
+                // Dar feedback visual
+                detailsInput.focus();
+                detailsInput.style.borderColor = 'var(--rose-deep)';
+                setTimeout(() => detailsInput.style.borderColor = '', 1500);
+            }
+
+            // --- LÓGICA DE ENVÍO DE FORMULARIO A WHATSAPP ---
+            const contactForm = document.getElementById('contact-form');
+            contactForm.addEventListener('submit', (e) => {
+                e.preventDefault(); // Prevenir recarga de página
+                
+                // Extraer valores
+                const name = document.getElementById('name').value.trim();
+                const contact = document.getElementById('contact').value.trim();
+                const type = document.getElementById('type').value;
+                const details = document.getElementById('details').value.trim();
+                
+                // Construir mensaje amigable
+                const message = `Querida Ciara,\n\nSoy ${name}.\n(Mis datos de contacto: ${contact})\n\n💌 *Consulta sobre:* ${type}\n\n*Detalles de mi idea:*\n${details}`;
+                
+                // Codificar para URL
+                const encodedMsg = encodeURIComponent(message);
+                
+                // Número ficticio pero funcional para la API de WhatsApp
+                const targetNumber = '584120000000'; 
+                const waUrl = `https://wa.me/${targetNumber}?text=${encodedMsg}`;
+                
+                // Abrir en nueva pestaña
+                window.open(waUrl, '_blank');
+            });
+        });
+    </script>
+</body>
+</html>

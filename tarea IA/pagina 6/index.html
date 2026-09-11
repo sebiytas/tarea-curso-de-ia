@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atelier Cozy | Outfit Color Studio</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <meta name="description" content="Plataforma de estilismo y colorimetría textil. Aprende a combinar tus prendas mediante armonías cromáticas.">
+</head>
+<body>
+
+    <!-- Navegación Lateral (Jean Índigo) -->
+    <aside id="denim-sidebar" aria-label="Navegación principal">
+        <button id="sidebar-toggle" class="coin-pocket-toggle" aria-expanded="false" aria-label="Expandir menú de navegación">
+            <div class="hamburger-lines">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </button>
+        <nav>
+            <ul class="denim-nav-list">
+                <li><a href="index.html" class="denim-link active" aria-current="page"><span class="icon">01</span> // EL ATELIER: INTRO</a></li>
+                <li><a href="inspiracion-paletas.html" class="denim-link"><span class="icon">02</span> // CATÁLOGO PALETAS</a></li>
+                <li><a href="mi-armario-generador.html" class="denim-link"><span class="icon">03</span> // MI ARMARIO & MATCH</a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <!-- Contenido Principal -->
+    <main id="main-content">
+        <!-- Portada Editorial (Hero Section) -->
+        <header class="cozy-card stitch-border" style="text-align: center; margin-bottom: 3rem; background-color: var(--denim-blue); color: var(--bg-canvas);">
+            <div class="leather-label" style="margin-bottom: 1.5rem; background-color: var(--bg-card); color: var(--text-ink); border-color: var(--denim-dark);">Manifiesto Cozy</div>
+            <h1 style="font-size: 2.8rem; color: var(--stitch-gold); text-shadow: 2px 2px 4px rgba(0,0,0,0.4);">EL ARTE DE COMBINAR TUS PRENDAS</h1>
+            <p style="font-size: 1.3rem; max-width: 800px; margin: 0 auto; color: var(--stitch-white);">
+                Tu guardarropa coordinado mediante armonías cromáticas reales, sin dudas al mirarte al espejo.
+            </p>
+        </header>
+
+        <!-- Tarjeta de Bienvenida y Flujo con siluetas de ropa -->
+        <section class="cozy-card stitch-border" style="margin-bottom: 4rem;">
+            <h2 style="text-align: center; margin-bottom: 2.5rem; color: var(--denim-dark);">¿Cómo funciona nuestro Atelier?</h2>
+            
+            <div style="display: flex; flex-wrap: wrap; gap: 2rem; justify-content: center;">
+                
+                <!-- Paso 1 (Icono silueta de gorra modificada para tarjeta) -->
+                <article class="stitch-border" style="padding: 1.5rem; text-align: center; width: 280px; position: relative;">
+                    <div style="width: 50px; height: 50px; background-color: var(--denim-light); margin: 0 auto 1rem auto; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-family: var(--font-mono); font-size: 1.5rem;">1</div>
+                    <h3 style="font-family: var(--font-mono); font-size: 1.1rem; margin-bottom: 1rem; color: var(--leather-patch);">Registra</h3>
+                    <p style="font-size: 0.95rem; color: var(--text-muted);">
+                        Añade las prendas que realmente tienes en tu armario por tono visual o por su nombre habitual en nuestro inventario textil.
+                    </p>
+                </article>
+
+                <!-- Paso 2 -->
+                <article class="stitch-border" style="padding: 1.5rem; text-align: center; width: 280px; position: relative;">
+                    <div style="width: 50px; height: 50px; background-color: var(--stitch-gold); margin: 0 auto 1rem auto; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--text-ink); font-family: var(--font-mono); font-size: 1.5rem;">2</div>
+                    <h3 style="font-family: var(--font-mono); font-size: 1.1rem; margin-bottom: 1rem; color: var(--leather-patch);">Analiza</h3>
+                    <p style="font-size: 0.95rem; color: var(--text-muted);">
+                        Nuestro motor aplica las leyes ópticas del círculo cromático: evalúa saturación, detecta piezas neutras y establece puntos de atención.
+                    </p>
+                </article>
+
+                <!-- Paso 3 -->
+                <article class="stitch-border" style="padding: 1.5rem; text-align: center; width: 280px; position: relative;">
+                    <div style="width: 50px; height: 50px; background-color: var(--leather-patch); margin: 0 auto 1rem auto; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-family: var(--font-mono); font-size: 1.5rem;">3</div>
+                    <h3 style="font-family: var(--font-mono); font-size: 1.1rem; margin-bottom: 1rem; color: var(--leather-patch);">Viste</h3>
+                    <p style="font-size: 0.95rem; color: var(--text-muted);">
+                        Obtén atuendos visualizados prenda por prenda (maniquí cozy) con la seguridad de una combinación armónica y coherente.
+                    </p>
+                </article>
+            </div>
+        </section>
+
+        <!-- Cápsulas Didácticas de Teoría del Color -->
+        <section aria-labelledby="teoria-title">
+            <h2 id="teoria-title" style="margin-bottom: 2.5rem; text-align: center;"><span class="leather-label">Teoría del Color Textil</span></h2>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+                
+                <!-- Cápsula I: Bolsillo cosido -->
+                <article class="cozy-card stitch-border" style="border-radius: 0 0 40px 40px; background-color: var(--bg-canvas);">
+                    <h3 style="color: var(--denim-dark); font-size: 1.2rem; border-bottom: 2px dashed var(--stitch-gold); padding-bottom: 10px; margin-bottom: 15px;">Cápsula I: La Regla del Neutro Base</h3>
+                    <p style="color: var(--text-muted);">
+                        El rol fundamental de los tonos lino, gris claro, denim índigo, negro y blanco roto como anclas visuales en cualquier conjunto. 
+                        Estos colores actúan como lienzo, reducen la fatiga visual y permiten que un solo tono vibrante pueda ser el protagonista indiscutible del atuendo sin generar conflicto.
+                    </p>
+                </article>
+
+                <!-- Cápsula II: Bolsillo cosido -->
+                <article class="cozy-card stitch-border" style="border-radius: 0 0 40px 40px; background-color: var(--bg-canvas);">
+                    <h3 style="color: var(--denim-dark); font-size: 1.2rem; border-bottom: 2px dashed var(--stitch-gold); padding-bottom: 10px; margin-bottom: 15px;">Cápsula II: Análoga vs. Complementaria</h3>
+                    <p style="color: var(--text-muted); margin-bottom: 10px;">
+                        <strong>Armonía Análoga:</strong> Busca transmitir serenidad y elegancia combinando colores vecinos en el círculo cromático (ej. Azul Marino, Celeste y Verde Menta).
+                    </p>
+                    <p style="color: var(--text-muted);">
+                        <strong>Contraste Complementario:</strong> Genera impacto visual y dinamismo enfrentando tonos opuestos (ej. Azul Denim Oscuro y Amarillo Mostaza u Ocre).
+                    </p>
+                </article>
+
+                <!-- Cápsula III: Bolsillo cosido -->
+                <article class="cozy-card stitch-border" style="border-radius: 0 0 40px 40px; background-color: var(--bg-canvas);">
+                    <h3 style="color: var(--denim-dark); font-size: 1.2rem; border-bottom: 2px dashed var(--stitch-gold); padding-bottom: 10px; margin-bottom: 15px;">Cápsula III: La Rueda de 3 Piezas</h3>
+                    <p style="color: var(--text-muted);">
+                        El secreto de una silueta equilibrada radica en cómo distribuir el peso del color: utiliza un tono neutro sólido en el pantalón (base cromática), asigna el color principal a la camisa/top (foco visual), y emplea la gorra, bufanda o calzado como pequeños acentos de color.
+                    </p>
+                </article>
+
+            </div>
+        </section>
+    </main>
+
+    <!-- Scripts locales, 100% nativos -->
+    <script src="js/navigation.js"></script>
+    <script src="js/color-theory.js"></script>
+</body>
+</html>

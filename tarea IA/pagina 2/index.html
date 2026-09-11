@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VAULT2000 // GAME TRACKER</title>
+  <meta name="description" content="Dashboard de gestión y seguimiento de bibliotecas de videojuegos. Sistema Y2K.">
+  
+  <!-- Estilos del Sistema -->
+  <link rel="stylesheet" href="css/styles.css">
+  
+  <!-- Tipografías Retro -->
+  <link href="https://fonts.googleapis.com/css2?family=VT323&family=Trebuchet+MS:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- ================= ENCABEZADO Y NAVEGACIÓN ================= -->
+  <header class="global-header">
+    <div class="banner-bios">
+      <div>
+        <span>VAULT2000</span>
+        <br>
+        <span style="font-size: 1rem; color: var(--text-main);">// NEURAL TRACKING SYSTEM V1.0</span>
+      </div>
+      <div class="sys-info">
+        SYS_MEM: OK | LOCAL_DB: ACTIVE
+      </div>
+    </div>
+  </header>
+
+  <nav class="global-nav" aria-label="Menú principal">
+    <ul class="nav-menu">
+      <li class="nav-item is-active">
+        <a href="index.html" class="nav-link">[ ARCHIVO / DASHBOARD ]</a>
+      </li>
+      <li class="nav-item">
+        <a href="#" class="nav-link" aria-haspopup="true" aria-expanded="false" aria-controls="menu-gestion">[ GESTIÓN DE JUEGOS ] ▼</a>
+        <ul id="menu-gestion" class="submenu" aria-label="Submenú Gestión de Juegos">
+          <li class="submenu-item"><a href="agregar-juego.html" class="submenu-link">Registrar Nuevo Título</a></li>
+        </ul>
+      </li>
+      <li class="nav-item">
+        <a href="decision-matrix.html" class="nav-link">[ ORÁCULO DE DECISIÓN ]</a>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- ================= CONTENIDO PRINCIPAL ================= -->
+  <main class="dashboard-container" style="padding: var(--spacing-md); max-width: 1400px; margin: 0 auto;">
+    
+    <!-- PANEL MÉTRICO (STATUS) -->
+    <section class="y2k-window metrics-panel" aria-labelledby="metrics-title">
+      <div class="y2k-window-header">
+        <h2 id="metrics-title">ESTADO DEL SISTEMA</h2>
+        <span>[METRICS_SYS]</span>
+      </div>
+      <div class="y2k-window-content" style="display: flex; flex-wrap: wrap; gap: var(--spacing-lg);">
+        <div class="metric-display" style="flex: 1; text-align: center; border: var(--border-width) solid var(--border-highlight); padding: var(--spacing-md); background: var(--bg-main);">
+          <div style="color: var(--text-muted); font-size: 1.2rem;">TOTAL JUEGOS</div>
+          <div id="metric-total" style="font-family: var(--font-display); font-size: 3rem; color: var(--text-main);">000</div>
+        </div>
+        <div class="metric-display" style="flex: 1; text-align: center; border: var(--border-width) solid var(--border-highlight); padding: var(--spacing-md); background: var(--bg-main);">
+          <div style="color: var(--status-playing); font-size: 1.2rem; text-shadow: 0 0 5px var(--status-playing);">EN PROGRESO</div>
+          <div id="metric-playing" style="font-family: var(--font-display); font-size: 3rem; color: var(--status-playing);">000</div>
+        </div>
+        <div class="metric-display" style="flex: 1; text-align: center; border: var(--border-width) solid var(--border-highlight); padding: var(--spacing-md); background: var(--bg-main);">
+          <div style="color: var(--status-cleared); font-size: 1.2rem; text-shadow: 0 0 5px var(--status-cleared);">COMPLETADOS</div>
+          <div id="metric-cleared" style="font-family: var(--font-display); font-size: 3rem; color: var(--status-cleared);">000</div>
+        </div>
+      </div>
+      
+      <!-- Barra de Progreso Discreta -->
+      <div class="progress-bar-container" style="padding: 0 var(--spacing-md) var(--spacing-md) var(--spacing-md);">
+        <div style="font-family: var(--font-display); margin-bottom: var(--spacing-xs);">TASA DE COMPLETITUD (<span id="metric-percentage">0%</span>)</div>
+        <div style="height: 20px; width: 100%; border: 2px solid var(--border-shadow); background: var(--bg-main); display: flex;" id="progress-bar-segments">
+          <!-- Segmentos generados por JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- MÓDULO NEURAL RANDOMIZER (Se oculta/muestra por JS) -->
+    <section id="randomizer-module" class="y2k-window" style="display: none; border-color: var(--status-backlog); box-shadow: 0 0 15px rgba(255, 179, 0, 0.3);" aria-live="polite">
+      <div class="y2k-window-header" style="background: var(--status-backlog); color: var(--bg-main);">
+        <h2>ALERTA DEL SISTEMA</h2>
+        <span>[WARNING]</span>
+      </div>
+      <div class="y2k-window-content" style="text-align: center; padding: var(--spacing-xl);">
+        <h3 style="color: var(--status-backlog); margin-bottom: var(--spacing-md); font-size: 1.8rem;">NINGÚN JUEGO ACTIVO. INICIALIZAR RANDOMIZER.</h3>
+        <button id="btn-run-randomizer" class="y2k-button primary" style="font-size: 1.5rem; padding: var(--spacing-md) var(--spacing-xl);">
+          EJECUTAR SELECCIÓN ALEATORIA
+        </button>
+        <div id="randomizer-result" style="margin-top: var(--spacing-lg); display: none;">
+          <!-- Resultado inyectado aquí en la Fase 3 -->
+        </div>
+      </div>
+    </section>
+
+    <!-- CATÁLOGO CATEGORIZADO -->
+    <section class="y2k-window">
+      <div class="y2k-window-header">
+        <h2>BASE DE DATOS: CATÁLOGO</h2>
+        <span>[DATA_GRID]</span>
+      </div>
+      <div class="y2k-window-content">
+        
+        <!-- Pestañas de Plataforma -->
+        <div class="platform-tabs" style="display: flex; gap: var(--spacing-sm); margin-bottom: var(--spacing-md); border-bottom: 2px solid var(--border-highlight); padding-bottom: var(--spacing-xs); flex-wrap: wrap;">
+          <button class="y2k-button tab-btn active" data-target="ALL" style="background: var(--bg-panel);">[ TODOS ]</button>
+          <button class="y2k-button tab-btn" data-target="MOBILE CORE">[ MOBILE CORE ]</button>
+          <button class="y2k-button tab-btn" data-target="PC STATION">[ PC STATION ]</button>
+          <button class="y2k-button tab-btn" data-target="PLAYSTATION VAULT">[ PLAYSTATION VAULT ]</button>
+          <button class="y2k-button tab-btn" data-target="DUAL SCREEN ARCHIVE">[ DUAL SCREEN ARCHIVE ]</button>
+        </div>
+
+        <!-- Contenedor Grid de Tarjetas -->
+        <div id="games-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: var(--spacing-md);">
+          <!-- Las tarjetas de juego se inyectan por JS -->
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Scripts -->
+  <script src="js/navigation.js"></script>
+  <script src="js/storage-engine.js"></script>
+  <script src="js/randomizer.js"></script>
+
+</body>
+</html>

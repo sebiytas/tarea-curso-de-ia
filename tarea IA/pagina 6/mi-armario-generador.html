@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Armario y Generador | Atelier Cozy</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <meta name="description" content="Gestiona tus prendas y genera outfits perfectos basados en teoría del color.">
+    <style>
+        /* Estilos específicos de esta vista interactiva */
+        .grid-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+        @media(max-width: 992px) {
+            .grid-layout { grid-template-columns: 1fr; }
+        }
+        
+        .input-group {
+            margin-bottom: 1.5rem;
+        }
+        .input-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--denim-dark);
+            font-weight: bold;
+        }
+        .cozy-input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px dashed var(--denim-light);
+            border-radius: 6px;
+            font-family: var(--font-body);
+            background-color: var(--bg-canvas);
+            transition: all 0.3s;
+        }
+        .cozy-input:focus {
+            outline: none;
+            border-color: var(--stitch-gold);
+            box-shadow: 0 0 0 3px rgba(221, 168, 56, 0.2);
+        }
+        
+        /* Selectores de Prenda visuales */
+        .type-selector {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 1rem;
+        }
+        .type-btn {
+            flex: 1;
+            padding: 10px;
+            background: var(--bg-card);
+            border: 1px solid var(--denim-light);
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            text-align: center;
+        }
+        .type-btn.active {
+            background: var(--denim-dark);
+            color: white;
+            border-color: var(--stitch-gold);
+        }
+
+        .action-btn {
+            background-color: var(--leather-patch);
+            color: var(--bg-canvas);
+            border: 2px dashed var(--stitch-gold);
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            font-family: var(--font-heading);
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            transition: background 0.3s;
+        }
+        .action-btn:hover { background-color: var(--denim-dark); }
+
+        /* Inventario */
+        .inventory-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 15px;
+            margin-top: 1rem;
+        }
+        .inventory-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 10px;
+            background: var(--bg-card);
+            border: 1px solid var(--stitch-gold);
+            border-radius: 6px;
+            position: relative;
+        }
+        .color-swatch {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-bottom: 10px;
+            border: 1px solid var(--denim-dark);
+        }
+        .delete-btn {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: red;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navegación Lateral -->
+    <aside id="denim-sidebar" aria-label="Navegación principal">
+        <button id="sidebar-toggle" class="coin-pocket-toggle" aria-expanded="false" aria-label="Expandir menú de navegación">
+            <div class="hamburger-lines">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </button>
+        <nav>
+            <ul class="denim-nav-list">
+                <li><a href="index.html" class="denim-link"><span class="icon">01</span> // EL ATELIER: INTRO</a></li>
+                <li><a href="inspiracion-paletas.html" class="denim-link"><span class="icon">02</span> // CATÁLOGO PALETAS</a></li>
+                <li><a href="mi-armario-generador.html" class="denim-link active" aria-current="page"><span class="icon">03</span> // MI ARMARIO & MATCH</a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <main id="main-content">
+        <header style="margin-bottom: 2rem;">
+            <h1 style="color: var(--denim-dark);"><span class="leather-label">03</span> Probador Virtual & Armario</h1>
+        </header>
+
+        <div class="grid-layout">
+            
+            <!-- COLUMNA IZQUIERDA: GESTIÓN -->
+            <div>
+                <!-- Módulo 1: Alta de Prendas -->
+                <section class="cozy-card stitch-border" style="margin-bottom: 2rem;">
+                    <h2>Dar de Alta mi Prenda</h2>
+                    
+                    <div class="type-selector" id="garment-type-selector">
+                        <button class="type-btn active" data-type="gorra">Gorra/Gorro</button>
+                        <button class="type-btn" data-type="camiseta">Camisa/Top</button>
+                        <button class="type-btn" data-type="pantalon">Pantalón</button>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="color-name">Entrada Semántica (Nombre de color):</label>
+                        <input type="text" id="color-name" class="cozy-input" placeholder="Ej: Verde Oliva, Mostaza, Denim..." autocomplete="off">
+                        <small style="color: var(--text-muted); display: block; margin-top: 5px;">El sistema buscará el tono exacto automáticamente.</small>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="color-picker">Ajuste Fino Visual:</label>
+                        <div style="display: flex; align-items: center; gap: 15px;">
+                            <input type="color" id="color-picker" value="#2E4B75" style="width: 60px; height: 60px; border: none; cursor: pointer; background: transparent;">
+                            <span id="hex-display" style="font-family: var(--font-mono); color: var(--denim-dark);">#2E4B75</span>
+                        </div>
+                    </div>
+
+                    <button id="add-garment-btn" class="action-btn">Coser a mi Armario</button>
+                </section>
+
+                <!-- Módulo 2: Inventario -->
+                <section class="cozy-card stitch-border">
+                    <h2>Mi Guardarropa</h2>
+                    <div id="wardrobe-inventory" class="inventory-grid">
+                        <!-- Las prendas se renderizan aquí dinámicamente -->
+                    </div>
+                </section>
+            </div>
+
+            <!-- COLUMNA DERECHA: GENERADOR -->
+            <div>
+                <section class="cozy-card stitch-border" style="background-color: var(--denim-blue); color: var(--bg-canvas);">
+                    <h2 style="color: var(--stitch-gold);">Armonizador de Estilo</h2>
+                    <p style="margin-bottom: 1.5rem; color: var(--stitch-white);">Presiona el botón para que evaluemos tu armario y generemos una combinación matemáticamente armónica.</p>
+                    
+                    <button id="generate-outfit-btn" class="action-btn" style="background-color: var(--bg-card); color: var(--denim-dark); border-color: var(--denim-dark);">Armar Outfit con lo que tengo</button>
+                </section>
+
+                <!-- El Maniquí de Costura (Resultado) -->
+                <section id="mannequin-result" class="cozy-card stitch-border" style="margin-top: 2rem; display: none; text-align: center;">
+                    <h3 style="color: var(--leather-patch); margin-bottom: 1rem;">Tu Conjunto Ideal</h3>
+                    
+                    <div style="display: flex; flex-direction: column; align-items: center; gap: 5px; margin-bottom: 1.5rem;">
+                        <div id="result-gorra" class="silueta-wrapper silueta-gorra" style="background-color: #eee; margin-bottom: -30px;"></div>
+                        <div id="result-camiseta" class="silueta-wrapper silueta-camiseta" style="background-color: #eee; z-index: 2;"></div>
+                        <div id="result-pantalon" class="silueta-wrapper silueta-pantalon" style="background-color: #eee; margin-top: -20px; z-index: 1;"></div>
+                    </div>
+
+                    <div id="result-explanation" style="background: rgba(255,255,255,0.5); padding: 15px; border-radius: 8px; border: 1px dashed var(--stitch-gold); font-size: 0.95rem; color: var(--denim-dark); text-align: left;">
+                        <!-- Explicación de la armonía -->
+                    </div>
+                </section>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Región ARIA Live para alertas de accesibilidad -->
+    <div id="aria-live-region" aria-live="polite" style="position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden;"></div>
+
+    <script src="js/color-theory.js"></script>
+    <script src="js/wardrobe-manager.js"></script>
+    <script src="js/navigation.js"></script>
+    <script src="js/outfit-matcher.js"></script>
+</body>
+</html>

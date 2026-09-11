@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discografía Oficial | Lo Micro TD</title>
+    
+    <!-- Meta SEO -->
+    <meta name="description" content="Catálogo musical íntegro de Lo Micro TD. Escucha sus sencillos, colaboraciones y sesiones acústicas, explora sus letras y sumérgete en su sonido.">
+    
+    <!-- Fuentes (Google Fonts) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@700&family=Fira+Code:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500&family=Space+Grotesk:wght@700&family=Syne:wght@800&display=swap" rel="stylesheet">
+    
+    <!-- Hojas de Estilo -->
+    <link rel="stylesheet" href="css/styles.css">
+    
+    <!-- Scripts Base -->
+    <script src="js/main.js" defer></script>
+    <script src="js/music-data.js" defer></script>
+    <script src="js/player-engine.js" defer></script>
+
+    <style>
+      /* Estilos específicos de Discografía */
+      .disco-header {
+        text-align: center;
+        padding: 4rem 1rem 2rem;
+      }
+      
+      .disco-header h1 {
+        font-size: 3rem;
+        color: var(--text-light);
+        margin-bottom: 1rem;
+      }
+      
+      .controls-panel {
+        background: var(--bg-card);
+        border: 1px solid var(--border-neon);
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin-bottom: 3rem;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1.5rem;
+        align-items: center;
+        justify-content: space-between;
+      }
+      
+      .search-box {
+        flex-grow: 1;
+        min-width: 250px;
+        position: relative;
+      }
+      
+      .search-box input {
+        width: 100%;
+        background: var(--bg-studio);
+        border: 1px solid var(--border-neon);
+        color: var(--text-light);
+        padding: 0.8rem 1rem 0.8rem 2.5rem;
+        border-radius: 8px;
+        font-family: var(--font-body);
+        font-size: 1rem;
+      }
+      
+      .search-box input:focus {
+        outline: none;
+        border-color: var(--accent-violet);
+        box-shadow: 0 0 10px rgba(138, 63, 252, 0.3);
+      }
+      
+      .search-icon {
+        position: absolute;
+        left: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        fill: var(--text-muted);
+        width: 18px;
+        height: 18px;
+      }
+      
+      .filters {
+        display: flex;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+      }
+      
+      .filter-btn {
+        background: transparent;
+        border: 1px solid var(--border-neon);
+        color: var(--text-muted);
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        cursor: pointer;
+        font-family: var(--font-subheadings);
+        font-size: 0.9rem;
+        transition: all 0.3s ease;
+      }
+      
+      .filter-btn:hover, .filter-btn.active {
+        background: var(--accent-magenta);
+        color: #fff;
+        border-color: var(--accent-magenta);
+        box-shadow: var(--glow-magenta);
+      }
+      
+      /* Grid de Canciones */
+      .music-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        gap: 2rem;
+        margin-bottom: 100px; /* Espacio para el reproductor sticky */
+      }
+      
+      .track-card {
+        background: var(--bg-track);
+        border: 1px solid var(--border-neon);
+        border-radius: 12px;
+        padding: 1.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+      
+      .track-card:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-track);
+        border-color: var(--accent-violet);
+      }
+      
+      .track-header {
+        display: flex;
+        gap: 1rem;
+      }
+      
+      .track-cover-sm {
+        width: 80px;
+        height: 80px;
+        border-radius: 8px;
+        object-fit: cover;
+        flex-shrink: 0;
+      }
+      
+      .track-info {
+        flex-grow: 1;
+      }
+      
+      .track-title {
+        font-family: var(--font-headings);
+        font-size: 1.25rem;
+        color: var(--text-light);
+        margin-bottom: 0.2rem;
+      }
+      
+      .track-meta {
+        font-family: var(--font-mono);
+        font-size: 0.8rem;
+        color: var(--accent-violet);
+        margin-bottom: 0.5rem;
+      }
+      
+      .track-role {
+        font-size: 0.85rem;
+        color: var(--text-muted);
+      }
+      
+      .track-actions {
+        display: flex;
+        gap: 0.5rem;
+        margin-top: auto;
+      }
+      
+      .btn-play-preview {
+        flex-grow: 1;
+        background: rgba(224, 36, 117, 0.1);
+        border: 1px solid var(--accent-magenta);
+        color: var(--accent-magenta);
+        padding: 0.5rem;
+        border-radius: 6px;
+        cursor: pointer;
+        font-family: var(--font-subheadings);
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        transition: all 0.3s ease;
+      }
+      
+      .btn-play-preview:hover {
+        background: var(--accent-magenta);
+        color: #fff;
+      }
+      
+      .btn-lyrics {
+        background: transparent;
+        border: 1px solid var(--text-muted);
+        color: var(--text-light);
+        padding: 0.5rem 1rem;
+        border-radius: 6px;
+        cursor: pointer;
+        font-family: var(--font-subheadings);
+        transition: all 0.3s ease;
+      }
+      
+      .btn-lyrics:hover {
+        border-color: var(--text-light);
+      }
+      
+      .platform-links {
+        display: flex;
+        gap: 0.5rem;
+      }
+      
+      .platform-link {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background: var(--bg-studio);
+        border: 1px solid var(--border-neon);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--text-muted);
+      }
+      
+      .platform-link:hover {
+        color: var(--text-light);
+        border-color: var(--accent-violet);
+      }
+      
+      .platform-link svg {
+        width: 16px;
+        height: 16px;
+        fill: currentColor;
+      }
+
+      /* Letras Modal / Expandible */
+      .lyrics-container {
+        display: none;
+        margin-top: 1rem;
+        padding: 1rem;
+        background: rgba(0,0,0,0.2);
+        border-radius: 8px;
+        border-left: 2px solid var(--accent-violet);
+        font-family: var(--font-body);
+        font-size: 0.9rem;
+        color: var(--text-muted);
+        white-space: pre-line;
+      }
+      
+      .lyrics-container.active {
+        display: block;
+        animation: fadeIn 0.3s ease;
+      }
+
+      @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(-5px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      /* Sticky Music Bar */
+      .sticky-player {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background: rgba(20, 17, 36, 0.95);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border-top: 1px solid var(--accent-violet);
+        padding: 0.8rem 0;
+        z-index: 1000;
+        transform: translateY(100%);
+        transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        box-shadow: 0 -5px 20px rgba(0,0,0,0.5);
+      }
+      
+      .sticky-player.visible {
+        transform: translateY(0);
+      }
+      
+      .sticky-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+      }
+      
+      .sticky-track-info {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        flex: 1;
+      }
+      
+      .sticky-cover {
+        width: 48px;
+        height: 48px;
+        border-radius: 4px;
+        object-fit: cover;
+      }
+      
+      .sticky-titles h4 {
+        font-family: var(--font-headings);
+        margin: 0;
+        font-size: 1rem;
+      }
+      
+      .sticky-titles p {
+        font-size: 0.8rem;
+        color: var(--text-muted);
+        margin: 0;
+      }
+      
+      .sticky-controls {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+        flex: 2;
+        justify-content: center;
+      }
+      
+      .sticky-play-btn {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: var(--text-light);
+        color: var(--bg-studio);
+        border: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+      }
+      
+      .sticky-play-btn svg {
+        width: 18px;
+        height: 18px;
+        fill: currentColor;
+      }
+
+      .sticky-progress {
+        flex-grow: 1;
+        max-width: 400px;
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+        font-family: var(--font-mono);
+        font-size: 0.75rem;
+      }
+      
+      .sticky-rail {
+        flex-grow: 1;
+        height: 4px;
+        background: rgba(255,255,255,0.2);
+        border-radius: 2px;
+        cursor: pointer;
+        position: relative;
+      }
+      
+      .sticky-fill {
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 100%;
+        background: var(--accent-magenta);
+        border-radius: 2px;
+        width: 0%;
+      }
+      
+      .sticky-extras {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        flex: 1;
+        justify-content: flex-end;
+      }
+      
+      .close-sticky {
+        background: none;
+        border: none;
+        color: var(--text-muted);
+        cursor: pointer;
+        font-size: 1.2rem;
+      }
+      
+      .close-sticky:hover {
+        color: var(--text-light);
+      }
+      
+      #noResultsMsg {
+        display: none;
+        text-align: center;
+        padding: 3rem;
+        grid-column: 1 / -1;
+        font-family: var(--font-subheadings);
+        color: var(--text-muted);
+      }
+
+      @media (max-width: 768px) {
+        .sticky-container {
+          flex-direction: column;
+          gap: 0.5rem;
+        }
+        .sticky-controls {
+          width: 100%;
+          order: -1;
+        }
+        .sticky-extras {
+          display: none;
+        }
+      }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER GLOBAL -->
+    <header class="global-header" role="banner">
+        <div class="container header-container">
+            <a href="index.html" class="logo-container" aria-label="Ir al inicio - Lo Micro TD">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/>
+                    <path d="M19 10v2a7 7 0 0 1-14 0v-2H3v2a9 9 0 0 0 8 8.94V22h2v-1.06A9 9 0 0 0 21 12v-2h-2z"/>
+                </svg>
+                LO MICRO TD
+            </a>
+            <nav role="navigation" aria-label="Navegación principal">
+                <ul class="nav-links">
+                    <li><a href="index.html" class="nav-item" data-path="index.html">[ INICIO & RADAR ]</a></li>
+                    <li><a href="biografia-historia.html" class="nav-item" data-path="biografia-historia.html">[ HISTORIA & RAÍCES ]</a></li>
+                    <li><a href="discografia-canciones.html" class="nav-item" data-path="discografia-canciones.html">[ DISCOGRAFÍA COMPLETA ]</a></li>
+                </ul>
+            </nav>
+            <div class="social-bar">
+                <a href="https://spotify.com" target="_blank" rel="noopener noreferrer" aria-label="Perfil verificado de Spotify">
+                    <svg viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm4.586 14.424c-.18.295-.563.387-.857.207-2.35-1.434-5.305-1.76-8.786-.963-.335.077-.67-.133-.746-.466-.076-.334.134-.67.467-.746 3.816-.874 7.086-.494 9.715 1.11.294.18.388.563.207.858zm1.22-2.735c-.226.368-.7.483-1.067.256-2.71-1.664-6.86-2.146-10.378-1.176-.413.114-.836-.128-.95-.54-.114-.413.127-.836.54-.95 3.99-1.1 8.625-.56 11.6 1.267.368.226.483.7.255 1.066zm.135-2.885c-3.262-1.936-8.65-2.116-11.758-1.17-.487.147-1.002-.128-1.15-.615-.146-.487.127-1.002.614-1.15 3.567-1.085 9.53-.87 13.293 1.365.437.26.58.835.32 1.272-.26.438-.836.58-1.272.32h-.047z"/></svg>
+                </a>
+                <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" aria-label="Canal oficial de YouTube">
+                    <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                </a>
+                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram oficial">
+                    <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                </a>
+            </div>
+            <button class="mobile-menu-btn" aria-label="Abrir menú" aria-expanded="false">☰</button>
+        </div>
+    </header>
+    <div class="mobile-menu" aria-hidden="true" id="mobileMenu"></div>
+    <div class="particles-container" aria-hidden="true" id="particlesContainer"></div>
+
+    <main>
+        <header class="disco-header">
+            <div class="container">
+                <h1>Discografía y Archivo</h1>
+                <p style="color: var(--text-muted);">Explora el catálogo completo, letras y maquetas sonoras.</p>
+            </div>
+        </header>
+
+        <section class="container">
+            <div class="controls-panel">
+                <div class="search-box">
+                    <svg class="search-icon" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+                    <input type="text" id="searchInput" placeholder="Buscar por título o año..." aria-label="Buscar canciones">
+                </div>
+                
+                <div class="filters" id="filterContainer">
+                    <button class="filter-btn active" data-filter="all">Todas</button>
+                    <button class="filter-btn" data-filter="single">Sencillos</button>
+                    <button class="filter-btn" data-filter="feat">Colaboraciones</button>
+                    <button class="filter-btn" data-filter="acoustic">Acústicos</button>
+                </div>
+            </div>
+
+            <!-- Grid Generado Dinámicamente -->
+            <div class="music-grid" id="musicGrid" aria-live="polite">
+                <!-- Los items se inyectan mediante JS -->
+                <div id="noResultsMsg">No se encontraron pistas que coincidan con la búsqueda.</div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="global-footer" role="contentinfo" style="margin-top: 2rem;">
+        <div class="container">
+            <p>&copy; 2026 LO MICRO TD // URBAN SOUL & MUSICAL ARCHIVE.</p>
+            <p>Plataforma oficial desarrollada por AntiGravity Web Systems.</p>
+        </div>
+    </footer>
+
+    <!-- Reproductor Persistente (Sticky Music Bar) -->
+    <div class="sticky-player" id="stickyPlayer" aria-hidden="true">
+        <div class="container sticky-container">
+            <div class="sticky-track-info">
+                <img src="" alt="Carátula" class="sticky-cover" id="stCover">
+                <div class="sticky-titles">
+                    <h4 id="stTitle">Track Name</h4>
+                    <p id="stArtist">Lo Micro TD</p>
+                </div>
+            </div>
+            
+            <div class="sticky-controls">
+                <button class="sticky-play-btn" id="stPlayBtn" aria-label="Reproducir/Pausar pista flotante">
+                    <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                </button>
+                
+                <div class="sticky-progress">
+                    <span id="stCurrentTime">0:00</span>
+                    <div class="sticky-rail" id="stProgressRail">
+                        <div class="sticky-fill" id="stProgressFill"></div>
+                    </div>
+                    <span id="stDuration">0:00</span>
+                </div>
+            </div>
+            
+            <div class="sticky-extras">
+                <!-- Ecualizador Mini -->
+                <div class="equalizer" id="stEq" style="height: 15px;">
+                    <div class="eq-bar" style="width:2px; height:2px;"></div>
+                    <div class="eq-bar" style="width:2px; height:2px;"></div>
+                    <div class="eq-bar" style="width:2px; height:2px;"></div>
+                    <div class="eq-bar" style="width:2px; height:2px;"></div>
+                    <div class="eq-bar" style="width:2px; height:2px;"></div>
+                </div>
+                <button class="close-sticky" id="stCloseBtn" aria-label="Cerrar reproductor">✕</button>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

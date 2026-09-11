@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trophy Vault | Salón de la Fama y Clasificación</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        /* Estilos específicos para la página del ranking */
+        .controls-panel {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto 3rem;
+            background: rgba(30, 35, 48, 0.6);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border: 1px solid var(--border-metal);
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .controls-panel .form-group {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .podium-container {
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            gap: 1rem;
+            margin: 0 auto 5rem;
+            min-height: 350px;
+            width: 100%;
+            max-width: 800px;
+            padding: 0 1rem;
+        }
+
+        .podium-block {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+            flex: 1;
+            max-width: 220px;
+            animation: riseUp 1s ease-out forwards;
+            opacity: 0;
+            transform: translateY(50px);
+        }
+
+        /* Tiempos de animación del podio */
+        .podium-block:nth-child(2) { animation-delay: 0.2s; } /* 1er lugar (centro) */
+        .podium-block:nth-child(1) { animation-delay: 0.5s; } /* 2do lugar (izq) */
+        .podium-block:nth-child(3) { animation-delay: 0.8s; } /* 3er lugar (der) */
+
+        @keyframes riseUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .podium-step {
+            width: 100%;
+            background: linear-gradient(to bottom, #2a2d36, var(--bg-pedestal));
+            border-radius: 4px 4px 0 0;
+            box-shadow: inset 0 8px 15px rgba(0,0,0,0.9), var(--shadow-pedestal);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-heading);
+            font-size: 3.5rem;
+            text-shadow: 0 4px 10px rgba(0,0,0,0.8);
+            position: relative;
+        }
+
+        .podium-step::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 100%);
+        }
+
+        .leaderboard-list {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        /* Responsive Podio */
+        @media (max-width: 768px) {
+            .podium-container {
+                gap: 0.5rem;
+                min-height: 250px;
+            }
+            .podium-step {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <section class="hero-section">
+            <h2 class="hero-title">Salón de la Fama y Clasificación</h2>
+            <p class="hero-subtitle">Contempla a los más grandes campeones, leyendas y pioneros. Sus nombres grabados en oro por la eternidad.</p>
+        </section>
+
+        <!-- Filtros y Controles -->
+        <section class="controls-panel" aria-label="Filtros del Ránking">
+            <div class="form-group">
+                <label for="search-input" style="text-align: left; margin-bottom: 0.5rem; font-size: 0.85rem;">Buscar Campeón o Hazaña</label>
+                <input type="text" id="search-input" class="engraved-input" placeholder="Ej. Arthur, Química, Oro..." style="text-align: left;">
+            </div>
+            <div class="form-group">
+                <label for="sort-select" style="text-align: left; margin-bottom: 0.5rem; font-size: 0.85rem;">Criterio de Ordenamiento</label>
+                <select id="sort-select" class="engraved-select" style="text-align: left; text-align-last: left;">
+                    <option value="desc">Mayor a Menor Cantidad de Logros</option>
+                    <option value="asc">Menor a Mayor Cantidad de Logros</option>
+                    <option value="alpha">Alfabético por Nombre del Titular</option>
+                    <option value="recent">Más Recientes Primero</option>
+                </select>
+            </div>
+        </section>
+
+        <!-- El Podio Sagrado (Top 3) -->
+        <section id="podium-container" class="podium-container" aria-label="Podio de los 3 Mejores Campeones">
+            <!-- Renderizado Dinámico vía js/leaderboard-engine.js -->
+        </section>
+
+        <!-- Lista Completa de Miembros / Cuentas -->
+        <section id="leaderboard-list" class="leaderboard-list" aria-label="Clasificación General">
+            <!-- Renderizado Dinámico vía js/leaderboard-engine.js -->
+        </section>
+    </main>
+
+    <!-- Scripts de la Aplicación -->
+    <script src="js/main.js"></script>
+    <script src="js/trophy-storage.js"></script>
+    <script src="js/leaderboard-engine.js"></script>
+</body>
+</html>

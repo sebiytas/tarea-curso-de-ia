@@ -1,0 +1,420 @@
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Fira+Code:wght@400;500&family=Inter:wght@400;500;600&family=Patrick+Hand&family=Nunito:wght@400;600;700&display=swap');
+
+/* ==========================================================================
+   DESIGN SYSTEM - "PAPER SKETCHBOOK"
+   ========================================================================== */
+
+:root {
+  /* Paleta Cromática Base */
+  --bg-canvas: #F4EFEA;
+  --bg-paper: #FAF7F2;
+  --color-ink: #2B2421;
+  --color-pencil: #635750;
+
+  /* Acentos Cálidos */
+  --tape-yellow: #E8C872;
+  --tape-terracotta: #C96868;
+  --sage-green: #7D8F69;
+
+  /* Bordes y Sombras */
+  --border-sketch: 2px solid #3E342F;
+  --shadow-paper: rgba(68, 54, 42, 0.08) 0px 8px 24px, rgba(68, 54, 42, 0.04) 0px 2px 6px;
+  --shadow-hover: rgba(68, 54, 42, 0.12) 0px 12px 32px, rgba(68, 54, 42, 0.08) 0px 4px 8px;
+  --shadow-tape: rgba(0, 0, 0, 0.1) 0px 2px 4px;
+
+  /* Tipografía */
+  --font-art-primary: 'Caveat', cursive;
+  --font-art-secondary: 'Patrick Hand', cursive;
+  --font-ui: 'Inter', sans-serif;
+  --font-ui-alt: 'Nunito', sans-serif;
+  --font-mono: 'Fira Code', monospace;
+
+  /* Radios Orgánicos (Sketchbook style) */
+  --radius-organic: 255px 15px 225px 15px/15px 225px 15px 255px;
+  --radius-organic-alt: 15px 225px 15px 255px/255px 15px 225px 15px;
+
+  /* Transiciones */
+  --transition-smooth: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  --transition-bounce: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* ==========================================================================
+   RESET & BASE
+   ========================================================================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg-canvas);
+  color: var(--color-ink);
+  font-family: var(--font-ui);
+  line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+  /* Textura de fondo sutil tipo lienzo */
+  background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+}
+
+/* Accesibilidad Focus */
+:focus-visible {
+  outline: 3px solid var(--sage-green);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+/* ==========================================================================
+   TYPOGRAPHY
+   ========================================================================== */
+
+h1,
+h2,
+h3,
+.art-title {
+  font-family: var(--font-art-primary);
+  color: var(--color-ink);
+  line-height: 1.2;
+}
+
+h1 {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+}
+
+h2 {
+  font-size: clamp(2rem, 4vw, 3rem);
+}
+
+h3 {
+  font-size: clamp(1.5rem, 3vw, 2.2rem);
+}
+
+.subtitle {
+  font-family: var(--font-art-secondary);
+  color: var(--color-pencil);
+  font-size: 1.2rem;
+}
+
+.mono-text {
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+}
+
+/* ==========================================================================
+   LAYOUT
+   ========================================================================== */
+
+.app-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+/* ==========================================================================
+   HEADER & NAVIGATION
+   ========================================================================== */
+
+.site-header {
+  text-align: center;
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+.site-logo {
+  display: inline-block;
+  padding: 1rem 2rem;
+  border: var(--border-sketch);
+  border-radius: var(--radius-organic);
+  background: var(--bg-paper);
+  transform: rotate(-1deg);
+  box-shadow: var(--shadow-paper);
+  position: relative;
+  text-decoration: none;
+}
+
+.site-logo::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: calc(100% - 12px);
+  height: calc(100% - 12px);
+  border: 1px solid var(--color-pencil);
+  border-radius: var(--radius-organic-alt);
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+.site-logo h1 {
+  margin: 0;
+  font-size: 2.5rem;
+}
+
+.site-logo span {
+  display: block;
+  font-family: var(--font-ui-alt);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--color-pencil);
+  margin-top: 0.2rem;
+}
+
+.main-nav {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 3rem;
+  border-bottom: var(--border-sketch);
+  padding-bottom: 1rem;
+  position: relative;
+}
+
+.nav-tab {
+  font-family: var(--font-art-secondary);
+  font-size: 1.4rem;
+  color: var(--color-pencil);
+  text-decoration: none;
+  padding: 0.5rem 1.5rem;
+  background-color: var(--bg-paper);
+  border: var(--border-sketch);
+  border-radius: 12px 12px 0 0;
+  position: relative;
+  top: 1rem;
+  transition: var(--transition-bounce);
+  box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.02);
+}
+
+.nav-tab:hover {
+  transform: translateY(-5px);
+  color: var(--color-ink);
+}
+
+.nav-tab.active {
+  color: var(--color-ink);
+  background-color: var(--bg-paper);
+  border-bottom: 2px solid var(--bg-paper);
+  top: calc(1rem + 2px);
+  z-index: 10;
+  font-weight: bold;
+}
+
+/* ==========================================================================
+   PAPER COMPONENTS (Sketchbook Pages, Post-its)
+   ========================================================================== */
+
+.paper-sheet {
+  background-color: var(--bg-paper);
+  border-radius: 4px;
+  box-shadow: var(--shadow-paper);
+  padding: 3rem;
+  position: relative;
+  /* Textura de papel cuadriculado */
+  background-image: linear-gradient(var(--bg-paper) 95%, rgba(99, 87, 80, 0.05) 95%),
+    linear-gradient(90deg, var(--bg-paper) 95%, rgba(99, 87, 80, 0.05) 95%);
+  background-size: 20px 20px;
+}
+
+.paper-sheet::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: var(--radius-organic);
+  box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.02);
+  pointer-events: none;
+}
+
+/* Tarjetas y Post-its */
+.card-sketch {
+  background: var(--bg-paper);
+  border: var(--border-sketch);
+  border-radius: var(--radius-organic);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-paper);
+  transition: var(--transition-bounce);
+  position: relative;
+}
+
+.card-sketch:hover {
+  transform: rotate(-1deg) scale(1.02);
+  box-shadow: var(--shadow-hover);
+  z-index: 2;
+}
+
+.post-it {
+  background-color: #FFF9D2;
+  padding: 2rem 1.5rem;
+  box-shadow: var(--shadow-paper);
+  position: relative;
+  transform: rotate(2deg);
+  transition: var(--transition-smooth);
+}
+
+.post-it:hover {
+  transform: rotate(0deg) scale(1.02);
+  z-index: 5;
+}
+
+/* Cintas Adhesivas (Washi Tape) */
+.washi-tape {
+  position: absolute;
+  height: 30px;
+  width: 100px;
+  background-color: var(--tape-yellow);
+  opacity: 0.8;
+  top: -15px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-3deg);
+  box-shadow: var(--shadow-tape);
+  mix-blend-mode: multiply;
+}
+
+.washi-tape.terracotta {
+  background-color: var(--tape-terracotta);
+  transform: translateX(-50%) rotate(2deg);
+}
+
+.washi-tape.sage {
+  background-color: var(--sage-green);
+  transform: translateX(-50%) rotate(-1deg);
+}
+
+/* ==========================================================================
+   UI CONTROLS & BUTTONS
+   ========================================================================== */
+
+.btn-sketch {
+  background-color: var(--bg-paper);
+  color: var(--color-ink);
+  font-family: var(--font-art-secondary);
+  font-size: 1.2rem;
+  padding: 0.8rem 1.5rem;
+  border: var(--border-sketch);
+  border-radius: var(--radius-organic);
+  cursor: pointer;
+  box-shadow: 4px 4px 0px rgba(43, 36, 33, 0.2);
+  transition: var(--transition-smooth);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.btn-sketch:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0px rgba(43, 36, 33, 0.2);
+}
+
+.btn-sketch:active {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0px rgba(43, 36, 33, 0.2);
+}
+
+.btn-primary {
+  background-color: var(--sage-green);
+  color: #FAF7F2;
+  border-color: #4A563D;
+  box-shadow: 4px 4px 0px rgba(74, 86, 61, 0.4);
+}
+
+.btn-primary:hover {
+  box-shadow: 6px 6px 0px rgba(74, 86, 61, 0.4);
+}
+
+.btn-primary:active {
+  box-shadow: 2px 2px 0px rgba(74, 86, 61, 0.4);
+}
+
+.segmented-control {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.segmented-btn {
+  background: transparent;
+  border: 1px dashed var(--color-pencil);
+  padding: 0.5rem 1rem;
+  font-family: var(--font-ui-alt);
+  color: var(--color-pencil);
+  cursor: pointer;
+  border-radius: 20px;
+  transition: var(--transition-smooth);
+}
+
+.segmented-btn:hover {
+  background: rgba(99, 87, 80, 0.05);
+  color: var(--color-ink);
+}
+
+.segmented-btn.active {
+  border: 2px solid var(--color-ink);
+  color: var(--color-ink);
+  font-weight: 600;
+  background: var(--bg-paper);
+}
+
+/* ==========================================================================
+   ANIMATIONS
+   ========================================================================== */
+
+@keyframes stamp {
+  0% {
+    transform: scale(1.5) rotate(-5deg);
+    opacity: 0;
+  }
+
+  50% {
+    transform: scale(0.9) rotate(2deg);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+}
+
+.anim-stamp {
+  animation: stamp 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+/* ==========================================================================
+   RESPONSIVE
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  .app-container {
+    padding: 1rem;
+  }
+
+  .paper-sheet {
+    padding: 1.5rem;
+  }
+
+  .main-nav {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .nav-tab {
+    font-size: 1.1rem;
+    padding: 0.4rem 1rem;
+  }
+}
