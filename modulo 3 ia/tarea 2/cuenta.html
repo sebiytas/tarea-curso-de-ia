@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tu Butaca | Dashboard de Usuario</title>
+    <meta name="description" content="Gestiona tu suscripción, revisa tu historial de pagos y configuración.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- CSS Maestro -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <main class="main-content page-padding">
+        <div class="container">
+            <header class="page-header">
+                <h1 class="page-title">Tu Butaca</h1>
+                <p class="page-subtitle">Bienvenido de vuelta, Espectador #001.</p>
+            </header>
+
+            <div class="dashboard-grid">
+                <!-- Status Widget -->
+                <section class="dashboard-widget dashboard-widget--status" aria-labelledby="status-title">
+                    <header class="dashboard-widget__header">
+                        <h2 id="status-title" class="dashboard-widget__title"><i class="fa-solid fa-ticket"></i> Pase Actual</h2>
+                    </header>
+                    <div class="status-card">
+                        <div class="status-card__info">
+                            <span class="status-card__label">Plan Activo</span>
+                            <h3 class="status-card__plan-name">Cinéfilo Supremo</h3>
+                            <div class="status-card__badge status-card__badge--active">En Reproducción (Activo)</div>
+                        </div>
+                        <div class="status-card__details">
+                            <div class="status-detail">
+                                <span class="status-detail__label">Próximo Corte</span>
+                                <span class="status-detail__value">15 Oct 2026</span>
+                            </div>
+                            <div class="status-detail">
+                                <span class="status-detail__label">Monto</span>
+                                <span class="status-detail__value">$8.99</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Payment History (Watch History style) -->
+                <section class="dashboard-widget dashboard-widget--history" aria-labelledby="history-title">
+                    <header class="dashboard-widget__header">
+                        <h2 id="history-title" class="dashboard-widget__title"><i class="fa-solid fa-clock-rotate-left"></i> Historial de Visualización (Pagos)</h2>
+                    </header>
+                    <div class="history-list">
+                        <!-- History Item 1 -->
+                        <div class="history-item">
+                            <div class="history-item__thumb">
+                                <i class="fa-solid fa-file-invoice-dollar"></i>
+                            </div>
+                            <div class="history-item__content">
+                                <h4 class="history-item__title">Episodio 3: Renovación Suprema</h4>
+                                <p class="history-item__meta">Septiembre 15, 2026 • Pago Móvil</p>
+                            </div>
+                            <div class="history-item__status">
+                                <span class="history-item__amount">$8.99</span>
+                                <span class="badge-success">Visto (Completado)</span>
+                            </div>
+                        </div>
+                        <!-- History Item 2 -->
+                        <div class="history-item">
+                            <div class="history-item__thumb">
+                                <i class="fa-solid fa-file-invoice-dollar"></i>
+                            </div>
+                            <div class="history-item__content">
+                                <h4 class="history-item__title">Episodio 2: Cine en Casa</h4>
+                                <p class="history-item__meta">Agosto 15, 2026 • Binance Pay</p>
+                            </div>
+                            <div class="history-item__status">
+                                <span class="history-item__amount">$8.99</span>
+                                <span class="badge-success">Visto (Completado)</span>
+                            </div>
+                        </div>
+                        <!-- History Item 3 -->
+                        <div class="history-item">
+                            <div class="history-item__thumb">
+                                <i class="fa-solid fa-file-invoice-dollar"></i>
+                            </div>
+                            <div class="history-item__content">
+                                <h4 class="history-item__title">Episodio 1: El Comienzo</h4>
+                                <p class="history-item__meta">Julio 15, 2026 • Binance Pay</p>
+                            </div>
+                            <div class="history-item__status">
+                                <span class="history-item__amount">$8.99</span>
+                                <span class="badge-success">Visto (Completado)</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <!-- Navigation Menu "Video Player" -->
+    <nav class="video-nav" aria-label="Navegación principal">
+        <div class="video-nav__controls">
+            <button class="video-nav__btn" aria-label="Reproducir/Pausar"><i class="fa-solid fa-pause"></i></button>
+            <div class="video-nav__time" aria-live="polite">2:55 / 3:15</div>
+        </div>
+
+        <div class="video-nav__progress-container">
+            <div class="video-nav__progress-bar">
+                <div class="video-nav__progress-fill" style="width: 90%;"></div>
+                <div class="video-nav__playhead" style="left: 90%;"></div>
+                
+                <div class="video-nav__chapters">
+                    <a href="index.html" class="video-nav__chapter" style="left: 10%;" aria-label="Ir a Inicio">
+                        <span class="video-nav__chapter-marker"></span>
+                        <div class="video-nav__tooltip" aria-hidden="true">
+                            <div class="video-nav__tooltip-thumb"><i class="fa-solid fa-house"></i></div>
+                            <span class="video-nav__tooltip-text">Inicio</span>
+                        </div>
+                    </a>
+
+                    <a href="planes.html" class="video-nav__chapter" style="left: 50%;" aria-label="Ir a La Taquilla">
+                        <span class="video-nav__chapter-marker"></span>
+                        <div class="video-nav__tooltip" aria-hidden="true">
+                            <div class="video-nav__tooltip-thumb"><i class="fa-solid fa-ticket"></i></div>
+                            <span class="video-nav__tooltip-text">La Taquilla</span>
+                        </div>
+                    </a>
+
+                    <a href="cuenta.html" class="video-nav__chapter video-nav__chapter--active" style="left: 90%;" aria-label="Ir a Tu Butaca" aria-current="page">
+                        <span class="video-nav__chapter-marker"></span>
+                        <div class="video-nav__tooltip" aria-hidden="true">
+                            <div class="video-nav__tooltip-thumb"><i class="fa-solid fa-user"></i></div>
+                            <span class="video-nav__tooltip-text">Tu Butaca</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="video-nav__settings">
+            <button class="video-nav__btn" aria-label="Configuración"><i class="fa-solid fa-gear"></i></button>
+            <button class="video-nav__btn" aria-label="Pantalla Completa"><i class="fa-solid fa-expand"></i></button>
+        </div>
+    </nav>
+
+    <!-- Script App Principal -->
+    <script src="js/app.js"></script>
+</body>
+</html>

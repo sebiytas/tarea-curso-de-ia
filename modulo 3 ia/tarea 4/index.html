@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="TerminalFlow - Repositorio técnico para desarrolladores y automatizadores. Flujos, APIs y webhooks.">
+    <title>TerminalFlow | Repositorio de Automatización</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Archivo CSS Maestro -->
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body class="theme-dark">
+    <!-- Navbar / Header (Opcional pero útil para navegar) -->
+    <header class="header">
+        <div class="container header__inner">
+            <div class="logo">
+                <span class="logo__prefix">root@TerminalFlow:</span><span class="logo__cursor">~#</span>
+            </div>
+            <nav class="nav" aria-label="Navegación principal">
+                <ul class="nav__list">
+                    <li><a href="index.html" class="nav__link active">/home</a></li>
+                    <li><a href="dashboard.html" class="nav__link">/dashboard</a></li>
+                    <li><a href="caso-inventario.html" class="nav__link">/caso-inventario</a></li>
+                    <li><a href="diccionario-web.html" class="nav__link">/diccionario</a></li>
+                    <li><a href="hardware-servidor.html" class="nav__link">/hardware</a></li>
+                    <li><a href="laboratorio.html" class="nav__link">/laboratorio</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <!-- Hero Section: Búsqueda -->
+        <section class="hero-search" aria-label="Búsqueda de flujos">
+            <div class="container hero-search__container">
+                <h1 class="hero-search__title">> _Inicializando motor de automatización...</h1>
+                
+                <div class="search-box">
+                    <span class="search-box__prompt">$</span>
+                    <input type="text" id="main-search" class="search-box__input" placeholder="¿Qué flujo necesitas automatizar hoy?" aria-label="Buscar automatizaciones">
+                    <button class="btn btn--neon" aria-label="Ejecutar búsqueda">Ejecutar</button>
+                </div>
+                
+                <div class="tags-filter" aria-label="Filtrar por tecnologías">
+                    <span class="tags-filter__label">Filtros:</span>
+                    <button class="tag" data-filter="python">[Python]</button>
+                    <button class="tag" data-filter="n8n">[n8n / Webhooks]</button>
+                    <button class="tag" data-filter="discord">[Bots de Discord/WhatsApp]</button>
+                    <button class="tag" data-filter="cpp">[C++]</button>
+                    <button class="tag" data-filter="web">[HTML/CSS/JS]</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Grid de Proyectos / Flujos -->
+        <section class="projects" aria-label="Lista de flujos y repositorios">
+            <div class="container">
+                <h2 class="section-title">ls -la ./flujos_destacados/</h2>
+                
+                <div class="projects-grid">
+                    <!-- Tarjeta 1 -->
+                    <article class="card">
+                        <header class="card__header">
+                            <div class="flow-icons">
+                                <!-- SVG Discord simulado -->
+                                <svg class="icon icon-discord" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0 a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/></svg>
+                                <span class="flow-arrow">-></span>
+                                <!-- SVG Python simulado -->
+                                <svg class="icon icon-python" viewBox="0 0 24 24" fill="currentColor"><path d="M14.25.18l.9.2.73.26.59.3.45.32.34.34.25.34.16.33.1.3.04.26.02.2-.01.13V8.5l-.05.63-.13.55-.21.46-.26.38-.3.31-.33.25-.35.19-.35.14-.33.1-.3.07-.26.04-.21.02H8.77l-.69.05-.59.14-.5.22-.41.27-.33.32-.27.35-.2.36-.15.37-.1.35-.07.32-.04.27-.02.21v3.06H3.17l-.21-.03-.28-.07-.32-.12-.35-.18-.36-.26-.36-.36-.35-.46-.32-.59-.28-.73-.21-.88-.14-1.05-.05-1.23.06-1.22.16-1.04.24-.87.32-.71.36-.57.4-.44.42-.33.42-.24.4-.16.36-.1.32-.05.24-.01h.16l.06.01h4.3v-3.1l.02-.21.04-.26.07-.32.1-.35.15-.37.2-.36.27-.35.33-.32.41-.27.5-.22.59-.14.69-.05h3.83l.25.04.25.06.24.1.23.14.2.18.16.23.1.28.05.34V2.26l-.02-.2-.04-.26-.1-.3-.16-.33-.25-.34-.34-.34-.45-.32-.59-.3-.73-.26-.9-.2-1.09-.12-1.3-.04-1.52.02-1.77.13zm-3.69 1.5c-.32 0-.61.11-.84.32-.23.21-.36.5-.36.81 0 .31.13.6.36.82.23.21.52.32.84.32.32 0 .61-.11.84-.32.23-.22.36-.51.36-.82 0-.31-.13-.6-.36-.81-.23-.21-.52-.32-.84-.32zM23.1 9.87l-.07.33-.12.3-.15.24-.2.18-.23.12-.26.08-.28.03h-3.8l-.05.01-.15.02-.25.05-.34.09-.43.15-.5.23-.55.33-.56.45-.52.58-.45.74-.33.91-.17 1.1-.03 1.3v.81l.05.69.14.59.22.5.27.4.32.32.34.25.35.19.34.14.33.1.3.07.25.04.2.02h4.55l.69-.05.59-.14.5-.22.41-.27.33-.32.27-.35.2-.36.15-.37.1-.35.07-.32.04-.27.02-.21V11.2h4.52l.21.03.28.07.32.12.35.18.36.26.36.36.35.46.32.59.28.73.21.88.14 1.05.05 1.23-.06 1.22-.16 1.04-.24.87-.32.71-.36.57-.4.44-.42.33-.42.24-.4.16-.36.1-.32.05-.24.01h-.16l-.06-.01h-4.3v3.1l-.02.21-.04.26-.07.32-.1.35-.15.37-.2.36-.27.35-.33.32-.41.27-.5.22-.59.14-.69.05h-3.83l-.25-.04-.25-.06-.24-.1-.23-.14-.2-.18-.16-.23-.1-.28-.05-.34v-2.02l.02-.2.04-.26.1-.3.16-.33.25-.34.34-.34.45-.32.59-.3.73-.26.9-.2 1.09-.12 1.3-.04 1.52-.02 1.77-.13.9-.2.73-.26.59-.3.45-.32.34-.34.25-.34.16-.33.1-.3.04-.26.02-.2zm-9.52 10.95c.32 0 .61.11.84.32.23.21.36.5.36.81 0 .31-.13.6-.36.82-.23.21-.52.32-.84.32-.32 0-.61-.11-.84-.32-.23-.22-.36-.51-.36-.82 0-.31.13-.6.36-.81.23-.21.52-.32.84-.32z"/></svg>
+                            </div>
+                        </header>
+                        <div class="card__body">
+                            <h3 class="card__title">Bot de Discord para inventario en tiempo real</h3>
+                            <p class="card__desc">Flujo bidireccional que conecta un bot de Discord con una API REST en Python para consultar stock y gestionar bases de datos.</p>
+                            <div class="terminal-meta">
+                                <div class="meta-line"><span class="meta-key">Dificultad:</span> <span class="meta-val meta-val--mid">Intermedio</span></div>
+                                <div class="meta-line"><span class="meta-key">Tiempo:</span> <span class="meta-val">~45 min</span></div>
+                                <div class="meta-line"><span class="meta-key">Lenguajes:</span> <span class="meta-val meta-var">Python, JS</span></div>
+                            </div>
+                        </div>
+                        <footer class="card__footer">
+                            <a href="articulo.html" class="btn btn--outline" aria-label="Ver documentación del bot de Discord">cd ./ver_documentacion</a>
+                        </footer>
+                    </article>
+
+                    <!-- Tarjeta 2 -->
+                    <article class="card">
+                        <header class="card__header">
+                            <div class="flow-icons">
+                                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="var(--accent-primary)" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="2" ry="2"></rect><line x1="8" y1="2" x2="8" y2="22"></line><line x1="16" y1="2" x2="16" y2="22"></line><line x1="2" y1="12" x2="22" y2="12"></line></svg>
+                                <span class="flow-arrow">-></span>
+                                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="var(--text-var)" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path></svg>
+                            </div>
+                        </header>
+                        <div class="card__body">
+                            <h3 class="card__title">Pipeline ETL con n8n y Base de Datos Vectorial</h3>
+                            <p class="card__desc">Extracción de datos desde Google Sheets, limpieza mediante webhooks y carga automatizada en Pinecone para búsquedas semánticas.</p>
+                            <div class="terminal-meta">
+                                <div class="meta-line"><span class="meta-key">Dificultad:</span> <span class="meta-val meta-val--hard">Avanzado</span></div>
+                                <div class="meta-line"><span class="meta-key">Tiempo:</span> <span class="meta-val">~2 hrs</span></div>
+                                <div class="meta-line"><span class="meta-key">Lenguajes:</span> <span class="meta-val meta-var">n8n, JSON</span></div>
+                            </div>
+                        </div>
+                        <footer class="card__footer">
+                            <a href="articulo.html" class="btn btn--outline">cd ./ver_documentacion</a>
+                        </footer>
+                    </article>
+
+                    <!-- Tarjeta 3 -->
+                    <article class="card">
+                        <header class="card__header">
+                            <div class="flow-icons">
+                                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 3a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3H6a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3V6a3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3h12a3 3 0 0 0 3-3 3 3 0 0 0-3-3z"></path></svg>
+                                <span class="flow-arrow">-></span>
+                                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+                            </div>
+                        </header>
+                        <div class="card__body">
+                            <h3 class="card__title">Servidor Web de Alto Rendimiento en C++</h3>
+                            <p class="card__desc">Creación de un microservicio desde cero utilizando sockets POSIX y epoll para manejar miles de conexiones concurrentes.</p>
+                            <div class="terminal-meta">
+                                <div class="meta-line"><span class="meta-key">Dificultad:</span> <span class="meta-val meta-val--hard">Avanzado</span></div>
+                                <div class="meta-line"><span class="meta-key">Tiempo:</span> <span class="meta-val">~3 hrs</span></div>
+                                <div class="meta-line"><span class="meta-key">Lenguajes:</span> <span class="meta-val meta-var">C++</span></div>
+                            </div>
+                        </div>
+                        <footer class="card__footer">
+                            <a href="articulo.html" class="btn btn--outline">cd ./ver_documentacion</a>
+                        </footer>
+                    </article>
+
+                    <!-- Tarjeta 4 -->
+                    <article class="card">
+                        <header class="card__header">
+                            <div class="flow-icons">
+                                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="var(--accent-primary)" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+                                <span class="flow-arrow">-></span>
+                                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="var(--text-var)" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+                            </div>
+                        </header>
+                        <div class="card__body">
+                            <h3 class="card__title">Componentes UI Dinámicos Inyectados</h3>
+                            <p class="card__desc">Implementación de modales, pestañas y herramientas de copiado utilizando manipulación directa del DOM con Vanilla JS.</p>
+                            <div class="terminal-meta">
+                                <div class="meta-line"><span class="meta-key">Dificultad:</span> <span class="meta-val meta-val--easy">Básico</span></div>
+                                <div class="meta-line"><span class="meta-key">Tiempo:</span> <span class="meta-val">~20 min</span></div>
+                                <div class="meta-line"><span class="meta-key">Lenguajes:</span> <span class="meta-val meta-var">HTML, CSS, JS</span></div>
+                            </div>
+                        </div>
+                        <footer class="card__footer">
+                            <a href="articulo.html" class="btn btn--outline">cd ./ver_documentacion</a>
+                        </footer>
+                    </article>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container footer__inner">
+            <p>> root@TerminalFlow:~# exit</p>
+            <p class="footer__sub">Diseñado para la eficiencia. Construido con rigor. (C) 2026</p>
+        </div>
+    </footer>
+</body>
+</html>

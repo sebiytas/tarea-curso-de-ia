@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacto - Interfaz P2P</title>
+    <meta name="description" content="Formulario de contacto y soporte técnico.">
+    <!-- Estilos globales unificados Cyberpunk -->
+    <link rel="stylesheet" href="styles.css">
+    
+    <style>
+        /* CSS Específico de Contacto adaptado a Cyberpunk */
+        .terminal-group {
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .terminal-group label {
+            display: block;
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--color-cyber-cyan);
+        }
+
+        .terminal-input {
+            width: 100%;
+            background-color: #111;
+            border: 3px solid var(--color-cyber-yellow);
+            color: var(--color-cyber-yellow);
+            font-family: inherit;
+            font-size: 1.2rem;
+            font-weight: 700;
+            padding: 1rem;
+            outline: none;
+            transition: all 0.2s;
+        }
+
+        .terminal-input:focus {
+            border-color: var(--color-cyber-cyan);
+            box-shadow: 4px 4px 0 var(--color-cyber-red);
+        }
+
+        textarea.terminal-input {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .terminal-output {
+            margin-top: 1.5rem;
+            font-size: 1.1rem;
+            min-height: 20px;
+            word-break: break-all;
+        }
+        
+        .output-error { color: var(--color-cyber-red); font-weight: 900; animation: glitch-anim 0.3s infinite; }
+        .output-success { color: var(--color-cyber-cyan); font-weight: 900;}
+
+    </style>
+</head>
+<body class="page-contacto">
+    <header role="banner">
+        <nav class="nav-global" aria-label="Navegación principal del sistema">
+            <div class="nav-global__brand" aria-hidden="true">MAIN_OS</div>
+            <h2 class="sr-only">Menú de navegación</h2>
+            <ul class="nav-global__list">
+                <li><a href="index.html" class="nav-global__link">Inicio</a></li>
+                <li><a href="diagnostico.html" class="nav-global__link">Diagnóstico</a></li>
+                <li><a href="mantenimiento.html" class="nav-global__link">Mantenimiento</a></li>
+                <li><a href="contacto.html" class="nav-global__link nav-global__link--active" aria-current="page">Contacto</a></li>
+                <li><a href="base-conocimiento.html" class="nav-global__link">Base Conocimiento</a></li>
+                <li><a href="os-recovery.html" class="nav-global__link">OS Recovery</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main role="main" class="layout-centered">
+        <article class="cyber-panel" style="max-width: 700px; width: 100%;">
+            <header>
+                <h1 class="cyber-header">SOLICITUD_DE_ENLACE</h1>
+                <p style="color: var(--color-cyber-cyan); margin-top: -2rem; margin-bottom: 2rem;">Estableciendo conexión P2P encriptada...</p>
+            </header>
+
+            <form id="contact-form" novalidate aria-label="Formulario de contacto para soporte técnico">
+                <div class="terminal-group">
+                    <label for="input-nombre">USR_ID:~</label>
+                    <input type="text" id="input-nombre" name="nombre" class="terminal-input" required aria-required="true" autocomplete="off" spellcheck="false" placeholder="Ingresa tu ID">
+                </div>
+
+                <div class="terminal-group">
+                    <label for="input-equipo">SYS_TARGET:~</label>
+                    <input type="text" id="input-equipo" name="equipo" class="terminal-input" required aria-required="true" autocomplete="off" spellcheck="false" placeholder="Hardware afectado">
+                </div>
+
+                <div class="terminal-group">
+                    <label for="input-falla">LOG_ERROR:~</label>
+                    <textarea id="input-falla" name="falla" class="terminal-input" required aria-required="true" spellcheck="false" placeholder="Describe la falla detectada"></textarea>
+                </div>
+
+                <button type="submit" class="cyber-button">
+                    <span>TRANSMITIR_PAQUETE</span>
+                    <span>>></span>
+                </button>
+            </form>
+
+            <div id="terminal-output" class="terminal-output" aria-live="assertive"></div>
+        </article>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('contact-form');
+            const output = document.getElementById('terminal-output');
+
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                output.innerHTML = '';
+                output.className = 'terminal-output';
+                
+                const nombre = document.getElementById('input-nombre').value.trim();
+                const equipo = document.getElementById('input-equipo').value.trim();
+                const falla = document.getElementById('input-falla').value.trim();
+
+                if (!nombre || !equipo || !falla) {
+                    typeWriter(output, "ERR_NULL_POINTER: FALTAN PARÁMETROS.", "output-error");
+                    return;
+                }
+
+                if (nombre.length < 3) {
+                    typeWriter(output, "ERR_AUTH: ID DEMASIADO CORTO.", "output-error");
+                    return;
+                }
+
+                const successMsg = `> RSA-4096 INICIADO...\n> HANDSHAKE OK.\n> PAYLOAD: { USR: "${nombre}", SYS: "${equipo}" }\n> STATUS: 200 OK. TRANSMISIÓN EXITOSA.`;
+                
+                const inputs = form.querySelectorAll('.terminal-input, .cyber-button');
+                inputs.forEach(el => el.disabled = true);
+
+                typeWriter(output, successMsg, "output-success", () => {
+                    setTimeout(() => {
+                        form.reset();
+                        inputs.forEach(el => el.disabled = false);
+                        output.innerHTML = '';
+                    }, 4000);
+                });
+            });
+
+            function typeWriter(element, text, className, callback) {
+                element.className = 'terminal-output ' + className;
+                let i = 0;
+                element.innerHTML = '';
+                
+                const htmlText = text.replace(/\n/g, '<br>');
+                
+                function type() {
+                    if (i < text.length) {
+                        if (text.charAt(i) === '\n') {
+                            element.innerHTML += '<br>';
+                        } else {
+                            element.innerHTML += text.charAt(i);
+                        }
+                        i++;
+                        setTimeout(type, 15);
+                    } else {
+                        if (callback) callback();
+                    }
+                }
+                type();
+            }
+        });
+    </script>
+</body>
+</html>

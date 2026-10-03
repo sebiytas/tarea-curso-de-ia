@@ -1,0 +1,439 @@
+/* ==========================================================================
+   TerminalFlow v2.0 - CSS Maestro (Mint/Ubuntu Dark)
+   ========================================================================== */
+
+/* --- 1. Variables Globales (Design System) --- */
+:root {
+    /* Paleta (Linux Mint / Ubuntu Dark) */
+    --bg-main: #0A0E17;          /* Negro Carbón */
+    --bg-panel: #111827;         /* Azul Noche oscuro */
+    --bg-hover: #1f2937;
+    
+    --accent-primary: #4ADE80;   /* Verde Mint Consola */
+    --accent-secondary: #22D3EE; /* Cian Técnico */
+    
+    --text-main: #D1D5DB;        /* Gris Niebla */
+    --text-muted: #6B7280;       /* Gris Opaco */
+    
+    --text-alert: #FBBF24;       /* Amarillo Sintaxis */
+    --text-error: #F87171;       /* Rojo Error */
+    
+    /* Tipografía (Solo Monospace) */
+    --font-code: 'Fira Code', 'JetBrains Mono', 'Ubuntu Mono', monospace;
+    
+    /* UI / Espaciado / Transiciones */
+    --radius-sm: 2px;
+    --radius-md: 4px;
+    
+    --border-mint: 1px solid var(--accent-primary);
+    --border-muted: 1px solid #374151;
+    
+    --shadow-solid: 2px 2px 0px 0px rgba(74, 222, 128, 0.2);
+    --shadow-glow: 0 0 10px rgba(74, 222, 128, 0.1);
+    
+    --transition-fast: 0.2s ease-in-out;
+    
+    /* Grid Spacing */
+    --spacing-xs: 0.5rem;
+    --spacing-sm: 1rem;
+    --spacing-md: 2rem;
+    --spacing-lg: 4rem;
+}
+
+/* --- 2. Resets Base --- */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-code); /* Monospace estricta para inmersión */
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+::-webkit-scrollbar-track {
+    background: var(--bg-main);
+}
+::-webkit-scrollbar-thumb {
+    background: var(--bg-panel);
+    border: 1px solid var(--accent-primary);
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-primary);
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-code);
+    font-weight: 700;
+    color: var(--text-main);
+    margin-bottom: var(--spacing-sm);
+}
+
+h1 { font-size: 2.2rem; color: var(--accent-secondary); }
+h2 { font-size: 1.8rem; border-bottom: var(--border-muted); padding-bottom: 0.5rem; }
+h3 { font-size: 1.4rem; color: var(--accent-primary); }
+
+a {
+    text-decoration: none;
+    color: var(--accent-secondary);
+    transition: color var(--transition-fast);
+}
+a:hover {
+    color: var(--accent-primary);
+}
+
+button {
+    font-family: var(--font-code);
+    cursor: pointer;
+    border: none;
+    background: none;
+    outline: none;
+}
+
+ul, ol {
+    list-style: none;
+}
+
+p {
+    margin-bottom: var(--spacing-sm);
+}
+
+/* Contenedor Principal */
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-sm);
+}
+
+/* --- 3. Componentes UI --- */
+
+/* Botones */
+.btn {
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: all var(--transition-fast);
+    border: var(--border-mint);
+    color: var(--accent-primary);
+    background: transparent;
+}
+
+.btn:hover {
+    background: rgba(74, 222, 128, 0.1);
+    box-shadow: var(--shadow-solid);
+    transform: translateY(-2px);
+}
+
+/* Tablas Dinámicas */
+.table-wrapper {
+    overflow-x: auto;
+    margin-bottom: var(--spacing-md);
+    background: var(--bg-panel);
+    border: var(--border-mint);
+}
+
+.terminal-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+}
+
+.terminal-table th, .terminal-table td {
+    padding: 0.75rem 1rem;
+    border: 1px solid #1f2937;
+    text-align: left;
+}
+
+.terminal-table th {
+    background: var(--bg-main);
+    color: var(--accent-secondary);
+    border-bottom: var(--border-mint);
+}
+
+.terminal-table tr:hover {
+    background: var(--bg-hover);
+}
+
+/* Layout Header/Navbar */
+.header {
+    border-bottom: var(--border-mint);
+    background: var(--bg-panel);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.header__inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem var(--spacing-sm);
+}
+
+.nav__list {
+    display: flex;
+    gap: 1.5rem;
+}
+.nav__link {
+    color: var(--text-muted);
+}
+.nav__link:hover, .nav__link.active {
+    color: var(--accent-primary);
+}
+
+/* Layout Dashboard */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    gap: var(--spacing-md);
+    padding: var(--spacing-lg) 0;
+}
+
+@media (max-width: 900px) {
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Paneles del Dashboard */
+.panel {
+    background: var(--bg-panel);
+    border: var(--border-muted);
+    border-radius: var(--radius-sm);
+    padding: 1.5rem;
+    box-shadow: var(--shadow-glow);
+}
+.panel__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    border-bottom: 1px dashed var(--text-muted);
+    padding-bottom: 0.5rem;
+}
+.panel__title {
+    margin: 0;
+    font-size: 1.2rem;
+    color: var(--text-main);
+}
+
+/* Terminal Log Animado */
+.terminal-log {
+    background: #000;
+    border: var(--border-mint);
+    padding: 1rem;
+    height: 300px;
+    overflow-y: auto;
+    font-size: 0.85rem;
+    color: var(--accent-primary);
+}
+.log-line {
+    margin-bottom: 0.25rem;
+    opacity: 0.8;
+}
+.log-line.error { color: var(--text-error); }
+.log-line.warn { color: var(--text-alert); }
+.log-line.success { color: var(--accent-secondary); }
+
+/* Blinking Cursor */
+.cursor-blink::after {
+    content: '█';
+    animation: blink 1s step-start infinite;
+}
+@keyframes blink { 50% { opacity: 0; } }
+
+/* Footer */
+.footer {
+    border-top: var(--border-muted);
+    padding: var(--spacing-md) 0;
+    text-align: center;
+    margin-top: auto;
+}
+
+/* ==========================================================================
+   Estilos Legado (TerminalFlow V1 - index.html / laboratorio.html)
+   ========================================================================== */
+
+/* Hero Search */
+.hero-search {
+    padding: var(--spacing-lg) 0;
+    border-bottom: var(--border-muted);
+}
+.hero-search__container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+}
+.hero-search__title {
+    font-size: 2rem;
+    margin-bottom: var(--spacing-md);
+    color: var(--text-main);
+}
+.search-box {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    background: var(--bg-panel);
+    border: var(--border-muted);
+    border-radius: var(--radius-sm);
+    padding: 0.5rem;
+    margin-bottom: var(--spacing-md);
+    transition: border-color var(--transition-fast);
+}
+.search-box:focus-within {
+    border-color: var(--accent-primary);
+}
+.search-box__prompt {
+    color: var(--accent-primary);
+    font-weight: 700;
+    padding: 0 1rem;
+    font-size: 1.2rem;
+}
+.search-box__input {
+    flex-grow: 1;
+    background: transparent;
+    border: none;
+    color: var(--text-main);
+    font-family: var(--font-code);
+    font-size: 1rem;
+    outline: none;
+}
+.search-box__input::placeholder { color: var(--text-muted); }
+
+/* Tags */
+.tags-filter {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: center;
+    align-items: center;
+}
+.tags-filter__label {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-right: 0.5rem;
+}
+.tag {
+    display: inline-block;
+    padding: 0.25rem 0.5rem;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    border: var(--border-muted);
+    background: var(--bg-main);
+    border-radius: var(--radius-sm);
+    transition: all var(--transition-fast);
+    cursor: pointer;
+}
+.tag:hover, .tag.active {
+    border-color: var(--accent-secondary);
+    color: var(--accent-secondary);
+    background: rgba(34, 211, 238, 0.1);
+}
+
+/* Projects Grid / Cards */
+.projects {
+    padding: var(--spacing-lg) 0;
+    flex-grow: 1;
+}
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: var(--spacing-md);
+}
+.card {
+    background: var(--bg-panel);
+    border: var(--border-muted);
+    border-radius: var(--radius-sm);
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    transition: transform var(--transition-fast), border-color var(--transition-fast);
+}
+.card:hover {
+    transform: translateY(-5px);
+    border-color: var(--accent-primary);
+    box-shadow: var(--shadow-solid);
+}
+.card__header { margin-bottom: 1rem; }
+.flow-icons {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    color: var(--text-muted);
+}
+
+/* Iconos de las tarjetas / Header V1 */
+.icon {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+}
+.icon-discord { color: #5865F2; }
+.icon-python { color: #3776AB; }
+.flow-arrow { color: var(--text-muted); }
+
+.card__body { flex-grow: 1; }
+.card__title {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+}
+.card__desc {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+}
+.terminal-meta {
+    background: var(--bg-main);
+    padding: 1rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
+    border: var(--border-muted);
+}
+.meta-line {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.25rem;
+}
+.meta-line:last-child { margin-bottom: 0; }
+.meta-key { color: var(--text-muted); }
+.meta-val { color: var(--text-main); }
+.meta-val--easy { color: var(--accent-primary); }
+.meta-val--mid { color: var(--text-alert); }
+.meta-val--hard { color: var(--text-error); }
+.meta-var { color: var(--accent-secondary); }
+.card__footer {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: flex-start;
+}
+.btn--neon {
+    color: var(--accent-primary);
+    border: var(--border-mint);
+    background: transparent;
+}
+.btn--neon:hover {
+    background: rgba(74, 222, 128, 0.1);
+    box-shadow: var(--shadow-solid);
+}

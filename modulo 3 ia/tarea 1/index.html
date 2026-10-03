@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema Principal - Soporte Técnico</title>
+    <meta name="description" content="Panel principal del Sistema Operativo de Soporte Técnico. Acceso a diagnóstico, mantenimiento y contacto.">
+    <!-- Estilos globales unificados Cyberpunk 2077 -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="page-index">
+    <!-- Navegación Global -->
+    <header role="banner">
+        <nav class="nav-global" aria-label="Navegación principal del sistema">
+            <div class="nav-global__brand" aria-hidden="true">MAIN_OS</div>
+            <h2 class="sr-only">Menú de navegación</h2>
+            <ul class="nav-global__list">
+                <li><a href="index.html" class="nav-global__link nav-global__link--active" aria-current="page">Inicio</a></li>
+                <li><a href="diagnostico.html" class="nav-global__link">Diagnóstico</a></li>
+                <li><a href="mantenimiento.html" class="nav-global__link">Mantenimiento</a></li>
+                <li><a href="contacto.html" class="nav-global__link">Contacto</a></li>
+                <li><a href="base-conocimiento.html" class="nav-global__link">Base Conocimiento</a></li>
+                <li><a href="os-recovery.html" class="nav-global__link">OS Recovery</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Contenido Principal -->
+    <main role="main" class="layout-centered">
+        <article class="cyber-panel" aria-labelledby="main-title" style="max-width: 800px;">
+            <header>
+                <h1 id="main-title" class="cyber-header">
+                    <span class="typewriter-title">
+                        <span class="typewriter-text">SISTEMA_PRINCIPAL</span>
+                        <span class="typewriter-cursor" aria-hidden="true"></span>
+                    </span>
+                </h1>
+            </header>
+            
+            <section style="font-size: 1.2rem; margin-bottom: 2rem;">
+                <p>BIENVENIDO AL SISTEMA DE GESTIÓN DE SOPORTE TÉCNICO (SGST).</p>
+                <p>MÓDULOS EN RED. SELECCIONA UNA OPERACIÓN:</p>
+                
+                <ul style="list-style: none; margin-top: 1.5rem; border-left: 4px solid var(--color-cyber-cyan); padding-left: 1rem; color: var(--color-cyber-cyan);" aria-label="Módulos del sistema disponibles">
+                    <li style="margin-bottom: 0.5rem;">> [01] DIAGNÓSTICO: ANÁLISIS DE HARDWARE.</li>
+                    <li style="margin-bottom: 0.5rem;">> [02] MANTENIMIENTO: PURGA DE DATOS.</li>
+                    <li style="margin-bottom: 0.5rem;">> [03] CONTACTO: ENLACE P2P.</li>
+                </ul>
+            </section>
+            
+            <footer>
+                <button class="cyber-button" onclick="window.location.href='diagnostico.html'" aria-label="Iniciar secuencia de diagnóstico de hardware">
+                    <span>INICIAR_SECUENCIA</span>
+                    <span>>></span>
+                </button>
+            </footer>
+        </article>
+    </main>
+</body>
+</html>

@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Documentación técnica: Bot de Discord para inventario en tiempo real.">
+    <title>Bot de Discord para Inventario | TerminalFlow</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Archivo CSS Maestro -->
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body class="theme-dark page-article">
+    <!-- Navbar / Header -->
+    <header class="header">
+        <div class="container header__inner">
+            <div class="logo">
+                <span class="logo__prefix">root@TerminalFlow:</span><span class="logo__cursor">~#</span>
+            </div>
+            <nav class="nav" aria-label="Navegación principal">
+                <ul class="nav__list">
+                    <li><a href="index.html" class="nav__link">/home</a></li>
+                    <li><a href="dashboard.html" class="nav__link">/dashboard</a></li>
+                    <li><a href="caso-inventario.html" class="nav__link">/caso-inventario</a></li>
+                    <li><a href="diccionario-web.html" class="nav__link">/diccionario</a></li>
+                    <li><a href="hardware-servidor.html" class="nav__link">/hardware</a></li>
+                    <li><a href="laboratorio.html" class="nav__link">/laboratorio</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <article class="article container">
+            <header class="article__header">
+                <div class="breadcrumbs">
+                    <a href="index.html">~/flujos_destacados</a> / bot-discord-inventario.md
+                </div>
+                <h1 class="article__title">Bot de Discord para Inventario en Tiempo Real</h1>
+                <p class="article__usecase">
+                    <strong>Caso de Uso:</strong> Este flujo automatiza la consulta y actualización de stock mediante comandos de barra (`/stock`, `/update`) directamente desde un servidor de Discord. Utiliza un backend en Python (con FastAPI) que sirve como middleware entre Discord y una base de datos PostgreSQL, garantizando que el equipo de ventas siempre tenga acceso a datos precisos sin salir de su plataforma de comunicación.
+                </p>
+                
+                <div class="article__actions">
+                    <button class="btn btn--neon" aria-label="Hacer Fork del repositorio">
+                        <svg class="icon-inline" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21v-6m0-12v6m0 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm0 0c-3 0-5 2-5 5v6m10-11c3 0 5 2 5 5v6M7 21a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm10 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"></path></svg>
+                        Fork Repository
+                    </button>
+                    <a href="#" class="btn btn--outline">Descargar .zip</a>
+                </div>
+            </header>
+
+            <section class="article__section architecture">
+                <h2 class="section-title"># Arquitectura Visual</h2>
+                <div class="css-diagram" aria-label="Diagrama de flujo del sistema">
+                    <div class="diagram-node node-trigger">
+                        <span class="node-icon">Discord</span>
+                        <span class="node-label">Trigger (Slash Cmd)</span>
+                    </div>
+                    <div class="diagram-edge">
+                        <div class="arrow-line"></div>
+                        <span class="edge-label">Webhook (JSON)</span>
+                    </div>
+                    <div class="diagram-node node-process">
+                        <span class="node-icon">FastAPI</span>
+                        <span class="node-label">Middleware Python</span>
+                    </div>
+                    <div class="diagram-edge">
+                        <div class="arrow-line"></div>
+                        <span class="edge-label">SQL Query</span>
+                    </div>
+                    <div class="diagram-node node-action">
+                        <span class="node-icon">PostgreSQL</span>
+                        <span class="node-label">DB Engine</span>
+                    </div>
+                </div>
+            </section>
+
+            <section class="article__section prerequisites">
+                <h2 class="section-title"># Prerrequisitos</h2>
+                <ul class="terminal-list">
+                    <li>Acceso a un entorno Linux (Ubuntu 22.04 recomendado).</li>
+                    <li>Python 3.10+ y `pip` instalados.</li>
+                    <li>Librerías: `fastapi`, `uvicorn`, `discord.py`.</li>
+                    <li>Un token de bot activo desde el <a href="#" class="link-inline">Discord Developer Portal</a>.</li>
+                    <li>Túnel TCP (ej. <em>ngrok</em>) para exponer el puerto local durante el desarrollo.</li>
+                </ul>
+            </section>
+
+            <section class="article__section code-viewer">
+                <div class="code-header">
+                    <h2 class="section-title"># Implementación Core</h2>
+                    <button class="btn btn--preview" id="btn-preview" aria-controls="modal-preview">
+                        [▶] Previsualizar UI
+                    </button>
+                </div>
+                
+                <div class="tabs-container">
+                    <div class="tabs-header" role="tablist" aria-label="Lenguajes de programación">
+                        <button class="tab-btn active" role="tab" aria-selected="true" aria-controls="tab-python" id="btn-tab-python">bot_backend.py</button>
+                        <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-cpp" id="btn-tab-cpp">motor_calculo.cpp</button>
+                        <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-web" id="btn-tab-web">dashboard.html</button>
+                    </div>
+                    
+                    <div class="tabs-content">
+                        <!-- Panel Python -->
+                        <div class="tab-panel active" id="tab-python" role="tabpanel" aria-labelledby="btn-tab-python" tabindex="0">
+                            <div class="code-actions">
+                                <span class="lang-badge">Python</span>
+                                <button class="btn-copy" aria-label="Copiar código Python" data-target="code-block-python">Copiar</button>
+                            </div>
+                            <pre><code class="language-python" id="code-block-python">
+import discord
+from discord.ext import commands
+import uvicorn
+from fastapi import FastAPI, Request
+
+# Inicialización de instancias
+app = FastAPI()
+bot = commands.Bot(command_prefix="!", intents=discord.Intents.default())
+
+@app.post("/webhook/discord")
+async def discord_webhook(request: Request):
+    data = await request.json()
+    # Verifica que el JSON contenga una etiqueta (tag) válida, no solo atributos.
+    if "type" in data and data["type"] == 1:
+        return {"type": 1} # ACK
+    
+    # Procesamiento del comando
+    if data["data"]["name"] == "stock":
+        item_id = data["data"]["options"][0]["value"]
+        # Lógica de conexión a DB...
+        return {
+            "type": 4,
+            "data": { "content": f"El stock para el item {item_id} es: 45 unidades." }
+        }
+
+if __name__ == "__main__":
+    uvicorn.run(app, host="0.0.0.0", port=8000)
+                            </code></pre>
+                        </div>
+
+                        <!-- Panel C++ -->
+                        <div class="tab-panel" id="tab-cpp" role="tabpanel" aria-labelledby="btn-tab-cpp" tabindex="0">
+                            <div class="code-actions">
+                                <span class="lang-badge">C++</span>
+                                <button class="btn-copy" aria-label="Copiar código C++" data-target="code-block-cpp">Copiar</button>
+                            </div>
+                            <pre><code class="language-cpp" id="code-block-cpp">
+#include &lt;iostream&gt;
+#include &lt;string&gt;
+
+// Simulación de un motor de cálculo de alta concurrencia
+class MotorStock {
+public:
+    int calcularStockRestante(int total, int reservas) {
+        if(reservas > total) {
+            std::cerr << "Error: Reservas superan el total." << std::endl;
+            return 0;
+        }
+        return total - reservas;
+    }
+};
+
+int main() {
+    MotorStock motor;
+    std::cout << "Iniciando motor de cálculo..." << std::endl;
+    // Bind con Sockets POSIX aquí...
+    return 0;
+}
+                            </code></pre>
+                        </div>
+
+                        <!-- Panel Web -->
+                        <div class="tab-panel" id="tab-web" role="tabpanel" aria-labelledby="btn-tab-web" tabindex="0">
+                            <div class="code-actions">
+                                <span class="lang-badge">HTML/CSS</span>
+                                <button class="btn-copy" aria-label="Copiar código HTML" data-target="code-block-web">Copiar</button>
+                            </div>
+                            <pre><code class="language-html" id="code-block-web">
+&lt;!-- NOTA: Observa la diferencia entre la etiqueta HTML (div) y sus atributos (class, id) --&gt;
+&lt;div class="dashboard-widget" id="stock-viewer"&gt;
+    &lt;header class="widget-header"&gt;
+        &lt;h3&gt;Stock en Vivo&lt;/h3&gt;
+        &lt;span class="status-indicator online"&gt;&lt;/span&gt;
+    &lt;/header&gt;
+    &lt;main class="widget-content"&gt;
+        &lt;p class="item-name"&gt;Laptop Pro X&lt;/p&gt;
+        &lt;p class="item-stock"&gt;45 &lt;span class="unit"&gt;unds&lt;/span&gt;&lt;/p&gt;
+    &lt;/main&gt;
+&lt;/div&gt;
+
+&lt;style&gt;
+.dashboard-widget {
+    background: #21262D;
+    border: 1px solid #30363d;
+    padding: 1rem;
+    border-radius: 4px;
+    font-family: 'Inter', sans-serif;
+    color: #C9D1D9;
+}
+.status-indicator.online {
+    display: inline-block;
+    width: 10px; height: 10px;
+    background: #39FF14;
+    border-radius: 50%;
+    box-shadow: 0 0 5px #39FF14;
+}
+&lt;/style&gt;
+                            </code></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="article__section troubleshooting">
+                <h2 class="section-title"># Troubleshooting (Depuración)</h2>
+                <div class="table-container">
+                    <table class="terminal-table">
+                        <thead>
+                            <tr>
+                                <th>Error / Síntoma</th>
+                                <th>Causa Raíz</th>
+                                <th>Solución</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>[Errno 98] Address already in use</code></td>
+                                <td>Puerto bloqueado en Ubuntu terminal (puerto 8000 ocupado por otro proceso de Uvicorn).</td>
+                                <td>Ejecuta <code>lsof -i :8000</code> y mata el PID con <code>kill -9 &lt;PID&gt;</code>.</td>
+                            </tr>
+                            <tr>
+                                <td><code>401 Unauthorized</code> de Discord API</td>
+                                <td>Token caducado o mal configurado en el header de autorización.</td>
+                                <td>Regenera el token en el Developer Portal y actualiza el archivo <code>.env</code>.</td>
+                            </tr>
+                            <tr>
+                                <td>El estilo no se aplica en el Dashboard</td>
+                                <td>Conflicto de etiquetas vs atributos en la vista HTML (ej. usar mal <code>class=</code> en un tag inexistente).</td>
+                                <td>Verifica que los selectores CSS coincidan exactamente con los atributos <code>class</code> del DOM.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </article>
+    </main>
+
+    <!-- Modal de Previsualización (Inactivo inicialmente) -->
+    <div class="modal-overlay" id="modal-preview" aria-hidden="true" role="dialog" aria-labelledby="modal-title">
+        <div class="modal-content">
+            <header class="modal-header">
+                <h3 id="modal-title">> Previsualización en Vivo</h3>
+                <button class="btn-close-modal" id="btn-close-modal" aria-label="Cerrar modal">[X]</button>
+            </header>
+            <div class="modal-body" id="preview-container">
+                <!-- El JS inyectará el contenido HTML aquí -->
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container footer__inner">
+            <p>> root@TerminalFlow:~# exit</p>
+            <p class="footer__sub">Diseñado para la eficiencia. Construido con rigor. (C) 2026</p>
+        </div>
+    </footer>
+
+    <!-- Archivo JS Maestro (Fase 3) -->
+    <script src="./js/app.js"></script>
+</body>
+</html>

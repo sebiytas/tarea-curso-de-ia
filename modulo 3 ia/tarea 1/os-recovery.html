@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo OS Recovery</title>
+    <meta name="description" content="Interfaz para recuperación e instalación de Sistemas Operativos.">
+    <!-- Estilos globales Cyberpunk -->
+    <link rel="stylesheet" href="styles.css">
+    
+    <style>
+        .os-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 3rem;
+            margin-top: 2rem;
+        }
+
+        .cyber-details {
+            margin-bottom: 1rem;
+            border: 2px solid var(--color-cyber-yellow);
+            background: #000;
+        }
+        
+        .cyber-details[open] {
+            border-color: var(--color-cyber-cyan);
+            box-shadow: 4px 4px 0 var(--color-cyber-red);
+        }
+
+        .cyber-summary {
+            cursor: pointer;
+            outline: none;
+            padding: 1rem;
+            font-size: 1.1rem;
+            font-weight: 900;
+            color: var(--color-cyber-yellow);
+            transition: all 0.2s;
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            text-transform: uppercase;
+        }
+        
+        .cyber-summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .cyber-summary::after {
+            content: '+';
+            color: var(--color-cyber-cyan);
+            font-weight: 900;
+            font-size: 1.5rem;
+            transition: transform 0.3s;
+        }
+
+        .cyber-details[open] .cyber-summary::after {
+            transform: rotate(45deg);
+            color: var(--color-cyber-red);
+        }
+
+        .cyber-summary:hover {
+            background: var(--color-cyber-yellow);
+            color: var(--color-cyber-black);
+        }
+        .cyber-summary:hover::after {
+            color: var(--color-cyber-black);
+        }
+
+        .cyber-content {
+            padding: 1.5rem;
+            font-size: 0.95rem;
+            color: #fff;
+            line-height: 1.8;
+            border-top: 2px dashed var(--color-cyber-cyan);
+        }
+        
+        .cyber-content ol {
+            padding-left: 1.5rem;
+            margin-top: 0.5rem;
+            color: var(--color-cyber-cyan);
+        }
+        
+        .cyber-content li {
+            margin-bottom: 0.5rem;
+        }
+        .cyber-content li span {
+            color: #fff;
+        }
+        
+        .os-badge {
+            font-size: 0.8rem;
+            margin-left: auto;
+            color: var(--color-cyber-black);
+            padding: 2px 8px;
+            background: var(--color-cyber-cyan);
+            font-weight: 900;
+        }
+    </style>
+</head>
+<body class="page-recovery">
+    <header role="banner">
+        <nav class="nav-global" aria-label="Navegación principal del sistema">
+            <div class="nav-global__brand" aria-hidden="true">MAIN_OS</div>
+            <h2 class="sr-only">Menú de navegación</h2>
+            <ul class="nav-global__list">
+                <li><a href="index.html" class="nav-global__link">Inicio</a></li>
+                <li><a href="diagnostico.html" class="nav-global__link">Diagnóstico</a></li>
+                <li><a href="mantenimiento.html" class="nav-global__link">Mantenimiento</a></li>
+                <li><a href="contacto.html" class="nav-global__link">Contacto</a></li>
+                <li><a href="base-conocimiento.html" class="nav-global__link">Base Conocimiento</a></li>
+                <li><a href="os-recovery.html" class="nav-global__link nav-global__link--active" aria-current="page">OS Recovery</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main role="main" class="layout-centered">
+        <div style="width: 100%; max-width: 1200px;">
+            <header style="text-align: center; margin-bottom: 3rem;">
+                <h1 class="cyber-header" style="display: inline-block; padding: 0 2rem;">Arsenal_De_<span class="cyber-text-accent">Firmware</span></h1>
+                <p style="margin-top: 1rem; font-weight: 900;">Seleccione un módulo operativo para acceder al protocolo de instalación.</p>
+            </header>
+
+            <section class="os-grid" aria-label="Catálogo de Sistemas Operativos">
+                <!-- Tarjeta: Windows 11 -->
+                <article class="cyber-panel">
+                    <h2 class="cyber-header" style="font-size: 1.8rem; display: flex; align-items: center; margin-bottom: 2rem;">
+                        Windows 11
+                        <span class="os-badge">X64_UEFI</span>
+                    </h2>
+                    
+                    <details class="cyber-details" name="w11-accordion">
+                        <summary class="cyber-summary">1. Crear USB Booteable</summary>
+                        <div class="cyber-content">
+                            Descarga la herramienta Media Creation Tool de Microsoft. Inserta una memoria USB de al menos 8GB, ejecuta la herramienta, selecciona "Crear medios de instalación" y elige la unidad flash USB. Advertencia: Los datos de la USB serán borrados.
+                        </div>
+                    </details>
+                    
+                    <details class="cyber-details" name="w11-accordion">
+                        <summary class="cyber-summary">2. Configuración BIOS/UEFI</summary>
+                        <div class="cyber-content">
+                            <ol>
+                                <li><span>Reinicia y presiona F2/DEL repetidamente.</span></li>
+                                <li><span>Asegúrate de que <strong>Secure Boot</strong> esté habilitado (Requisito estricto W11).</span></li>
+                                <li><span>Habilita el módulo <strong>fTPM</strong> o TPM 2.0.</span></li>
+                                <li><span>En Boot Priority, pon tu memoria USB como número 1.</span></li>
+                            </ol>
+                        </div>
+                    </details>
+                    
+                    <details class="cyber-details" name="w11-accordion">
+                        <summary class="cyber-summary">3. Instalación Base</summary>
+                        <div class="cyber-content">
+                            Inicia desde la USB. Selecciona Idioma y Teclado. Haz clic en "Instalar ahora". Selecciona la versión para la cual tienes licencia. Elige instalación "Personalizada". Formatea la partición principal e instala. Al reiniciar, remueve la USB.
+                        </div>
+                    </details>
+
+                    <button class="cyber-button" aria-label="Descargar ISO Oficial de Windows 11">
+                        <span>Descargar ISO</span>
+                        <span>>></span>
+                    </button>
+                </article>
+
+                <!-- Tarjeta: Windows 10 -->
+                <article class="cyber-panel">
+                    <h2 class="cyber-header" style="font-size: 1.8rem; display: flex; align-items: center; margin-bottom: 2rem;">
+                        Windows 10
+                        <span class="os-badge">X64_LEGACY/UEFI</span>
+                    </h2>
+                    
+                    <details class="cyber-details" name="w10-accordion">
+                        <summary class="cyber-summary">1. Crear USB Booteable</summary>
+                        <div class="cyber-content">
+                            Alternativamente a MCT, puedes descargar la ISO de Windows 10 y usar <strong>Rufus</strong>. Selecciona Esquema de Partición GPT para placas base modernas o MBR para equipos antiguos. Sistema de archivos NTFS.
+                        </div>
+                    </details>
+                    
+                    <details class="cyber-details" name="w10-accordion">
+                        <summary class="cyber-summary">2. Configuración BIOS/UEFI</summary>
+                        <div class="cyber-content">
+                            <ol>
+                                <li><span>Reinicia e ingresa a BIOS.</span></li>
+                                <li><span>Si creaste la USB con Rufus en MBR, habilita el modo <strong>CSM / Legacy</strong>.</span></li>
+                                <li><span>Si la creaste en GPT, desactiva CSM y usa <strong>UEFI mode</strong>.</span></li>
+                                <li><span>Guarda los cambios (F10) e inicia desde la USB.</span></li>
+                            </ol>
+                        </div>
+                    </details>
+                    
+                    <details class="cyber-details" name="w10-accordion">
+                        <summary class="cyber-summary">3. Instalación Base</summary>
+                        <div class="cyber-content">
+                            Proceso idéntico a W11 pero no requiere conexión a internet forzosa en la configuración inicial ("OOBE"). Puedes seleccionar "No tengo internet" para crear una cuenta local directamente.
+                        </div>
+                    </details>
+
+                    <button class="cyber-button" aria-label="Descargar ISO Oficial de Windows 10">
+                        <span>Descargar ISO</span>
+                        <span>>></span>
+                    </button>
+                </article>
+
+                <!-- Tarjeta: Ubuntu -->
+                <article class="cyber-panel">
+                    <h2 class="cyber-header" style="font-size: 1.8rem; display: flex; align-items: center; margin-bottom: 2rem;">
+                        Ubuntu 24.04
+                        <span class="os-badge">LTS_LINUX</span>
+                    </h2>
+                    
+                    <details class="cyber-details" name="ubu-accordion">
+                        <summary class="cyber-summary">1. Crear USB Booteable</summary>
+                        <div class="cyber-content">
+                            Recomendamos usar <strong>Ventoy</strong> o BalenaEtcher. Con Ventoy, solo instalas el programa en la USB una vez, y luego arrastras la ISO descargada de Ubuntu directamente a la memoria sin descomprimir.
+                        </div>
+                    </details>
+                    
+                    <details class="cyber-details" name="ubu-accordion">
+                        <summary class="cyber-summary">2. Configuración BIOS/UEFI</summary>
+                        <div class="cyber-content">
+                            <ol>
+                                <li><span>Ingresa a la BIOS.</span></li>
+                                <li><span>Desactiva <strong>Secure Boot</strong> (necesario para drivers privativos de NVIDIA/Wi-Fi).</span></li>
+                                <li><span>Si tienes discos en modo RAID (Intel RST), cámbialos a modo <strong>AHCI</strong> o Linux no detectará el disco duro.</span></li>
+                            </ol>
+                        </div>
+                    </details>
+                    
+                    <details class="cyber-details" name="ubu-accordion">
+                        <summary class="cyber-summary">3. Instalación Base</summary>
+                        <div class="cyber-content">
+                            Elige "Try Ubuntu" o "Install". En el instalador, puedes optar por borrar todo el disco o instalar junto a Windows (Dual Boot). Selecciona "Instalar programas de terceros" para drivers Wi-Fi y codecs multimedia.
+                        </div>
+                    </details>
+
+                    <button class="cyber-button" aria-label="Descargar ISO Oficial de Ubuntu">
+                        <span>Descargar ISO</span>
+                        <span>>></span>
+                    </button>
+                </article>
+
+                <!-- Tarjeta: Linux Mint -->
+                <article class="cyber-panel">
+                    <h2 class="cyber-header" style="font-size: 1.8rem; display: flex; align-items: center; margin-bottom: 2rem;">
+                        Linux Mint 21
+                        <span class="os-badge">CINNAMON</span>
+                    </h2>
+                    
+                    <details class="cyber-details" name="mint-accordion">
+                        <summary class="cyber-summary">1. Crear USB Booteable</summary>
+                        <div class="cyber-content">
+                            Descarga la ISO (edición Cinnamon recomendada para ex-usuarios de Windows). Usa Rufus y graba en modo DD o ISO (Rufus sugerirá el mejor método).
+                        </div>
+                    </details>
+                    
+                    <details class="cyber-details" name="mint-accordion">
+                        <summary class="cyber-summary">2. Configuración BIOS/UEFI</summary>
+                        <div class="cyber-content">
+                            <ol>
+                                <li><span>Activar modo UEFI preferiblemente.</span></li>
+                                <li><span>Desactivar Fast Boot en BIOS y en Windows (si haces dual boot).</span></li>
+                                <li><span>Seleccionar la USB en el menú de arranque rápido (F12, F8 o F11 dependiendo de la placa base).</span></li>
+                            </ol>
+                        </div>
+                    </details>
+                    
+                    <details class="cyber-details" name="mint-accordion">
+                        <summary class="cyber-summary">3. Instalación Base</summary>
+                        <div class="cyber-content">
+                            Entorno muy amigable. Haz doble clic en el ícono "Install Linux Mint" del escritorio en vivo. Configura zonas horarias, distribución del teclado y particionamiento. Una vez instalado, ejecuta el Administrador de Actualizaciones.
+                        </div>
+                    </details>
+
+                    <button class="cyber-button" aria-label="Descargar ISO Oficial de Linux Mint">
+                        <span>Descargar ISO</span>
+                        <span>>></span>
+                    </button>
+                </article>
+            </section>
+        </div>
+    </main>
+</body>
+</html>

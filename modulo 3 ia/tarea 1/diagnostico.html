@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diagnóstico de Hardware - Sistema Operativo</title>
+    <meta name="description" content="Análisis esquemático y paramétrico de los componentes de hardware.">
+    <!-- Estilos globales Cyberpunk -->
+    <link rel="stylesheet" href="styles.css">
+    
+    <style>
+        /* CSS Específico de Diagnóstico adaptado a Cyberpunk */
+        .hardware-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .hw-component {
+            border: 2px dashed var(--color-cyber-yellow);
+            background: rgba(5, 5, 5, 0.8);
+            padding: 1.5rem;
+            position: relative;
+            transition: all 0.4s ease;
+        }
+
+        .hw-component__title {
+            font-size: 1.2rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            margin-bottom: 1.2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .hw-component__id {
+            font-size: 0.8rem;
+            color: var(--color-cyber-cyan);
+            letter-spacing: 0.1em;
+        }
+
+        .hw-status-bar {
+            width: 100%;
+            height: 20px;
+            background-color: #1a1a1a;
+            border: 2px solid #333;
+            margin-bottom: 1.2rem;
+            position: relative;
+        }
+
+        .hw-status-fill {
+            height: 100%;
+            width: 0%;
+            background-color: var(--color-cyber-cyan);
+            transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .hw-details {
+            font-size: 0.95rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+            color: rgba(252, 232, 3, 0.8); /* Yellow with opacity */
+        }
+
+        .hw-details span {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .hw-status-text {
+            font-size: 1rem;
+            text-align: right;
+            margin-top: 1rem;
+            font-weight: 900;
+        }
+
+        /* Clases de Estado Dinámicas */
+        .hw-component.status-sano {
+            border-color: var(--color-cyber-cyan);
+            border-style: solid;
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.1);
+        }
+        .hw-component.status-sano .hw-status-fill {
+            background-color: var(--color-cyber-cyan);
+        }
+        .hw-component.status-sano .hw-status-text {
+            color: var(--color-cyber-cyan);
+        }
+        .hw-component.status-sano .hw-component__id {
+            color: var(--color-cyber-cyan);
+        }
+
+        .hw-component.status-fallo {
+            border-color: var(--color-cyber-red);
+            border-style: solid;
+            box-shadow: 0 0 15px rgba(255, 0, 60, 0.3);
+            animation: glitch-anim 0.5s infinite;
+        }
+        .hw-component.status-fallo .hw-status-fill {
+            background-color: var(--color-cyber-red);
+        }
+        .hw-component.status-fallo .hw-status-text {
+            color: var(--color-cyber-red);
+        }
+        .hw-component.status-fallo .hw-component__title,
+        .hw-component.status-fallo .hw-component__id {
+            color: var(--color-cyber-red);
+        }
+    </style>
+</head>
+<body class="page-diagnostico">
+    <header role="banner">
+        <nav class="nav-global" aria-label="Navegación principal del sistema">
+            <div class="nav-global__brand" aria-hidden="true">MAIN_OS</div>
+            <h2 class="sr-only">Menú de navegación</h2>
+            <ul class="nav-global__list">
+                <li><a href="index.html" class="nav-global__link">Inicio</a></li>
+                <li><a href="diagnostico.html" class="nav-global__link nav-global__link--active" aria-current="page">Diagnóstico</a></li>
+                <li><a href="mantenimiento.html" class="nav-global__link">Mantenimiento</a></li>
+                <li><a href="contacto.html" class="nav-global__link">Contacto</a></li>
+                <li><a href="base-conocimiento.html" class="nav-global__link">Base Conocimiento</a></li>
+                <li><a href="os-recovery.html" class="nav-global__link">OS Recovery</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main role="main" class="layout-centered">
+        <article class="cyber-panel" aria-labelledby="diag-title" style="max-width: 1200px;">
+            <header>
+                <h1 id="diag-title" class="cyber-header">
+                    ANÁLISIS_HARDWARE
+                </h1>
+            </header>
+
+            <section class="hardware-grid" aria-live="polite" id="hw-grid">
+                <div class="hw-component" id="hw-mobo">
+                    <h3 class="hw-component__title">
+                        MOTHERBOARD
+                        <span class="hw-component__id">SYS_MB_01</span>
+                    </h3>
+                    <div class="hw-status-bar" aria-hidden="true">
+                        <div class="hw-status-fill" id="fill-mobo"></div>
+                    </div>
+                    <div class="hw-details">
+                        <span><em>V-CORE:</em> <span id="val-vcore">N/A</span></span>
+                        <span><em>TEMP:</em> <span id="val-temp-mb">N/A</span></span>
+                    </div>
+                    <div class="hw-status-text" id="status-mobo">IDLE</div>
+                </div>
+
+                <div class="hw-component" id="hw-ram">
+                    <h3 class="hw-component__title">
+                        MEMORIA RAM
+                        <span class="hw-component__id">MEM_BANK_A</span>
+                    </h3>
+                    <div class="hw-status-bar" aria-hidden="true">
+                        <div class="hw-status-fill" id="fill-ram"></div>
+                    </div>
+                    <div class="hw-details">
+                        <span><em>ASIGNACIÓN:</em> <span id="val-ram-alloc">N/A</span></span>
+                        <span><em>INTEGRIDAD:</em> <span id="val-ram-int">N/A</span></span>
+                    </div>
+                    <div class="hw-status-text" id="status-ram">IDLE</div>
+                </div>
+
+                <div class="hw-component" id="hw-disk">
+                    <h3 class="hw-component__title">
+                        UNIDAD DE DISCO
+                        <span class="hw-component__id">DRV_NVME_0</span>
+                    </h3>
+                    <div class="hw-status-bar" aria-hidden="true">
+                        <div class="hw-status-fill" id="fill-disk"></div>
+                    </div>
+                    <div class="hw-details">
+                        <span><em>SECTORES:</em> <span id="val-disk-sec">N/A</span></span>
+                        <span><em>TASA L/E:</em> <span id="val-disk-rw">N/A</span></span>
+                    </div>
+                    <div class="hw-status-text" id="status-disk">IDLE</div>
+                </div>
+            </section>
+
+            <button id="btn-scan" class="cyber-button">
+                <span>EJECUTAR ANÁLISIS</span>
+                <span>>></span>
+            </button>
+        </article>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const btnScan = document.getElementById('btn-scan');
+            
+            const hwMobo = document.getElementById('hw-mobo');
+            const hwRam = document.getElementById('hw-ram');
+            const hwDisk = document.getElementById('hw-disk');
+            
+            const fillMobo = document.getElementById('fill-mobo');
+            const fillRam = document.getElementById('fill-ram');
+            const fillDisk = document.getElementById('fill-disk');
+            
+            const statusMobo = document.getElementById('status-mobo');
+            const statusRam = document.getElementById('status-ram');
+            const statusDisk = document.getElementById('status-disk');
+
+            const valVcore = document.getElementById('val-vcore');
+            const valTempMb = document.getElementById('val-temp-mb');
+            const valRamAlloc = document.getElementById('val-ram-alloc');
+            const valRamInt = document.getElementById('val-ram-int');
+            const valDiskSec = document.getElementById('val-disk-sec');
+            const valDiskRw = document.getElementById('val-disk-rw');
+
+            const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
+            btnScan.addEventListener('click', async () => {
+                btnScan.disabled = true;
+                btnScan.querySelector('span:first-child').textContent = 'ANALIZANDO...';
+
+                [hwMobo, hwRam, hwDisk].forEach(el => el.classList.remove('status-sano', 'status-fallo'));
+                [fillMobo, fillRam, fillDisk].forEach(el => el.style.width = '0%');
+                [statusMobo, statusRam, statusDisk].forEach(el => el.textContent = 'PROCESANDO...');
+                [valVcore, valTempMb, valRamAlloc, valRamInt, valDiskSec, valDiskRw].forEach(el => el.textContent = 'LEYENDO...');
+
+                await sleep(900);
+                fillMobo.style.width = '100%';
+                valVcore.textContent = '1.25V';
+                valTempMb.textContent = '38°C (ESTABLE)';
+                hwMobo.classList.add('status-sano');
+                statusMobo.textContent = 'SANO [100%]';
+
+                await sleep(1100);
+                fillRam.style.width = '100%';
+                valRamAlloc.textContent = '16.4GB / 32.0GB';
+                valRamInt.textContent = 'VERIFICADA';
+                hwRam.classList.add('status-sano');
+                statusRam.textContent = 'SANO [100%]';
+
+                await sleep(1300);
+                fillDisk.style.width = '24%'; 
+                valDiskSec.textContent = '304 SECTORES DAÑADOS';
+                valDiskRw.textContent = '8MB/s (CRÍTICO)';
+                hwDisk.classList.add('status-fallo');
+                statusDisk.textContent = 'FALLO ESTRUCTURAL [24%]';
+                
+                await sleep(600);
+                btnScan.querySelector('span:first-child').textContent = 'ANÁLISIS FINALIZADO';
+                
+                sessionStorage.setItem('sgst_hw_status', 'CRITICAL_DRIVE_FAILURE');
+            });
+        });
+    </script>
+</body>
+</html>

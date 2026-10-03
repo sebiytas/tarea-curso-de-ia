@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mantenimiento - Terminal Ripperdoc</title>
+    <meta name="description" content="Reestructuración de sistemas y purga de datos. Interfaz técnica avanzada.">
+    <!-- Estilos globales unificados Cyberpunk -->
+    <link rel="stylesheet" href="styles.css">
+    
+    <style>
+        /* CSS Específico de las Barras y Panel de Mantenimiento */
+        .progress-block {
+            margin-bottom: 2.5rem;
+        }
+
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 1.1rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+            color: #fff;
+        }
+
+        .progress-track {
+            height: 50px;
+            background-color: #1a1a1a;
+            border: 3px solid #333;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background-color: var(--color-cyber-yellow);
+            width: 0%;
+            transition: width 0.1s linear;
+        }
+
+        .progress-fill.danger {
+            background-color: var(--color-cyber-red);
+        }
+
+        .progress-fill.safe {
+            background-color: var(--color-cyber-cyan);
+        }
+
+        .progress-value {
+            position: absolute;
+            top: 50%;
+            right: 15px;
+            transform: translateY(-50%);
+            color: #fff;
+            font-size: 1.5rem;
+            font-weight: 900;
+            mix-blend-mode: difference;
+        }
+
+        .cyber-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+            background-color: #0a0a0a;
+            font-size: 0.9rem;
+        }
+
+        .cyber-table th, .cyber-table td {
+            border: 2px solid var(--color-cyber-yellow);
+            padding: 1rem 0.5rem;
+            text-align: left;
+            text-transform: uppercase;
+        }
+
+        .cyber-table th {
+            background-color: var(--color-cyber-yellow);
+            color: #000;
+            font-weight: 900;
+        }
+
+        .cyber-table td.alert {
+            color: var(--color-cyber-red);
+            font-weight: 900;
+            animation: glitch-anim 0.4s infinite;
+        }
+
+        .sidebar-panel {
+            border: 4px dashed var(--color-cyber-red);
+            padding: 1.5rem;
+            background-color: rgba(255, 0, 60, 0.05);
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+        
+        .sidebar-title {
+            color: var(--color-cyber-red);
+            font-size: 1.4rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            border-bottom: 2px solid var(--color-cyber-red);
+            padding-bottom: 0.5rem;
+        }
+
+        .data-stream {
+            font-size: 0.75rem;
+            line-height: 1.2;
+            color: rgba(252, 232, 3, 0.6);
+            height: 250px;
+            overflow: hidden;
+            word-break: break-all;
+            background: #000;
+            padding: 1rem;
+            border: 1px solid rgba(252, 232, 3, 0.3);
+            font-weight: 400;
+        }
+    </style>
+</head>
+<body class="page-mantenimiento">
+    <header role="banner">
+        <nav class="nav-global" aria-label="Navegación principal del sistema">
+            <div class="nav-global__brand" aria-hidden="true">MAIN_OS</div>
+            <h2 class="sr-only">Menú de navegación</h2>
+            <ul class="nav-global__list">
+                <li><a href="index.html" class="nav-global__link">Inicio</a></li>
+                <li><a href="diagnostico.html" class="nav-global__link">Diagnóstico</a></li>
+                <li><a href="mantenimiento.html" class="nav-global__link nav-global__link--active" aria-current="page">Mantenimiento</a></li>
+                <li><a href="contacto.html" class="nav-global__link">Contacto</a></li>
+                <li><a href="base-conocimiento.html" class="nav-global__link">Base Conocimiento</a></li>
+                <li><a href="os-recovery.html" class="nav-global__link">OS Recovery</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main role="main" class="layout-grid">
+        <article class="cyber-panel" aria-labelledby="maint-title">
+            <h1 id="maint-title" class="cyber-header">
+                Reestructuración<br>
+                <span class="cyber-text-accent">De_Sistemas</span>
+            </h1>
+            
+            <section aria-live="polite">
+                <div class="progress-block">
+                    <div class="progress-label">
+                        <span>Desfragmentación de Memoria</span>
+                        <span id="lbl-defrag" aria-hidden="true">0%</span>
+                    </div>
+                    <div class="progress-track" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" id="aria-defrag">
+                        <div class="progress-fill safe" id="fill-defrag"></div>
+                        <div class="progress-value" id="val-defrag">IDLE</div>
+                    </div>
+                </div>
+
+                <div class="progress-block">
+                    <div class="progress-label">
+                        <span>Purga de Anomalías</span>
+                        <span id="lbl-purge" aria-hidden="true">0%</span>
+                    </div>
+                    <div class="progress-track" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" id="aria-purge">
+                        <div class="progress-fill danger" id="fill-purge"></div>
+                        <div class="progress-value" id="val-purge">IDLE</div>
+                    </div>
+                </div>
+
+                <div class="progress-block">
+                    <div class="progress-label">
+                        <span>Restauración de Nodos</span>
+                        <span id="lbl-restore" aria-hidden="true">0%</span>
+                    </div>
+                    <div class="progress-track" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" id="aria-restore">
+                        <div class="progress-fill" id="fill-restore"></div>
+                        <div class="progress-value" id="val-restore">IDLE</div>
+                    </div>
+                </div>
+            </section>
+
+            <button id="btn-maint" class="cyber-button" aria-label="Iniciar sobreescritura y purga del sistema">
+                <span>Iniciar Sobreescritura</span>
+                <span>>></span>
+            </button>
+        </article>
+
+        <aside class="sidebar-panel">
+            <section>
+                <h2 class="sidebar-title">Sector_Status</h2>
+                <table class="cyber-table" aria-label="Estado de los sectores del sistema">
+                    <thead>
+                        <tr>
+                            <th>Sector</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>V-RAM_01</td>
+                            <td>OK</td>
+                        </tr>
+                        <tr>
+                            <td>DRV_NVME</td>
+                            <td class="alert" id="table-disk-status">REVISANDO...</td>
+                        </tr>
+                        <tr>
+                            <td>NET_IO</td>
+                            <td>OK</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section>
+                <h3 style="font-size: 1rem; color: var(--color-cyber-cyan); margin-bottom: 0.5rem; text-transform: uppercase;">RAW_DATA_STREAM</h3>
+                <div class="data-stream" id="raw-data" aria-hidden="true">
+                    > SYS.INIT v2.0.77<br>
+                    > Awaiting override command...<br>
+                </div>
+            </section>
+        </aside>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const btnMaint = document.getElementById('btn-maint');
+            const dataStream = document.getElementById('raw-data');
+            const tableDiskStatus = document.getElementById('table-disk-status');
+            
+            const bars = {
+                defrag: { fill: document.getElementById('fill-defrag'), val: document.getElementById('val-defrag'), lbl: document.getElementById('lbl-defrag'), aria: document.getElementById('aria-defrag') },
+                purge: { fill: document.getElementById('fill-purge'), val: document.getElementById('val-purge'), lbl: document.getElementById('lbl-purge'), aria: document.getElementById('aria-purge') },
+                restore: { fill: document.getElementById('fill-restore'), val: document.getElementById('val-restore'), lbl: document.getElementById('lbl-restore'), aria: document.getElementById('aria-restore') }
+            };
+
+            const prevStatus = sessionStorage.getItem('sgst_hw_status');
+            if(prevStatus === 'CRITICAL_DRIVE_FAILURE') {
+                tableDiskStatus.textContent = 'CRÍTICO';
+                tableDiskStatus.classList.add('alert');
+            } else {
+                tableDiskStatus.textContent = 'NO ANALIZADO';
+                tableDiskStatus.classList.remove('alert');
+                tableDiskStatus.style.color = 'var(--color-cyber-yellow)';
+            }
+
+            const logToStream = (msg) => {
+                const line = document.createElement('div');
+                line.textContent = `> ${msg}`;
+                dataStream.appendChild(line);
+                dataStream.scrollTop = dataStream.scrollHeight;
+            };
+
+            const animateBar = async (barKey, speedMultiplier = 1) => {
+                return new Promise(resolve => {
+                    let progress = 0;
+                    const bar = bars[barKey];
+                    
+                    const interval = setInterval(() => {
+                        const increment = Math.random() * 5 * speedMultiplier; 
+                        progress += increment;
+                        
+                        if (progress >= 100) {
+                            progress = 100;
+                            clearInterval(interval);
+                            bar.val.textContent = 'DONE';
+                            bar.lbl.textContent = '100%';
+                            bar.fill.style.width = '100%';
+                            bar.aria.setAttribute('aria-valuenow', '100');
+                            logToStream(`${barKey.toUpperCase()} COMPLETADO.`);
+                            resolve();
+                        } else {
+                            const p = Math.floor(progress);
+                            bar.fill.style.width = `${p}%`;
+                            bar.val.textContent = 'RUNNING';
+                            bar.lbl.textContent = `${p}%`;
+                            bar.aria.setAttribute('aria-valuenow', p.toString());
+                            
+                            if (Math.random() > 0.8) {
+                                logToStream(`0x${Math.floor(Math.random()*10000).toString(16).toUpperCase()}: Processing block...`);
+                            }
+                        }
+                    }, 50); 
+                });
+            };
+
+            btnMaint.addEventListener('click', async () => {
+                btnMaint.disabled = true;
+                btnMaint.querySelector('span:first-child').textContent = 'SOBREESCRIBIENDO...';
+                
+                logToStream('INICIANDO PURGA DE SISTEMA...');
+                
+                await Promise.all([
+                    animateBar('defrag', 1.2),
+                    animateBar('purge', 0.8),
+                    animateBar('restore', 1.0)
+                ]);
+
+                btnMaint.querySelector('span:first-child').textContent = 'SISTEMA PURGADO';
+                logToStream('TODOS LOS PROCESOS FINALIZADOS CON ÉXITO.');
+                
+                if (sessionStorage.getItem('sgst_hw_status')) {
+                    setTimeout(() => {
+                        logToStream('CORRIGIENDO DRV_NVME... OK');
+                        tableDiskStatus.textContent = 'OK';
+                        tableDiskStatus.classList.remove('alert');
+                        tableDiskStatus.style.color = 'var(--color-cyber-cyan)';
+                        sessionStorage.removeItem('sgst_hw_status');
+                    }, 1000);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

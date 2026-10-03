@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Taquilla | Planes de Suscripción</title>
+    <meta name="description" content="Elige tu pase premium y accede al multiverso del entretenimiento.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- CSS Maestro -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <main class="main-content page-padding">
+        <div class="container">
+            <header class="page-header">
+                <h1 class="page-title">La Taquilla</h1>
+                <p class="page-subtitle">Adquiere tu pase de acceso y disfruta sin límites.</p>
+            </header>
+
+            <section class="pricing" aria-label="Planes de suscripción">
+                <div class="pricing__grid">
+                    <!-- Plan 1 -->
+                    <article class="pricing-card">
+                        <header class="pricing-card__header">
+                            <h3 class="pricing-card__title">Héroe de Barrio</h3>
+                            <p class="pricing-card__desc">Ideal para empezar tu aventura.</p>
+                        </header>
+                        <div class="pricing-card__price-box">
+                            <span class="pricing-card__currency">$</span>
+                            <span class="pricing-card__amount" data-usd="4.99">4.99</span>
+                            <span class="pricing-card__period">/mes</span>
+                        </div>
+                        <div class="pricing-card__bs-price">
+                            Aprox. <span class="bs-amount">Calculando...</span> Bs
+                        </div>
+                        <ul class="pricing-card__features">
+                            <li><i class="fa-solid fa-check"></i> 1 Pantalla</li>
+                            <li><i class="fa-solid fa-check"></i> Calidad HD (720p)</li>
+                            <li><i class="fa-solid fa-xmark" style="color:var(--text-secondary)"></i> Sin Anuncios</li>
+                        </ul>
+                        <button class="btn btn--primary pricing-card__btn">Elegir Pase</button>
+                    </article>
+
+                    <!-- Plan 2 -->
+                    <article class="pricing-card pricing-card--featured">
+                        <div class="pricing-card__badge">Más Popular</div>
+                        <header class="pricing-card__header">
+                            <h3 class="pricing-card__title">Cinéfilo Supremo</h3>
+                            <p class="pricing-card__desc">Para los verdaderos amantes del cine.</p>
+                        </header>
+                        <div class="pricing-card__price-box">
+                            <span class="pricing-card__currency">$</span>
+                            <span class="pricing-card__amount" data-usd="8.99">8.99</span>
+                            <span class="pricing-card__period">/mes</span>
+                        </div>
+                        <div class="pricing-card__bs-price">
+                            Aprox. <span class="bs-amount">Calculando...</span> Bs
+                        </div>
+                        <ul class="pricing-card__features">
+                            <li><i class="fa-solid fa-check"></i> 2 Pantallas</li>
+                            <li><i class="fa-solid fa-check"></i> Calidad Full HD (1080p)</li>
+                            <li><i class="fa-solid fa-check"></i> Sin Anuncios</li>
+                        </ul>
+                        <button class="btn btn--primary pricing-card__btn">Elegir Pase</button>
+                    </article>
+
+                    <!-- Plan 3 -->
+                    <article class="pricing-card">
+                        <header class="pricing-card__header">
+                            <h3 class="pricing-card__title">Rey de los Piratas</h3>
+                            <p class="pricing-card__desc">La experiencia definitiva y absoluta.</p>
+                        </header>
+                        <div class="pricing-card__price-box">
+                            <span class="pricing-card__currency">$</span>
+                            <span class="pricing-card__amount" data-usd="14.99">14.99</span>
+                            <span class="pricing-card__period">/mes</span>
+                        </div>
+                        <div class="pricing-card__bs-price">
+                            Aprox. <span class="bs-amount">Calculando...</span> Bs
+                        </div>
+                        <ul class="pricing-card__features">
+                            <li><i class="fa-solid fa-check"></i> 4 Pantallas</li>
+                            <li><i class="fa-solid fa-check"></i> <span class="badge-4k">4K Ultra HD</span></li>
+                            <li><i class="fa-solid fa-check"></i> Sin Anuncios</li>
+                        </ul>
+                        <button class="btn btn--primary pricing-card__btn">Elegir Pase</button>
+                    </article>
+                </div>
+            </section>
+
+            <section class="payment-methods" aria-label="Métodos de pago aceptados">
+                <h3 class="payment-methods__title">Métodos de Pago Aceptados</h3>
+                <div class="payment-methods__logos">
+                    <div class="payment-logo"><i class="fa-solid fa-mobile-screen"></i> Pago Móvil</div>
+                    <div class="payment-logo"><i class="fa-brands fa-btc"></i> Binance Pay</div>
+                    <div class="payment-logo"><i class="fa-regular fa-credit-card"></i> Tarjeta Int.</div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Navigation Menu "Video Player" -->
+    <nav class="video-nav" aria-label="Navegación principal">
+        <div class="video-nav__controls">
+            <button class="video-nav__btn" aria-label="Reproducir/Pausar"><i class="fa-solid fa-pause"></i></button>
+            <div class="video-nav__time" aria-live="polite">1:15 / 3:15</div>
+        </div>
+
+        <div class="video-nav__progress-container">
+            <div class="video-nav__progress-bar">
+                <div class="video-nav__progress-fill" style="width: 50%;"></div>
+                <div class="video-nav__playhead" style="left: 50%;"></div>
+                
+                <div class="video-nav__chapters">
+                    <a href="index.html" class="video-nav__chapter" style="left: 10%;" aria-label="Ir a Inicio">
+                        <span class="video-nav__chapter-marker"></span>
+                        <div class="video-nav__tooltip" aria-hidden="true">
+                            <div class="video-nav__tooltip-thumb"><i class="fa-solid fa-house"></i></div>
+                            <span class="video-nav__tooltip-text">Inicio</span>
+                        </div>
+                    </a>
+
+                    <a href="planes.html" class="video-nav__chapter video-nav__chapter--active" style="left: 50%;" aria-label="Ir a La Taquilla" aria-current="page">
+                        <span class="video-nav__chapter-marker"></span>
+                        <div class="video-nav__tooltip" aria-hidden="true">
+                            <div class="video-nav__tooltip-thumb"><i class="fa-solid fa-ticket"></i></div>
+                            <span class="video-nav__tooltip-text">La Taquilla</span>
+                        </div>
+                    </a>
+
+                    <a href="cuenta.html" class="video-nav__chapter" style="left: 90%;" aria-label="Ir a Tu Butaca">
+                        <span class="video-nav__chapter-marker"></span>
+                        <div class="video-nav__tooltip" aria-hidden="true">
+                            <div class="video-nav__tooltip-thumb"><i class="fa-solid fa-user"></i></div>
+                            <span class="video-nav__tooltip-text">Tu Butaca</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="video-nav__settings">
+            <button class="video-nav__btn" aria-label="Configuración"><i class="fa-solid fa-gear"></i></button>
+            <button class="video-nav__btn" aria-label="Pantalla Completa"><i class="fa-solid fa-expand"></i></button>
+        </div>
+    </nav>
+
+    <!-- Script App Principal -->
+    <script src="js/app.js"></script>
+</body>
+</html>

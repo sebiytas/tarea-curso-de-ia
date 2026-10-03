@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multiverso del Entretenimiento | Inicio</title>
+    <meta name="description" content="Catálogo de suscripciones digitales. Desbloquea el multiverso del entretenimiento con las mejores plataformas de streaming en calidad 4K.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <!-- FontAwesome para Iconografía -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- CSS Maestro -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+    <!-- Hero Section -->
+    <main class="main-content">
+        <section class="hero" aria-labelledby="hero-title">
+            <div class="hero__overlay"></div>
+            <div class="hero__content">
+                <h1 id="hero-title" class="hero__title">Desbloquea el Multiverso del Entretenimiento</h1>
+                <p class="hero__subtitle">Todas tus series, películas y animes favoritos en un solo lugar. Sin interrupciones, máxima calidad.</p>
+                <a href="planes.html" class="btn btn--primary">
+                    Adquirir Pase Premium <i class="fa-solid fa-play" aria-hidden="true"></i>
+                </a>
+            </div>
+        </section>
+
+        <!-- Brands Section -->
+        <section class="brands" aria-labelledby="brands-title">
+            <div class="container">
+                <h2 id="brands-title" class="brands__title">Nuestros Estudios Aliados</h2>
+                <div class="brands__grid">
+                    <!-- Netflix -->
+                    <article class="brand-card">
+                        <div class="brand-card__image brand-card__image--netflix">
+                            <i class="fa-brands fa-neos brand-card__icon" aria-hidden="true"></i>
+                        </div>
+                        <h3 class="brand-card__name">Tudum Flix</h3>
+                    </article>
+                    <!-- Crunchyroll -->
+                    <article class="brand-card">
+                        <div class="brand-card__image brand-card__image--crunchyroll">
+                            <span class="brand-card__icon" style="font-weight: 800; font-family: 'Outfit', sans-serif;">CR</span>
+                        </div>
+                        <h3 class="brand-card__name">Anime Roll</h3>
+                    </article>
+                    <!-- Prime Video -->
+                    <article class="brand-card">
+                        <div class="brand-card__image brand-card__image--prime">
+                            <i class="fa-brands fa-amazon brand-card__icon" aria-hidden="true"></i>
+                        </div>
+                        <h3 class="brand-card__name">Prime Stream</h3>
+                    </article>
+                    <!-- Disney+ -->
+                    <article class="brand-card">
+                        <div class="brand-card__image brand-card__image--disney">
+                            <i class="fa-solid fa-wand-magic-sparkles brand-card__icon" aria-hidden="true"></i>
+                        </div>
+                        <h3 class="brand-card__name">Magic Plus</h3>
+                    </article>
+                    <!-- Max -->
+                    <article class="brand-card">
+                        <div class="brand-card__image brand-card__image--max">
+                            <i class="fa-solid fa-bolt brand-card__icon" aria-hidden="true"></i>
+                        </div>
+                        <h3 class="brand-card__name">Max Power</h3>
+                    </article>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Navigation Menu "Video Player" -->
+    <nav class="video-nav" aria-label="Navegación principal">
+        <div class="video-nav__controls">
+            <button class="video-nav__btn" aria-label="Reproducir/Pausar"><i class="fa-solid fa-pause"></i></button>
+            <div class="video-nav__time" aria-live="polite">0:00 / 3:15</div>
+        </div>
+
+        <div class="video-nav__progress-container">
+            <!-- Progress line -->
+            <div class="video-nav__progress-bar">
+                <div class="video-nav__progress-fill" style="width: 10%;"></div>
+                <div class="video-nav__playhead" style="left: 10%;"></div>
+                
+                <!-- Chapters (Links) -->
+                <div class="video-nav__chapters">
+                    <!-- Chapter 1: Inicio -->
+                    <a href="index.html" class="video-nav__chapter video-nav__chapter--active" style="left: 10%;" aria-label="Ir a Inicio" aria-current="page">
+                        <span class="video-nav__chapter-marker"></span>
+                        <div class="video-nav__tooltip" aria-hidden="true">
+                            <div class="video-nav__tooltip-thumb">
+                                <i class="fa-solid fa-house"></i>
+                            </div>
+                            <span class="video-nav__tooltip-text">Inicio</span>
+                        </div>
+                    </a>
+
+                    <!-- Chapter 2: Catálogo/Planes -->
+                    <a href="planes.html" class="video-nav__chapter" style="left: 50%;" aria-label="Ir a La Taquilla">
+                        <span class="video-nav__chapter-marker"></span>
+                        <div class="video-nav__tooltip" aria-hidden="true">
+                            <div class="video-nav__tooltip-thumb">
+                                <i class="fa-solid fa-ticket"></i>
+                            </div>
+                            <span class="video-nav__tooltip-text">La Taquilla</span>
+                        </div>
+                    </a>
+
+                    <!-- Chapter 3: Mi Cuenta -->
+                    <a href="cuenta.html" class="video-nav__chapter" style="left: 90%;" aria-label="Ir a Tu Butaca">
+                        <span class="video-nav__chapter-marker"></span>
+                        <div class="video-nav__tooltip" aria-hidden="true">
+                            <div class="video-nav__tooltip-thumb">
+                                <i class="fa-solid fa-user"></i>
+                            </div>
+                            <span class="video-nav__tooltip-text">Tu Butaca</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="video-nav__settings">
+            <button class="video-nav__btn" aria-label="Configuración"><i class="fa-solid fa-gear"></i></button>
+            <button class="video-nav__btn" aria-label="Pantalla Completa"><i class="fa-solid fa-expand"></i></button>
+        </div>
+    </nav>
+
+    <!-- Script App Principal -->
+    <script src="js/app.js"></script>
+</body>
+</html>

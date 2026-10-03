@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Diccionario Técnico de Frontend y Backend. Etiquetas vs Atributos, SQL, C++.">
+    <title>Diccionario Técnico | TerminalFlow</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="./css/style.css">
+    
+    <style>
+        .dictionary-search {
+            margin-bottom: var(--spacing-md);
+            padding: 1rem;
+            background: var(--bg-panel);
+            border: var(--border-mint);
+            border-radius: var(--radius-sm);
+        }
+        
+        .dictionary-search input {
+            width: 100%;
+            background: transparent;
+            border: none;
+            color: var(--text-main);
+            font-family: var(--font-code);
+            font-size: 1.2rem;
+            outline: none;
+        }
+        
+        .dictionary-search input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .dict-entry {
+            background: var(--bg-panel);
+            border: var(--border-muted);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .dict-entry.highlighted {
+            border-color: var(--text-alert);
+            box-shadow: 0 0 15px rgba(251, 191, 36, 0.1);
+        }
+
+        .dict-entry__title {
+            color: var(--accent-secondary);
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            border-bottom: 1px dashed var(--border-muted);
+            padding-bottom: 0.5rem;
+        }
+        
+        .dict-entry.highlighted .dict-entry__title {
+            color: var(--text-alert);
+        }
+
+        .dict-entry__desc {
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .dict-code {
+            background: #000;
+            padding: 1rem;
+            border-left: 3px solid var(--accent-primary);
+            overflow-x: auto;
+            border-radius: var(--radius-sm);
+        }
+
+        .dict-code code {
+            color: var(--text-main);
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container header__inner">
+            <div style="font-weight:700; font-size:1.2rem;">
+                <span style="color:var(--accent-primary)">root@terminalflow:</span><span style="color:var(--text-main)">~#</span>
+            </div>
+            <nav class="nav">
+                <ul class="nav__list">
+                    <li><a href="index.html" class="nav__link">/home</a></li>
+                    <li><a href="dashboard.html" class="nav__link">/dashboard</a></li>
+                    <li><a href="caso-inventario.html" class="nav__link">/caso-inventario</a></li>
+                    <li><a href="diccionario-web.html" class="nav__link active">/diccionario</a></li>
+                    <li><a href="hardware-servidor.html" class="nav__link">/hardware</a></li>
+                    <li><a href="laboratorio.html" class="nav__link">/laboratorio</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container" style="padding-top: var(--spacing-lg);">
+        <h1>Diccionario Web / Backend</h1>
+        <p style="margin-bottom: var(--spacing-md); color: var(--text-muted);">Búsqueda en tiempo real. Escribe un concepto técnico para filtrar las entradas.</p>
+
+        <div class="dictionary-search">
+            <input type="text" id="dict-search" placeholder="grep -i 'tu término' ./diccionario/*" aria-label="Buscar en diccionario">
+        </div>
+
+        <div id="dict-entries">
+            <!-- Entrada Crítica: Etiquetas vs Atributos -->
+            <article class="dict-entry highlighted">
+                <h2 class="dict-entry__title">Etiqueta HTML (Tag) vs Atributo HTML (Attribute)</h2>
+                <div class="dict-entry__desc">
+                    <p>
+                        Esta es una distinción fundamental y crítica en el desarrollo Frontend. Confundir estos dos conceptos lleva a errores estructurales severos al manipular el DOM mediante JavaScript.
+                    </p>
+                    <p>
+                        <strong>Etiqueta HTML (Tag):</strong> Es la estructura base del elemento en sí. Define *qué* es el elemento en el árbol semántico del documento (un párrafo, un bloque, una imagen). Se encierra entre signos de mayor y menor (<code>&lt; &gt;</code>). Ejemplos: <code>&lt;div&gt;</code>, <code>&lt;p&gt;</code>, <code>&lt;button&gt;</code>.
+                    </p>
+                    <p>
+                        <strong>Atributo HTML (Attribute):</strong> Es la información adicional que modifica o configura el comportamiento de una etiqueta. Los atributos siempre viven <em>dentro</em> de la etiqueta de apertura y generalmente tienen la forma <code>nombre="valor"</code>. Ejemplos: <code>class="btn"</code>, <code>id="submit"</code>, <code>src="img.png"</code>.
+                    </p>
+                </div>
+                <div class="dict-code">
+<pre><code><span style="color:var(--text-muted);">&lt;!-- Ejemplo Correcto --&gt;</span>
+&lt;<span style="color:var(--accent-primary);">button</span> <span style="color:var(--accent-secondary);">class</span>=<span style="color:var(--text-alert);">"btn-primary"</span> <span style="color:var(--accent-secondary);">id</span>=<span style="color:var(--text-alert);">"submit-form"</span>&gt;Enviar&lt;/<span style="color:var(--accent-primary);">button</span>&gt;
+
+<span style="color:var(--text-muted);">&lt;!-- 
+  Desglose:
+  - "button" es la ETIQUETA (Tag).
+  - "class" e "id" son los ATRIBUTOS (Attributes).
+  - "btn-primary" es el VALOR del atributo class.
+--&gt;</span>
+</code></pre>
+                </div>
+            </article>
+
+            <!-- Entrada C++ -->
+            <article class="dict-entry">
+                <h2 class="dict-entry__title">Inecuaciones Lógicas (C++)</h2>
+                <div class="dict-entry__desc">
+                    <p>
+                        En C++ (y la mayoría de lenguajes C-like), las inecuaciones lógicas determinan el flujo de control del programa comprobando si un valor cumple una condición matemática con respecto a otro. Los operadores principales son <code>&lt;</code>, <code>&gt;</code>, <code>&lt;=</code>, <code>&gt;=</code>, <code>==</code>, y <code>!=</code>.
+                    </p>
+                </div>
+                <div class="dict-code">
+<pre><code>int x = 10;
+int y = 20;
+
+// Inecuación combinada usando AND (&&) y OR (||)
+if (x < y && (x + 15) >= y) {
+    std::cout << "Condición de umbral cumplida." << std::endl;
+}</code></pre>
+                </div>
+            </article>
+
+            <!-- Entrada SQL -->
+            <article class="dict-entry">
+                <h2 class="dict-entry__title">Consultas SELECT / INNER JOIN (SQL)</h2>
+                <div class="dict-entry__desc">
+                    <p>
+                        El operador <code>INNER JOIN</code> se utiliza para combinar filas de dos o más tablas, basándose en una columna relacionada entre ellas. Devuelve únicamente los registros que tienen valores coincidentes en ambas tablas.
+                    </p>
+                </div>
+                <div class="dict-code">
+<pre><code><span style="color:var(--accent-primary);">SELECT</span> p.nombre_modelo, m.nombre_color 
+<span style="color:var(--accent-primary);">FROM</span> productos p
+<span style="color:var(--accent-primary);">INNER JOIN</span> materiales m <span style="color:var(--accent-primary);">ON</span> p.mat_principal_id = m.id_material
+<span style="color:var(--accent-primary);">WHERE</span> m.stock_cm < 100.0;</code></pre>
+                </div>
+            </article>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>TerminalFlow v2.0 - Enciclopedia Técnica. Modo Administrador.</p>
+        </div>
+    </footer>
+
+    <!-- Script de búsqueda -->
+    <script src="./js/app.js"></script>
+</body>
+</html>

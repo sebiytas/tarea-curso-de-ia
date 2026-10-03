@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Guía técnica de Hardware y Servidores Locales. Pasta térmica y configuración DSLR.">
+    <title>Hardware & Servidores | TerminalFlow</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="./css/style.css">
+    
+    <style>
+        .step-guide {
+            margin-bottom: var(--spacing-lg);
+        }
+        
+        .step {
+            display: flex;
+            background: var(--bg-panel);
+            border: var(--border-muted);
+            border-radius: var(--radius-sm);
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+            border-left: 4px solid var(--accent-secondary);
+        }
+        
+        .step__num {
+            background: #0d111a;
+            color: var(--accent-secondary);
+            font-size: 2rem;
+            font-weight: 700;
+            padding: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-right: 1px solid var(--border-muted);
+            min-width: 80px;
+        }
+        
+        .step__content {
+            padding: 1.5rem;
+        }
+        
+        .step__title {
+            color: var(--accent-primary);
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+        }
+        
+        .warning-box {
+            background: rgba(248, 113, 113, 0.1);
+            border: 1px solid var(--text-error);
+            border-left: 4px solid var(--text-error);
+            padding: 1rem;
+            border-radius: var(--radius-sm);
+            margin: 1rem 0;
+            color: #fca5a5;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container header__inner">
+            <div style="font-weight:700; font-size:1.2rem;">
+                <span style="color:var(--accent-primary)">root@terminalflow:</span><span style="color:var(--text-main)">~#</span>
+            </div>
+            <nav class="nav">
+                <ul class="nav__list">
+                    <li><a href="index.html" class="nav__link">/home</a></li>
+                    <li><a href="dashboard.html" class="nav__link">/dashboard</a></li>
+                    <li><a href="caso-inventario.html" class="nav__link">/caso-inventario</a></li>
+                    <li><a href="diccionario-web.html" class="nav__link">/diccionario</a></li>
+                    <li><a href="hardware-servidor.html" class="nav__link active">/hardware</a></li>
+                    <li><a href="laboratorio.html" class="nav__link">/laboratorio</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container" style="padding-top: var(--spacing-lg);">
+        <h1>Mantenimiento y Configuración de Servidor Físico</h1>
+        <p style="margin-bottom: var(--spacing-lg); color: var(--text-muted);">
+            Procedimientos estandarizados para el cuidado de nodos físicos y periféricos avanzados utilizados en desarrollo local y streaming técnico.
+        </p>
+
+        <section class="step-guide">
+            <h2>Sección 1: Mantenimiento del Procesador (CPU)</h2>
+            <p>El reemplazo de la pasta térmica es crítico para evitar thermal throttling cuando se ejecutan algoritmos pesados o dockers en la máquina local.</p>
+            
+            <div class="warning-box">
+                <strong>[CRITICAL ALERT]</strong> Desconecta completamente el servidor de la corriente antes de manipular los componentes internos para evitar descargas estáticas.
+            </div>
+
+            <div class="step">
+                <div class="step__num">01</div>
+                <div class="step__content">
+                    <h3 class="step__title">Remover el disipador</h3>
+                    <p>Desatornilla el disipador (cooler) en patrón de X (cruzado) para liberar la presión uniformemente. Levanta suavemente girando un poco a los lados si la pasta térmica antigua está endurecida.</p>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step__num">02</div>
+                <div class="step__content">
+                    <h3 class="step__title">Limpieza estricta de superficies</h3>
+                    <p>
+                        Humedece un paño de microfibra o hisopos con <strong>alcohol isopropílico o alcohol antiséptico (mínimo 70%, ideal 90%+)</strong>. Frota cuidadosamente la superficie metálica del CPU (IHS) y la base de cobre/aluminio del disipador hasta remover todo rastro de la pasta anterior. El alcohol se evapora rápido y no deja residuos que interfieran en la conductividad térmica.
+                    </p>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step__num">03</div>
+                <div class="step__content">
+                    <h3 class="step__title">Aplicación de la nueva pasta</h3>
+                    <p>
+                        Aplica una gota del tamaño de un guisante (pea-size) en el centro exacto del procesador. No es necesario esparcirla manualmente; la presión del disipador al atornillarlo hará el trabajo de forma uniforme evitando burbujas de aire.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="step-guide">
+            <h2>Sección 2: Periféricos - Cámara DSLR (Nikon D5100)</h2>
+            <p>Cómo usar una cámara réflex antigua como Webcam de altísima calidad para conferencias, Pair Programming o streaming en OBS.</p>
+            
+            <div class="step">
+                <div class="step__num">01</div>
+                <div class="step__content">
+                    <h3 class="step__title">Conexión Física</h3>
+                    <p>
+                        Conecta la Nikon D5100 mediante un cable USB estándar a la placa base del servidor. Asegúrate de tener una batería "Dummy" conectada a la corriente para evitar que la cámara se apague por falta de batería a mitad de un stream.
+                    </p>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step__num">02</div>
+                <div class="step__content">
+                    <h3 class="step__title">Software Middleware: digiCamControl</h3>
+                    <p>
+                        Instala <code>digiCamControl</code> (Open Source) en el SO local. Este software es capaz de interactuar con el SDK nativo de Nikon. Abre digiCamControl, verifica que detecta la D5100 y activa la vista <em>Live View</em>.
+                    </p>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step__num">03</div>
+                <div class="step__content">
+                    <h3 class="step__title">Ruteo hacia OBS Studio</h3>
+                    <p>
+                        En digiCamControl, utiliza el plugin de "Virtual WebCam" o simplemente abre OBS Studio y agrega una fuente de <strong>Captura de Ventana</strong>. Selecciona la ventana del Live View de digiCamControl. Recorta (Alt + Drag) los bordes de la UI del software para dejar únicamente la captura limpia del lente de la Nikon.
+                    </p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>TerminalFlow v2.0 - Enciclopedia Técnica. Modo Administrador.</p>
+        </div>
+    </footer>
+</body>
+</html>

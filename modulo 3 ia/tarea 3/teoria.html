@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teoría y Manual | Director Audiovisual</title>
+    <meta name="description" content="Manual de fotografía, configuraciones de DSLR, OBS Studio y fundamentos técnicos.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Space+Grotesk:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- HUD Overlay -->
+    <div class="hud-overlay" aria-hidden="true">
+        <div class="hud__corner hud__corner--tl"></div>
+        <div class="hud__corner hud__corner--tr"></div>
+        <div class="hud__corner hud__corner--bl"></div>
+        <div class="hud__corner hud__corner--br"></div>
+        <div class="hud__center-mark">+</div>
+        
+        <div class="hud__info hud__info--top">
+            <span class="hud__rec" style="color: var(--color-text-sec);"><span class="rec-dot" style="background-color: transparent; border: 1px solid var(--color-text-sec); box-shadow: none; animation: none;"></span> MAN</span>
+            <span class="hud__timecode" id="hud-timecode">00:05:30:00</span>
+            <span class="hud__battery">
+                <svg width="24" height="12" viewBox="0 0 24 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="1" y="1" width="20" height="10" stroke="white" stroke-width="2"/>
+                    <rect x="3" y="3" width="8" height="6" fill="white"/>
+                    <rect x="22" y="4" width="2" height="4" fill="white"/>
+                </svg>
+            </span>
+        </div>
+        
+        <div class="hud__info hud__info--bottom">
+            <span>ISO AUTO</span>
+            <span>F/--</span>
+            <span>1/100</span>
+            <span>WB CAL</span>
+            <span class="hud__audio-meter">
+                <span class="audio-bar audio-bar--low"></span>
+                <span class="audio-bar audio-bar--low"></span>
+            </span>
+        </div>
+    </div>
+
+    <main class="page-content theory-page">
+        <header class="section-header">
+            <h1 class="section-title">Manual del <span class="text-accent">Operador</span></h1>
+            <p class="section-subtitle">Fundamentos de Imagen y Streaming Profesional</p>
+        </header>
+
+        <section class="theory-container">
+            <div class="theory-grid">
+                
+                <!-- Triángulo de Exposición -->
+                <article class="theory-card">
+                    <div class="theory-card__header">
+                        <span class="theory-card__id">SYS.01</span>
+                        <h2>Triángulo de Exposición</h2>
+                    </div>
+                    <div class="theory-card__content">
+                        <p>La piedra angular de la fotometría. El equilibrio perfecto entre tres variables determinantes de la captura de luz en cualquier equipo digital o analógico:</p>
+                        <ul class="tech-list">
+                            <li><strong>ISO:</strong> Sensibilidad del sensor digital. Valores más altos (ej. 3200) permiten capturar en entornos oscuros a costa de introducir grano o "ruido" de luma/croma, reduciendo la nitidez.</li>
+                            <li><strong>Apertura (f-stop):</strong> Diámetro de apertura del diafragma en el lente (ej. f/1.8). Un número menor significa mayor apertura, permitiendo más luz y creando un efecto de profundidad de campo reducida, aislando al sujeto del fondo (bokeh).</li>
+                            <li><strong>Velocidad de Obturación:</strong> Tiempo de exposición del sensor. Para registrar movimiento natural en video, se sigue la "Regla de los 180 grados": el denominador debe ser el doble de los FPS (ej. 1/48 para grabar a 24fps).</li>
+                        </ul>
+                    </div>
+                </article>
+
+                <!-- Composición -->
+                <article class="theory-card">
+                    <div class="theory-card__header">
+                        <span class="theory-card__id">SYS.02</span>
+                        <h2>Composición y Encuadre</h2>
+                    </div>
+                    <div class="theory-card__content">
+                        <p>La distribución del peso visual en el espacio del monitor para guiar el ojo del espectador e influir psicológicamente en la narrativa:</p>
+                        <ul class="tech-list">
+                            <li><strong>Regla de los Tercios:</strong> Intersecciones clave en una matriz mental de 3x3 donde los sujetos deben posicionarse para cobrar mayor relevancia dramática.</li>
+                            <li><strong>Líneas Guía:</strong> Vectores arquitectónicos o de iluminación que dirigen la mirada invariablemente hacia el punto de fuga principal.</li>
+                            <li><strong>Headroom & Noseroom:</strong> Espacio libre obligatorio por encima de la cabeza y en la dirección hacia donde mira el sujeto, garantizando la "respiración" del plano, esencial en formato documental o entrevistas.</li>
+                        </ul>
+                    </div>
+                </article>
+
+                <!-- Streaming y DSLR -->
+                <article class="theory-card card--accent">
+                    <div class="theory-card__header">
+                        <span class="theory-card__id text-accent">HARD.03</span>
+                        <h2>Setup: DSLR como Webcam</h2>
+                    </div>
+                    <div class="theory-card__content">
+                        <p>Procedimiento técnico avanzado para adaptar equipos fotográficos (ej. Nikon D5100) en entornos de transmisión en vivo y broadcasting ininterrumpido.</p>
+                        <div class="tech-steps">
+                            <div class="step">
+                                <h4>1. Configuración de Cámara (Nikon D5100)</h4>
+                                <p>Ajustar modo de enfoque a Manual (M) rotando el anillo del lente, para evitar el "focus hunting". Establecer el perfil de color a "Neutro" (Neutral) o "Plano" (Flat) para maximizar el rango dinámico antes del volcado a OBS. Ajustar el apagado automático del exposímetro al máximo permitido o mantener el disparador a medias con una batería falsa (Dummy Battery) conectada a corriente (AC).</p>
+                            </div>
+                            <div class="step">
+                                <h4>2. Puente de Software: digiCamControl</h4>
+                                <p>Conectar la DSLR al PC vía cable USB. Utilizar el software gratuito <strong>digiCamControl</strong> para forzar la conexión PTP y activar el "Live View". Este método anula la interfaz de la pantalla de la cámara en el PC, extrayendo una señal de video limpia sin elementos OSD (On-Screen Display). Desacoplar la ventana de previsualización de digiCamControl.</p>
+                            </div>
+                            <div class="step">
+                                <h4>3. Captura y Emisión en OBS Studio</h4>
+                                <p>En OBS, añadir una nueva fuente de "Captura de Ventana" apuntando exclusivamente a la ventana del Live View de digiCamControl. Aplicar recortes (Crop) si hay bordes residuales usando la tecla ALT. Finalmente, añadir filtros de corrección de color o aplicar LUTs (formato .cube) directamente en la fuente para emular estéticas cinemáticas en tiempo real durante la transmisión.</p>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+    </main>
+
+    <!-- Switcher Navigation -->
+    <nav class="switcher-nav" aria-label="Navegación principal">
+        <div class="switcher-nav__panel">
+            <div class="switcher__group">
+                <span class="switcher__group-label">PROGRAM</span>
+                <a href="index.html" class="switcher-btn">
+                    <span class="switcher-btn__id">CAM 1</span>
+                    <span class="switcher-btn__name">INICIO</span>
+                </a>
+                <a href="portafolio.html" class="switcher-btn">
+                    <span class="switcher-btn__id">CAM 2</span>
+                    <span class="switcher-btn__name">GALERÍA</span>
+                </a>
+                <a href="teoria.html" class="switcher-btn switcher-btn--active" aria-current="page">
+                    <span class="switcher-btn__id">CAM 3</span>
+                    <span class="switcher-btn__name">MANUAL</span>
+                </a>
+            </div>
+            <div class="switcher__actions">
+                <button class="switcher-btn switcher-btn--action" id="btn-cut">
+                    <span class="switcher-btn__name">CUT</span>
+                </button>
+                <button class="switcher-btn switcher-btn--action" id="btn-auto">
+                    <span class="switcher-btn__name">AUTO</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+    <script src="js/app.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Documentación Larga: Sistema de rastreo de stock y ventas para pulseras artesanales (Patrones de nudo plano) con SQL y Python.">
+    <title>Inventario SQL/Python: Pulseras Artesanales | TerminalFlow</title>
+    
+    <!-- Fuentes Monospace -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- CSS Maestro -->
+    <link rel="stylesheet" href="./css/style.css">
+    
+    <style>
+        /* Estilos específicos del artículo */
+        .article-body {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: var(--spacing-md) 0;
+        }
+        
+        .code-block {
+            background: #05070a;
+            border: var(--border-muted);
+            border-left: 3px solid var(--accent-primary);
+            padding: 1.5rem;
+            border-radius: var(--radius-md);
+            overflow-x: auto;
+            margin-bottom: var(--spacing-md);
+            font-size: 0.9rem;
+        }
+        
+        .code-block code {
+            color: var(--text-main);
+        }
+        .code-block .keyword { color: var(--accent-secondary); font-weight: bold; }
+        .code-block .string { color: var(--text-alert); }
+        .code-block .comment { color: var(--text-muted); font-style: italic; }
+        .code-block .function { color: var(--accent-primary); }
+
+        .db-schema {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .db-table {
+            background: var(--bg-panel);
+            border: var(--border-mint);
+            border-radius: var(--radius-sm);
+        }
+
+        .db-table__header {
+            background: var(--bg-hover);
+            padding: 0.5rem 1rem;
+            border-bottom: 1px solid var(--accent-primary);
+            font-weight: 700;
+            color: var(--accent-secondary);
+        }
+
+        .db-table__row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 1rem;
+            border-bottom: 1px dashed var(--border-muted);
+            font-size: 0.85rem;
+        }
+        
+        .db-table__row:last-child {
+            border-bottom: none;
+        }
+
+        .db-key {
+            color: var(--text-alert);
+            font-weight: bold;
+        }
+
+        .db-type {
+            color: var(--text-muted);
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container header__inner">
+            <div style="font-weight:700; font-size:1.2rem;">
+                <span style="color:var(--accent-primary)">root@terminalflow:</span><span style="color:var(--text-main)">~#</span>
+            </div>
+            <nav class="nav">
+                <ul class="nav__list">
+                    <li><a href="index.html" class="nav__link">/home</a></li>
+                    <li><a href="dashboard.html" class="nav__link">/dashboard</a></li>
+                    <li><a href="caso-inventario.html" class="nav__link active">/caso-inventario</a></li>
+                    <li><a href="diccionario-web.html" class="nav__link">/diccionario</a></li>
+                    <li><a href="hardware-servidor.html" class="nav__link">/hardware</a></li>
+                    <li><a href="laboratorio.html" class="nav__link">/laboratorio</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <article class="article-body">
+            <h1>Sistema de Gestión de Inventario para Artesanías</h1>
+            <p style="color: var(--text-muted); border-bottom: 1px solid var(--border-muted); padding-bottom: 1rem; margin-bottom: 2rem;">
+                > Autor: SysAdmin | Fecha: 2026-10-02 | Tags: [Python, SQLite3, Pandas, ETL, IA]
+            </p>
+
+            <h2>1. Definición del Problema</h2>
+            <p>
+                Un emprendimiento dedicado a la fabricación de pulseras artesanales de hilo chino (utilizando patrones de nudo plano y nudo franciscano) requiere un sistema robusto para el rastreo de materia prima y productos terminados. La complejidad radica en que cada producto final consume una longitud variable de material base (hilo medido en centímetros) y combinaciones de dijes o cierres.
+            </p>
+            <p>
+                Llevar esto en una hoja de cálculo estándar genera discrepancias de stock, ya que la venta de una pulsera debe descontar proporcionalmente los centímetros del rollo de hilo maestro. La solución arquitectónica óptima es una base de datos relacional (SQL) gestionada por un motor ligero (SQLite3) con una capa lógica en Python (Pandas) para cálculos masivos y reportes.
+            </p>
+
+            <h2>2. Modelo Relacional de Base de Datos (Esquema SQL)</h2>
+            <p>
+                El modelo se divide en tres entidades fundamentales: <code>Materiales</code> (Rollos de hilo, cierres, dijes), <code>Productos</code> (Modelos específicos de pulseras y su receta o <em>Bill of Materials</em>) y <code>Ventas</code> (Registro transaccional).
+            </p>
+
+            <div class="db-schema">
+                <div class="db-table">
+                    <div class="db-table__header">Table: materiales</div>
+                    <div class="db-table__row">
+                        <span><span class="db-key">PK</span> id_material</span>
+                        <span class="db-type">INTEGER</span>
+                    </div>
+                    <div class="db-table__row">
+                        <span>nombre_color</span>
+                        <span class="db-type">VARCHAR(50)</span>
+                    </div>
+                    <div class="db-table__row">
+                        <span>stock_cm</span>
+                        <span class="db-type">DECIMAL(10,2)</span>
+                    </div>
+                    <div class="db-table__row">
+                        <span>costo_por_cm</span>
+                        <span class="db-type">DECIMAL(5,4)</span>
+                    </div>
+                </div>
+
+                <div class="db-table">
+                    <div class="db-table__header">Table: productos (Recetas)</div>
+                    <div class="db-table__row">
+                        <span><span class="db-key">PK</span> sku_producto</span>
+                        <span class="db-type">VARCHAR(20)</span>
+                    </div>
+                    <div class="db-table__row">
+                        <span>nombre_modelo</span>
+                        <span class="db-type">VARCHAR(100)</span>
+                    </div>
+                    <div class="db-table__row">
+                        <span><span class="db-key">FK</span> mat_principal_id</span>
+                        <span class="db-type">INT</span>
+                    </div>
+                    <div class="db-table__row">
+                        <span>consumo_hilo_cm</span>
+                        <span class="db-type">INT</span>
+                    </div>
+                </div>
+
+                <div class="db-table">
+                    <div class="db-table__header">Table: ventas_log</div>
+                    <div class="db-table__row">
+                        <span><span class="db-key">PK</span> id_transaccion</span>
+                        <span class="db-type">UUID</span>
+                    </div>
+                    <div class="db-table__row">
+                        <span><span class="db-key">FK</span> sku_vendido</span>
+                        <span class="db-type">VARCHAR(20)</span>
+                    </div>
+                    <div class="db-table__row">
+                        <span>fecha_venta</span>
+                        <span class="db-type">TIMESTAMP</span>
+                    </div>
+                </div>
+            </div>
+
+            <h2>3. Lógica Transaccional en Python (Backend)</h2>
+            <p>
+                A continuación, se detalla el script en Python encargado de procesar un archivo CSV de ventas diarias. El script lee las ventas usando <code>pandas</code>, abre un cursor transaccional hacia <code>sqlite3</code>, e itera deduciendo el inventario. Si el stock cae por debajo de cero, la transacción hace un <code>ROLLBACK</code> para garantizar la integridad ACID.
+            </p>
+
+            <div class="code-block">
+<pre><code><span class="comment"># /opt/scripts/sync_inventory.py</span>
+<span class="keyword">import</span> sqlite3
+<span class="keyword">import</span> pandas <span class="keyword">as</span> pd
+<span class="keyword">import</span> logging
+<span class="keyword">from</span> datetime <span class="keyword">import</span> datetime
+
+logging.basicConfig(level=logging.INFO, format=<span class="string">'%(levelname)s - %(message)s'</span>)
+
+<span class="keyword">def</span> <span class="function">procesar_ventas_diarias</span>(csv_path, db_path):
+    <span class="comment"># 1. Cargar datos del día</span>
+    <span class="keyword">try</span>:
+        df_ventas = pd.read_csv(csv_path)
+    <span class="keyword">except</span> Exception <span class="keyword">as</span> e:
+        logging.error(<span class="string">f"Fallo al leer CSV: {e}"</span>)
+        <span class="keyword">return</span>
+
+    <span class="comment"># 2. Conexión SQLite (Modo transaccional)</span>
+    conn = sqlite3.connect(db_path)
+    cursor = conn.cursor()
+    
+    <span class="keyword">try</span>:
+        cursor.execute(<span class="string">"BEGIN TRANSACTION;"</span>)
+        
+        <span class="keyword">for</span> index, row <span class="keyword">in</span> df_ventas.iterrows():
+            sku = row[<span class="string">'sku_producto'</span>]
+            cantidad = row[<span class="string">'cantidad_vendida'</span>]
+            
+            <span class="comment"># Obtener la receta del producto (consumo por unidad)</span>
+            cursor.execute(<span class="string">"""
+                SELECT mat_principal_id, consumo_hilo_cm 
+                FROM productos WHERE sku_producto = ?
+            """</span>, (sku,))
+            receta = cursor.fetchone()
+            
+            <span class="keyword">if not</span> receta:
+                <span class="keyword">raise</span> ValueError(<span class="string">f"SKU {sku} no existe en catálogo."</span>)
+                
+            mat_id, consumo = receta
+            consumo_total = consumo * cantidad
+            
+            <span class="comment"># Descontar del inventario maestro (Rollo de hilo)</span>
+            cursor.execute(<span class="string">"""
+                UPDATE materiales 
+                SET stock_cm = stock_cm - ? 
+                WHERE id_material = ? AND stock_cm >= ?
+            """</span>, (consumo_total, mat_id, consumo_total))
+            
+            <span class="keyword">if</span> cursor.rowcount == 0:
+                <span class="keyword">raise</span> ValueError(<span class="string">f"Stock insuficiente para material ID {mat_id}."</span>)
+                
+            <span class="comment"># Registrar la transacción</span>
+            cursor.execute(<span class="string">"""
+                INSERT INTO ventas_log (sku_vendido, fecha_venta)
+                VALUES (?, ?)
+            """</span>, (sku, datetime.now()))
+            
+        <span class="comment"># 3. Confirmar cambios si todo fue exitoso</span>
+        conn.commit()
+        logging.info(<span class="string">"ETL completado. Base de datos actualizada."</span>)
+        
+    <span class="keyword">except</span> Exception <span class="keyword">as</span> e:
+        conn.rollback()
+        logging.error(<span class="string">f"Rollback ejecutado. Error transaccional: {e}"</span>)
+    <span class="keyword">finally</span>:
+        conn.close()
+
+<span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:
+    procesar_ventas_diarias(<span class="string">'/var/data/ventas_hoy.csv'</span>, <span class="string">'/var/db/inventario.db'</span>)
+</code></pre>
+            </div>
+
+            <h2>4. Integración de Agente Administrador de IA (Prompt Engineering)</h2>
+            <p>
+                Una vez estabilizada la base de datos SQL, podemos exponer un endpoint RESTful (usando FastAPI) que devuelva un volcado JSON del estado actual del inventario. Este JSON se inyecta dinámicamente como contexto (System Prompt) para un modelo de lenguaje (LLM) como Claude o LLaMA3, creando un "Administrador de Negocio Autónomo".
+            </p>
+            
+            <p>El esquema del prompt a inyectar en el agente sería algo como esto:</p>
+            
+            <div class="code-block" style="border-left-color: var(--accent-secondary);">
+<pre><code style="color:var(--text-muted);">Eres un administrador logístico experto. 
+A continuación recibes el estado en crudo de la DB en formato JSON:
+
+{
+  "materiales_criticos": [
+     {"id": 102, "color": "Rojo Escarlata", "stock_cm": 450.0, "status": "LOW_STOCK"}
+  ],
+  "ventas_dia": 24,
+  "sku_mas_vendido": "PUL-NUDO-ROJO"
+}
+
+Tu objetivo es analizar estos datos y generar un reporte de reabastecimiento en Markdown 
+detallando cuántos metros de hilo comprar y a qué proveedor, considerando que la pulsera 
+PUL-NUDO-ROJO requiere 60cm por unidad.
+</code></pre>
+            </div>
+            
+            <p>
+                Al aislar el cálculo pesado y riguroso en Python/SQL (Backend Tradicional) y dejar el análisis heurístico y generación de lenguaje natural a la IA (Frontend/Agent), evitamos las "alucinaciones" matemáticas del LLM, garantizando que el stock siempre cuadre al milímetro.
+            </p>
+        </article>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>TerminalFlow v2.0 - Enciclopedia Técnica. Modo Administrador.</p>
+        </div>
+    </footer>
+</body>
+</html>

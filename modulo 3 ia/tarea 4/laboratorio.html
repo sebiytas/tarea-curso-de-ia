@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Laboratorio de Bots - Arquitecturas de mensajería (WhatsApp, Discord).">
+    <title>Laboratorio de Bots | TerminalFlow</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Archivo CSS Maestro -->
+    <link rel="stylesheet" href="./css/style.css">
+    
+    <!-- Estilos específicos para laboratorio -->
+    <style>
+        .lab-hero {
+            background: linear-gradient(180deg, rgba(13, 17, 23, 1) 0%, rgba(33, 38, 45, 0.5) 100%);
+            padding: var(--spacing-lg) 0;
+            text-align: center;
+            border-bottom: 1px solid var(--bg-panel);
+        }
+        
+        .lab-hero__title {
+            color: var(--accent-primary);
+            font-size: 3rem;
+            margin-bottom: var(--spacing-sm);
+        }
+        
+        .lab-hero__desc {
+            font-size: 1.2rem;
+            color: var(--text-main);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .architecture-flow {
+            padding: var(--spacing-lg) 0;
+        }
+        
+        .flow-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--spacing-md);
+            margin-top: var(--spacing-md);
+        }
+        
+        .step-card {
+            background: var(--bg-panel);
+            border: 1px solid #30363d;
+            padding: 1.5rem;
+            border-radius: var(--radius-sm);
+            text-align: center;
+            position: relative;
+        }
+        
+        .step-card__num {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--accent-secondary);
+            color: var(--bg-main);
+            font-family: var(--font-code);
+            font-weight: 700;
+            width: 30px; height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .step-card__icon {
+            font-size: 2.5rem;
+            color: var(--accent-primary);
+            margin: 1rem 0;
+        }
+        
+        .step-card h3 {
+            margin-bottom: 0.5rem;
+            color: var(--text-func);
+        }
+    </style>
+</head>
+<body class="theme-dark">
+    <!-- Navbar / Header -->
+    <header class="header">
+        <div class="container header__inner">
+            <div class="logo">
+                <span class="logo__prefix">root@TerminalFlow:</span><span class="logo__cursor">~#</span>
+            </div>
+            <nav class="nav" aria-label="Navegación principal">
+                <ul class="nav__list">
+                    <li><a href="index.html" class="nav__link">/home</a></li>
+                    <li><a href="dashboard.html" class="nav__link">/dashboard</a></li>
+                    <li><a href="caso-inventario.html" class="nav__link">/caso-inventario</a></li>
+                    <li><a href="diccionario-web.html" class="nav__link">/diccionario</a></li>
+                    <li><a href="hardware-servidor.html" class="nav__link">/hardware</a></li>
+                    <li><a href="laboratorio.html" class="nav__link active">/laboratorio</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <section class="lab-hero">
+            <div class="container">
+                <h1 class="lab-hero__title">Laboratorio de Bots</h1>
+                <p class="lab-hero__desc">
+                    Arquitecturas de mensajería asíncrona. Aprende a enrutar comandos desde WhatsApp y Discord hacia tu entorno local mediante Webhooks y Túneles TCP.
+                </p>
+            </div>
+        </section>
+
+        <section class="architecture-flow container">
+            <h2 class="section-title"># Topología de Red: Localhost to Web</h2>
+            
+            <div class="flow-steps">
+                <div class="step-card">
+                    <div class="step-card__num">1</div>
+                    <div class="step-card__icon">📱</div>
+                    <h3>Plataforma Emisora</h3>
+                    <p class="card__desc">El usuario envía un mensaje por Discord o WhatsApp. La API de la plataforma dispara un evento (Webhook POST).</p>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-card__num">2</div>
+                    <div class="step-card__icon">🌐</div>
+                    <h3>Túnel Reverso</h3>
+                    <p class="card__desc">Ngrok o Cloudflare Tunnels capturan el tráfico público de internet y lo enrutan de forma segura hacia tu máquina local.</p>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-card__num">3</div>
+                    <div class="step-card__icon">💻</div>
+                    <h3>Middleware Local</h3>
+                    <p class="card__desc">Un servidor FastAPI (Python) o Express (JS) en `127.0.0.1:8000` procesa el JSON entrante y ejecuta la lógica de negocio.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="container" style="padding-bottom: var(--spacing-lg);">
+            <div class="terminal-meta">
+                <h3 style="margin-bottom: 1rem; color: var(--accent-secondary);">Comandos Útiles de Inicialización:</h3>
+                <div class="meta-line"><span class="meta-key">Exponer puerto 8000 (ngrok):</span> <span class="meta-val meta-var">ngrok http 8000</span></div>
+                <div class="meta-line"><span class="meta-key">Iniciar servidor Python (FastAPI):</span> <span class="meta-val meta-var">uvicorn main:app --reload</span></div>
+                <div class="meta-line"><span class="meta-key">Monitorear logs en tiempo real:</span> <span class="meta-val meta-var">tail -f server.log</span></div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container footer__inner">
+            <p>> root@TerminalFlow:~# exit</p>
+            <p class="footer__sub">Diseñado para la eficiencia. Construido con rigor. (C) 2026</p>
+        </div>
+    </footer>
+
+    <!-- Archivo JS Maestro (Fase 3) -->
+    <script src="./js/app.js"></script>
+</body>
+</html>

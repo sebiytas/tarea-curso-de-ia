@@ -1,0 +1,388 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700;900&family=Space+Mono:wght@400;700&display=swap');
+
+/* ==========================================================================
+   Variables y Sistema de Diseño Unificado (Estética Cyberpunk 2077)
+   ========================================================================== */
+:root {
+  --color-cyber-yellow: #fce803;
+  --color-cyber-cyan: #00f0ff;
+  --color-cyber-red: #ff003c;
+  --color-cyber-dark: #0d0d0d;
+  --color-cyber-black: #050505;
+  --font-primary: 'Fira Code', monospace;
+  
+  /* Tema Base de Conocimiento (Estética Terminal Retro CRT / Fallout): */
+  --color-retro-amber: #ffb000;
+  --color-retro-amber-dim: rgba(255, 176, 0, 0.2);
+  --color-retro-bg: #110a00;
+  --font-retro: 'Space Mono', monospace;
+}
+
+/* ==========================================================================
+   Resets Globales (Geometría estricta)
+   ========================================================================== */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  border-radius: 0 !important;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-primary);
+  background-color: var(--color-cyber-dark);
+  color: var(--color-cyber-yellow);
+  line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-weight: 700;
+}
+
+/* ==========================================================================
+   Utilidades
+   ========================================================================== */
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0;
+}
+
+/* Animaciones */
+.typewriter-title {
+  display: inline-flex; align-items: center;
+}
+.typewriter-text {
+  display: inline-block; overflow: hidden; white-space: nowrap; animation: typing 1.5s steps(30, end);
+}
+.typewriter-cursor::after {
+  content: '_'; display: inline-block; animation: blink 1s step-end infinite; margin-left: 2px; color: var(--color-cyber-cyan);
+}
+@keyframes typing { from { width: 0; } to { width: 100%; } }
+@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+@keyframes glitch-anim {
+    0% { transform: translate(0) }
+    20% { transform: translate(-2px, 1px) }
+    40% { transform: translate(2px, -1px) }
+    60% { transform: translate(-1px, 2px) }
+    80% { transform: translate(1px, -2px) }
+    100% { transform: translate(0) }
+}
+
+/* ==========================================================================
+   Menú de Navegación Global (Brutalista)
+   ========================================================================== */
+.nav-global {
+  background-color: var(--color-cyber-yellow);
+  color: var(--color-cyber-dark);
+  border-bottom: 5px solid var(--color-cyber-red);
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 4px 0 var(--color-cyber-red);
+  position: relative;
+  z-index: 100;
+}
+
+.nav-global__brand {
+  font-weight: 900;
+  font-size: 1.5rem;
+  letter-spacing: -2px;
+  position: relative;
+  text-transform: uppercase;
+}
+
+.nav-global__brand::before {
+  content: 'SYS.RIPPER';
+  position: absolute;
+  top: -12px;
+  right: -80px;
+  font-size: 0.6rem;
+  font-weight: 900;
+  color: var(--color-cyber-red);
+}
+
+.nav-global__list {
+  list-style: none;
+  display: flex;
+  gap: 2rem;
+}
+
+.nav-global__link {
+  color: var(--color-cyber-dark);
+  text-decoration: none;
+  font-weight: 900;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  letter-spacing: 0.05em;
+  padding: 0.25rem 0.5rem;
+  border: 2px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.nav-global__link:hover,
+.nav-global__link--active {
+  background-color: var(--color-cyber-dark);
+  color: var(--color-cyber-yellow);
+  transform: skew(-5deg);
+}
+
+/* ==========================================================================
+   Panel Principal Brutalista
+   ========================================================================== */
+.cyber-panel {
+  background-color: var(--color-cyber-black);
+  border: 4px solid var(--color-cyber-yellow);
+  padding: 3rem;
+  position: relative;
+  box-shadow: 12px 12px 0 var(--color-cyber-red);
+  width: 100%;
+}
+
+.cyber-panel::before {
+  content: 'SYS_WARN: ACTIVE';
+  position: absolute;
+  top: -15px;
+  left: 20px;
+  background: var(--color-cyber-yellow);
+  color: #000;
+  padding: 2px 15px;
+  font-size: 0.75rem;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+}
+
+.cyber-header {
+  text-transform: uppercase;
+  border-bottom: 8px solid var(--color-cyber-red);
+  padding-bottom: 1.5rem;
+  margin-bottom: 3rem;
+  font-size: 3rem;
+  font-weight: 900;
+  line-height: 0.9;
+  letter-spacing: -3px;
+  color: var(--color-cyber-yellow);
+  word-break: break-word;
+}
+
+.cyber-text-accent {
+  color: var(--color-cyber-cyan);
+  text-shadow: 2px 2px 0 var(--color-cyber-red);
+}
+
+/* ==========================================================================
+   Botón Brutalista
+   ========================================================================== */
+.cyber-button {
+  background-color: var(--color-cyber-yellow);
+  color: #000;
+  border: none;
+  padding: 1.2rem 2rem;
+  font-family: inherit;
+  font-weight: 900;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.1s;
+  position: relative;
+  overflow: hidden;
+  display: inline-flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-top: 2rem;
+}
+
+.cyber-button:hover:not(:disabled) {
+  background-color: var(--color-cyber-red);
+  color: var(--color-cyber-yellow);
+  transform: translate(4px, 4px);
+  box-shadow: -4px -4px 0 var(--color-cyber-cyan);
+}
+
+.cyber-button:disabled {
+  background-color: #222;
+  color: #555;
+  cursor: not-allowed;
+  border: 4px dashed #444;
+}
+
+.cyber-button::after {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 50%; height: 100%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: skewX(-25deg);
+}
+
+.cyber-button:not(:disabled):hover::after {
+  left: 150%;
+  transition: left 0.4s ease-in-out;
+}
+
+/* ==========================================================================
+   Layouts
+   ========================================================================== */
+.layout-centered {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 3rem 2rem;
+}
+
+.layout-grid {
+  padding: 3rem 2rem;
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 2rem;
+  align-items: flex-start;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+@media(max-width: 1000px) {
+  .layout-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ==========================================================================
+   Base de Conocimiento (CRT Terminal Retro)
+   ========================================================================== */
+.page-kb {
+  background-color: var(--color-retro-bg);
+  color: var(--color-retro-amber);
+  font-family: var(--font-retro);
+  font-weight: 400;
+  position: relative;
+  overflow-x: hidden;
+}
+
+.page-kb::before {
+  content: " ";
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+  z-index: 2;
+  background-size: 100% 2px, 3px 100%;
+  pointer-events: none;
+}
+
+.page-kb::after {
+  content: " ";
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  z-index: 2;
+  pointer-events: none;
+  animation: flicker 0.15s infinite;
+}
+
+@keyframes flicker {
+  0% { opacity: 0.01; }
+  50% { opacity: 0.05; }
+  100% { opacity: 0.02; }
+}
+
+.kb-panel {
+  background-color: transparent;
+  border: 2px solid var(--color-retro-amber);
+  padding: 2rem;
+  margin: 2rem auto;
+  max-width: 900px;
+  position: relative;
+  box-shadow: 0 0 10px var(--color-retro-amber-dim), inset 0 0 10px var(--color-retro-amber-dim);
+  text-shadow: 0 0 5px var(--color-retro-amber);
+  z-index: 10;
+}
+
+.kb-header {
+  font-size: 2rem;
+  border-bottom: 2px solid var(--color-retro-amber);
+  padding-bottom: 1rem;
+  margin-bottom: 2rem;
+  text-transform: uppercase;
+}
+
+.kb-search-container {
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+}
+
+.kb-search-container::before {
+  content: '>';
+  margin-right: 1rem;
+  font-weight: 700;
+  font-size: 1.2rem;
+}
+
+.kb-search-input {
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid var(--color-retro-amber);
+  color: var(--color-retro-amber);
+  font-family: var(--font-retro);
+  font-size: 1.2rem;
+  padding: 0.5rem;
+  width: 100%;
+  outline: none;
+  text-shadow: 0 0 5px var(--color-retro-amber);
+}
+
+.kb-search-input::placeholder {
+  color: var(--color-retro-amber-dim);
+}
+
+.kb-feed {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.kb-card {
+  border: 1px solid var(--color-retro-amber);
+  padding: 1.5rem;
+  background: var(--color-retro-amber-dim);
+  transition: opacity 0.3s ease;
+}
+
+.kb-card.hidden {
+  display: none;
+}
+
+.kb-card__id {
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  border-bottom: 1px dashed var(--color-retro-amber);
+  display: inline-block;
+  padding-bottom: 0.2rem;
+  font-size: 1.2rem;
+}
+
+.kb-card__symptom {
+  margin-bottom: 1rem;
+  font-style: italic;
+}
+
+.kb-card__solution {
+  border-left: 2px solid var(--color-retro-amber);
+  padding-left: 1rem;
+}

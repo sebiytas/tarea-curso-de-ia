@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="AI SkillTree: La Academia Gamificada. Domina la Inteligencia Artificial a través de un camino práctico y estructurado.">
+    <title>AI SkillTree | Academia de Inteligencia Artificial Gamificada</title>
+    
+    <!-- Fuentes Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Outfit:wght@400;700;800&display=swap" rel="stylesheet">
+    
+    <!-- CSS Principal -->
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body class="page">
+    <header class="header">
+        <nav class="nav" aria-label="Navegación principal">
+            <div class="nav__logo">AI SkillTree</div>
+            <ul class="nav__list">
+                <li class="nav__item"><a href="#hero" class="nav__link">Inicio</a></li>
+                <li class="nav__item"><a href="#skilltree" class="nav__link">Mapa de Habilidades</a></li>
+                <li class="nav__item"><a href="#arsenal" class="nav__link">Arsenal</a></li>
+                <li class="nav__item"><a href="#demo" class="nav__link">Simulador</a></li>
+                <li class="nav__item"><a href="#pricing" class="nav__link">Planes</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <!-- A. Hero Section -->
+        <section id="hero" class="hero" aria-labelledby="hero-title">
+            <canvas id="hero-canvas" class="hero__canvas" aria-hidden="true"></canvas>
+            <div class="hero__content container">
+                <h1 id="hero-title" class="hero__title">
+                    <span class="hero__title-prefix">Domina el futuro:</span><br>
+                    <span id="typewriter" class="hero__title-dynamic" aria-live="polite">Aprende a Automatizar con IA</span>
+                </h1>
+                <p class="hero__description">
+                    Sube de nivel tus habilidades. Entra en la academia gamificada donde la Inteligencia Artificial deja de ser teoría y se convierte en tu principal arma de desarrollo.
+                </p>
+                <div class="hero__actions">
+                    <button id="btn-start" class="btn btn--primary" aria-haspopup="dialog">Iniciar mi Camino</button>
+                    <a href="#skilltree" class="btn btn--ghost">Ver el Mapa de Habilidades</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- B. Plan de Estudios Interactivo (El Árbol de Habilidades) -->
+        <section id="skilltree" class="skilltree" aria-labelledby="skilltree-title">
+            <div class="container">
+                <h2 id="skilltree-title" class="section-title">El Árbol de Habilidades</h2>
+                <p class="section-description">Desbloquea conocimientos paso a paso. Desde los fundamentos hasta arquitecturas complejas.</p>
+                
+                <div class="tree">
+                    <div class="tree__line" aria-hidden="true">
+                        <div class="tree__line-glow"></div>
+                    </div>
+                    
+                    <!-- Nivel 1 -->
+                    <div class="tree__level">
+                        <h3 class="tree__level-title">Nivel 1: Fundamentos</h3>
+                        <div class="tree__nodes">
+                            <article class="node" tabindex="0" role="button" aria-expanded="false">
+                                <div class="node__icon">PE</div>
+                                <span class="node__name">Prompt Engineering</span>
+                                <div class="node__tooltip glass-card">
+                                    <h4 class="tooltip__title">Prompt Engineering</h4>
+                                    <p class="tooltip__desc">Domina el arte de comunicarte con LLMs. Proyectos: Creador de copys automatizado, Asistente de rol específico.</p>
+                                </div>
+                            </article>
+                            <article class="node" tabindex="0" role="button" aria-expanded="false">
+                                <div class="node__icon">LB</div>
+                                <span class="node__name">Lógica Básica</span>
+                                <div class="node__tooltip glass-card">
+                                    <h4 class="tooltip__title">Lógica Básica</h4>
+                                    <p class="tooltip__desc">Fundamentos de programación orientada a IA. Proyectos: Algoritmos de decisión simple, Estructuras de datos para prompts.</p>
+                                </div>
+                            </article>
+                        </div>
+                    </div>
+
+                    <!-- Nivel 2 -->
+                    <div class="tree__level">
+                        <h3 class="tree__level-title">Nivel 2: Integración</h3>
+                        <div class="tree__nodes">
+                            <article class="node" tabindex="0" role="button" aria-expanded="false">
+                                <div class="node__icon">PY</div>
+                                <span class="node__name">Python</span>
+                                <div class="node__tooltip glass-card">
+                                    <h4 class="tooltip__title">Python para IA</h4>
+                                    <p class="tooltip__desc">El lenguaje de la IA. Proyectos: Scripts de automatización, Manipulación de datos con Pandas.</p>
+                                </div>
+                            </article>
+                            <article class="node" tabindex="0" role="button" aria-expanded="false">
+                                <div class="node__icon">DA</div>
+                                <span class="node__name">Desarrollo de Agentes</span>
+                                <div class="node__tooltip glass-card">
+                                    <h4 class="tooltip__title">Desarrollo de Agentes</h4>
+                                    <p class="tooltip__desc">Crea entidades autónomas. Proyectos: Agente investigador web, Agente de atención al cliente.</p>
+                                </div>
+                            </article>
+                            <article class="node" tabindex="0" role="button" aria-expanded="false">
+                                <div class="node__icon">API</div>
+                                <span class="node__name">Conexión de APIs</span>
+                                <div class="node__tooltip glass-card">
+                                    <h4 class="tooltip__title">Conexión de APIs</h4>
+                                    <p class="tooltip__desc">Integra servicios externos. Proyectos: Bot de Telegram con IA, Conector OpenAI a Google Sheets.</p>
+                                </div>
+                            </article>
+                        </div>
+                    </div>
+
+                    <!-- Nivel 3 -->
+                    <div class="tree__level">
+                        <h3 class="tree__level-title">Nivel 3: Arquitecturas Complejas</h3>
+                        <div class="tree__nodes">
+                            <article class="node" tabindex="0" role="button" aria-expanded="false">
+                                <div class="node__icon">ML</div>
+                                <span class="node__name">Modelos Locales</span>
+                                <div class="node__tooltip glass-card">
+                                    <h4 class="tooltip__title">Modelos Locales</h4>
+                                    <p class="tooltip__desc">Ejecuta IA sin depender de la nube. Proyectos: Implementación de LLaMA 3 localmente, RAG offline.</p>
+                                </div>
+                            </article>
+                            <article class="node" tabindex="0" role="button" aria-expanded="false">
+                                <div class="node__icon">FT</div>
+                                <span class="node__name">Fine-Tuning</span>
+                                <div class="node__tooltip glass-card">
+                                    <h4 class="tooltip__title">Fine-Tuning</h4>
+                                    <p class="tooltip__desc">Adapta modelos a tus necesidades. Proyectos: Modelo especializado en tu código, Entrenar IA con tu propia voz/estilo.</p>
+                                </div>
+                            </article>
+                            <article class="node" tabindex="0" role="button" aria-expanded="false">
+                                <div class="node__icon">AN</div>
+                                <span class="node__name">Automatización de Negocios</span>
+                                <div class="node__tooltip glass-card">
+                                    <h4 class="tooltip__title">Automatización de Negocios</h4>
+                                    <p class="tooltip__desc">Sistemas que operan solos. Proyectos: Pipeline completo de generación de leads y ventas con n8n y LLMs.</p>
+                                </div>
+                            </article>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- C. El "Arsenal" Tecnológico -->
+        <section id="arsenal" class="arsenal" aria-labelledby="arsenal-title">
+            <div class="container">
+                <h2 id="arsenal-title" class="section-title">Tu Arsenal Tecnológico</h2>
+                <div class="marquee" aria-hidden="true">
+                    <div class="marquee__content">
+                        <span class="marquee__item">Python</span>
+                        <span class="marquee__item">OpenAI</span>
+                        <span class="marquee__item">Hugging Face</span>
+                        <span class="marquee__item">n8n</span>
+                        <span class="marquee__item">C++</span>
+                        <span class="marquee__item">Elementor</span>
+                        <!-- Duplicados para el efecto infinito -->
+                        <span class="marquee__item">Python</span>
+                        <span class="marquee__item">OpenAI</span>
+                        <span class="marquee__item">Hugging Face</span>
+                        <span class="marquee__item">n8n</span>
+                        <span class="marquee__item">C++</span>
+                        <span class="marquee__item">Elementor</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- D. Demostración en Vivo -->
+        <section id="demo" class="demo" aria-labelledby="demo-title">
+            <div class="container">
+                <h2 id="demo-title" class="section-title">Simulador de Agentes</h2>
+                <p class="section-description">Experimenta el poder de configurar una IA en tiempo real.</p>
+                
+                <div class="simulator glass-card">
+                    <div class="simulator__controls">
+                        <div class="form-group">
+                            <label for="agent-role" class="form-label">Rol del Agente:</label>
+                            <select id="agent-role" class="form-select">
+                                <option value="hacker">Cyber-Hacker</option>
+                                <option value="mentor">Mentor Sabio</option>
+                                <option value="marketer">Estratega de Ventas</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="agent-temp" class="form-label">Temperatura (Creatividad): <span id="temp-value">0.7</span></label>
+                            <input type="range" id="agent-temp" class="form-range" min="0" max="1" step="0.1" value="0.7">
+                        </div>
+                        <button id="btn-generate" class="btn btn--secondary">Generar Respuesta</button>
+                    </div>
+                    <div class="simulator__output">
+                        <div class="output-header">Terminal Output</div>
+                        <div id="demo-output" class="output-content" aria-live="polite">
+                            > Esperando configuración y ejecución...
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- E. Pricing (Clases de Personaje) -->
+        <section id="pricing" class="pricing" aria-labelledby="pricing-title">
+            <div class="container">
+                <h2 id="pricing-title" class="section-title">Selecciona tu Clase</h2>
+                <p class="section-description">Elige tu nivel de compromiso con la academia.</p>
+                
+                <div class="pricing__grid">
+                    <!-- Explorer -->
+                    <article class="price-card glass-card">
+                        <h3 class="price-card__title">Plan Explorer</h3>
+                        <p class="price-card__price">Free</p>
+                        <ul class="price-card__features">
+                            <li>Acceso a Nivel 1 del árbol</li>
+                            <li>Comunidad en Discord</li>
+                            <li>Ejercicios básicos</li>
+                        </ul>
+                        <button class="btn btn--ghost">Elegir Explorer</button>
+                    </article>
+                    
+                    <!-- Master (Destacado) -->
+                    <article class="price-card price-card--featured glass-card">
+                        <div class="price-card__badge">Más Popular</div>
+                        <h3 class="price-card__title">Plan Master</h3>
+                        <p class="price-card__price">$99<span>/mes</span></p>
+                        <ul class="price-card__features">
+                            <li>Mentoría 1 a 1 semanal</li>
+                            <li>Acceso total al árbol de habilidades</li>
+                            <li>Código fuente de todos los proyectos</li>
+                            <li>Soporte prioritario</li>
+                        </ul>
+                        <button class="btn btn--primary">Convertirme en Master</button>
+                    </article>
+
+                    <!-- Architect -->
+                    <article class="price-card glass-card">
+                        <h3 class="price-card__title">Plan Architect</h3>
+                        <p class="price-card__price">$49<span>/mes</span></p>
+                        <ul class="price-card__features">
+                            <li>Acceso hasta Nivel 2 del árbol</li>
+                            <li>Plantillas de proyectos</li>
+                            <li>Revisiones de código grupales</li>
+                        </ul>
+                        <button class="btn btn--ghost">Elegir Architect</button>
+                    </article>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2026 AI SkillTree. La Academia Gamificada.</p>
+    </footer>
+
+    <!-- Modal: Micro-Cuestionario -->
+    <dialog id="enrollment-modal" class="modal glass-card" aria-labelledby="modal-title">
+        <div class="modal__content">
+            <button id="modal-close" class="modal__close" aria-label="Cerrar modal">&times;</button>
+            <h2 id="modal-title" class="modal__title">Tu Camino Empieza Aquí</h2>
+            
+            <form id="enrollment-form" class="wizard">
+                <!-- Paso 1 -->
+                <fieldset class="wizard__step wizard__step--active" id="step-1">
+                    <legend class="wizard__question">¿Cuál es tu nivel actual en IA?</legend>
+                    <div class="wizard__options">
+                        <label class="wizard__radio-label">
+                            <input type="radio" name="level" value="novato" required>
+                            <span>Novato (Recién empiezo)</span>
+                        </label>
+                        <label class="wizard__radio-label">
+                            <input type="radio" name="level" value="aprendiz">
+                            <span>Aprendiz (He usado ChatGPT/Midjourney)</span>
+                        </label>
+                        <label class="wizard__radio-label">
+                            <input type="radio" name="level" value="arquitecto">
+                            <span>Arquitecto (Sé programar e integrar APIs)</span>
+                        </label>
+                    </div>
+                    <div class="wizard__actions">
+                        <button type="button" class="btn btn--primary btn-next">Siguiente</button>
+                    </div>
+                </fieldset>
+
+                <!-- Paso 2 -->
+                <fieldset class="wizard__step" id="step-2">
+                    <legend class="wizard__question">¿Qué quieres construir?</legend>
+                    <div class="wizard__options">
+                        <label class="wizard__checkbox-label">
+                            <input type="checkbox" name="goals" value="agentes">
+                            <span>Agentes Autónomos</span>
+                        </label>
+                        <label class="wizard__checkbox-label">
+                            <input type="checkbox" name="goals" value="automatizacion">
+                            <span>Automatizaciones de Negocio (n8n, Zapier)</span>
+                        </label>
+                        <label class="wizard__checkbox-label">
+                            <input type="checkbox" name="goals" value="modelos">
+                            <span>Modelos Locales y Fine-Tuning</span>
+                        </label>
+                    </div>
+                    <div class="wizard__actions">
+                        <button type="button" class="btn btn--ghost btn-prev">Anterior</button>
+                        <button type="button" class="btn btn--primary btn-next">Siguiente</button>
+                    </div>
+                </fieldset>
+
+                <!-- Paso 3 -->
+                <fieldset class="wizard__step" id="step-3">
+                    <legend class="wizard__question">Ingresa tu correo para recibir tu ruta personalizada:</legend>
+                    <div class="form-group">
+                        <input type="email" id="user-email" class="form-input" placeholder="tu@correo.com" required>
+                    </div>
+                    <div class="wizard__actions">
+                        <button type="button" class="btn btn--ghost btn-prev">Anterior</button>
+                        <button type="submit" class="btn btn--primary">Forjar mi Destino</button>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </dialog>
+
+    <script type="module" src="./js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Dashboard TerminalFlow v2.0 - Panel de control y logs de servidor.">
+    <title>Dashboard | TerminalFlow v2.0</title>
+    
+    <!-- Fuentes Monospace -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- CSS Maestro -->
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container header__inner">
+            <div style="font-weight:700; font-size:1.2rem;">
+                <span style="color:var(--accent-primary)">root@terminalflow:</span><span style="color:var(--text-main)">~#</span>
+            </div>
+            <nav class="nav">
+                <ul class="nav__list">
+                    <li><a href="index.html" class="nav__link">/home</a></li>
+                    <li><a href="dashboard.html" class="nav__link active">/dashboard</a></li>
+                    <li><a href="caso-inventario.html" class="nav__link">/caso-inventario</a></li>
+                    <li><a href="diccionario-web.html" class="nav__link">/diccionario</a></li>
+                    <li><a href="hardware-servidor.html" class="nav__link">/hardware</a></li>
+                    <li><a href="laboratorio.html" class="nav__link">/laboratorio</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container dashboard-grid">
+        <!-- Columna Principal -->
+        <section class="main-column">
+            <h1>Panel de Control Principal</h1>
+            <p style="color: var(--text-muted);">Bienvenido. Sesión iniciada como root. Último login: jue oct 2 10:15:00 2026 desde 192.168.1.5</p>
+
+            <div class="panel" style="margin-top: var(--spacing-md);">
+                <div class="panel__header">
+                    <h2 class="panel__title">> Últimos Scripts Ejecutados</h2>
+                    <button class="btn" id="btn-refresh">↻ Refresh</button>
+                </div>
+                
+                <div class="table-wrapper">
+                    <table class="terminal-table" id="scripts-table">
+                        <thead>
+                            <tr>
+                                <th>PID</th>
+                                <th>Script / Tarea</th>
+                                <th>Estado</th>
+                                <th>Duración</th>
+                                <th>Usuario</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Generado con JS simulando DB -->
+                            <tr>
+                                <td>1042</td>
+                                <td><code>apt-get update && apt-get upgrade</code></td>
+                                <td style="color: var(--accent-secondary);">COMPLETADO</td>
+                                <td>45s</td>
+                                <td>root</td>
+                            </tr>
+                            <tr>
+                                <td>2951</td>
+                                <td><code>pg_dump -U admin_db > backup.sql</code></td>
+                                <td style="color: var(--accent-secondary);">COMPLETADO</td>
+                                <td>1m 12s</td>
+                                <td>postgres</td>
+                            </tr>
+                            <tr>
+                                <td>3304</td>
+                                <td><code>python3 /opt/scripts/sync_inventory.py</code></td>
+                                <td style="color: var(--text-error);">FALLIDO</td>
+                                <td>2s</td>
+                                <td>cron</td>
+                            </tr>
+                            <tr>
+                                <td>3891</td>
+                                <td><code>docker-compose up -d web_server</code></td>
+                                <td style="color: var(--text-alert);">EJECUTANDO</td>
+                                <td>0s</td>
+                                <td>deployer</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Columna Lateral (Sidebar) -->
+        <aside class="sidebar">
+            <div class="panel" style="margin-bottom: var(--spacing-md);">
+                <div class="panel__header">
+                    <h2 class="panel__title">Sys Info</h2>
+                </div>
+                <ul style="font-size: 0.9rem;">
+                    <li><span style="color:var(--text-muted)">OS:</span> Ubuntu 22.04.1 LTS</li>
+                    <li><span style="color:var(--text-muted)">Kernel:</span> 5.15.0-43-generic</li>
+                    <li><span style="color:var(--text-muted)">Uptime:</span> 14 days, 3:24</li>
+                    <li><span style="color:var(--text-muted)">Load Avg:</span> 0.14, 0.22, 0.28</li>
+                </ul>
+            </div>
+
+            <div class="panel">
+                <div class="panel__header">
+                    <h2 class="panel__title">Terminal Log</h2>
+                </div>
+                <div class="terminal-log" id="terminal-log-container">
+                    <div class="log-line">> Iniciando daemon de monitoreo...</div>
+                    <div class="log-line success">[OK] Daemon iniciado (PID 4001).</div>
+                    <div class="log-line">> Escuchando en puerto 8080.</div>
+                    <!-- El JS inyectará líneas aquí -->
+                    <div class="log-line cursor-blink" id="log-cursor">_</div>
+                </div>
+            </div>
+        </aside>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>TerminalFlow v2.0 - Enciclopedia Técnica. Modo Administrador.</p>
+        </div>
+    </footer>
+
+    <!-- Script de Fase 4 adelantado sólo para animar el log -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const logContainer = document.getElementById('terminal-log-container');
+            const cursor = document.getElementById('log-cursor');
+            
+            const logs = [
+                { text: "> Conectando a Base de Datos PostgreSQL...", class: "" },
+                { text: "[OK] Conexión establecida (Latency: 12ms).", class: "success" },
+                { text: "> Verificando integridad de tablas...", class: "" },
+                { text: "[WARN] Índice faltante en tabla 'ventas'.", class: "warn" },
+                { text: "> Sincronizando workers de Gunicorn...", class: "" },
+                { text: "[ERROR] Worker 2 no responde. Reiniciando.", class: "error" },
+                { text: "[OK] Worker 2 reiniciado exitosamente.", class: "success" },
+                { text: "> Escaneo de seguridad programado iniciado...", class: "" }
+            ];
+
+            let i = 0;
+            setInterval(() => {
+                if (i < logs.length) {
+                    const line = document.createElement('div');
+                    line.className = 'log-line ' + logs[i].class;
+                    line.textContent = logs[i].text;
+                    
+                    logContainer.insertBefore(line, cursor);
+                    logContainer.scrollTop = logContainer.scrollHeight;
+                    i++;
+                }
+            }, 2500); // Añade una línea cada 2.5s
+        });
+    </script>
+</body>
+</html>
